@@ -1,0 +1,149 @@
+
+import java.util.Date;
+
+public class order {
+  private String name;
+  private int lcd;
+  private int ram;
+  private int mouse;
+  private Date date;
+  private int sum;
+  
+  private boolean member;
+  private boolean discountPrice;
+  private int change;
+  
+ order(String name,int lcd,int ram,int mouse,boolean member)   
+ {
+  this.name=name;
+  this.lcd=lcd;
+  this.ram=ram;
+  this.mouse=mouse;
+  this.date=new Date();  
+  this.member= member;
+ }
+ String show()
+ {
+    sum=lcd*4999+ram*1280+mouse*680;
+    //int discountSum;
+    
+    if(sum>10000)   //總價打95折
+    {
+        sum=(int)(sum*0.95);
+        discountPrice=true;
+    }else
+        discountPrice=false;
+    
+     String mem="非會員";
+    if (member) 
+    {
+        mem="**會員優惠95折";
+        sum=(int)(sum*0.95);
+    }
+    
+     return(mem+"\n姓名="+name
+          +"\nLCD="+lcd+"\nRAM="+ram
+          +"\nMOUSE="+mouse+"\n總價="+sum //+"\t優惠價="+discountSum
+          +"\nTime="+date);
+ }
+
+    public boolean isDiscountPrice() {
+        return discountPrice;
+    }
+ 
+ 
+    public String getName() {
+        return name;
+    }
+
+    public int getLcd() {
+        return lcd;
+    }
+
+    public int getRam() {
+        return ram;
+    }
+
+    public int getMouse() {
+        return mouse;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public int getSum() {
+        //sum=lcd*4999+ram*1280+mouse*680;
+        return sum;
+    }
+
+    public boolean isMember() {
+        return member;
+    }
+
+    public int getChange() {
+        return change;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setLed(int led) {
+        this.lcd = lcd;
+    }
+
+    public void setRam(int ram) {
+        this.ram = ram;
+    }
+
+    public void setMouse(int mouse) {
+        this.mouse = mouse;
+    }
+
+    public void setMember(boolean member) {
+        this.member = member;
+    }
+    
+}
+================================================================
+    private void OKMouseClicked(java.awt.event.MouseEvent evt) {                                
+        // TODO add your handling code here:
+        String NAME= name.getText();
+        int LCD=Integer.parseInt(lcd.getText());
+        int RAM=Integer.parseInt(ram.getText());
+        int MOUSE=Integer.parseInt(mouse.getText());
+        boolean MEMBER= member.isSelected();
+        
+        order o=new order(NAME,LCD,RAM,MOUSE,MEMBER);
+        //o.show();
+        list.setText(o.show()); //顯示訂單列表
+        if ( o.isDiscountPrice()) //顯示是否滿一萬打95折
+            {discountprice.setText("滿一萬元，打95折");}
+        else
+            {discountprice.setText("原價");}
+        
+        this.total= o.getSum();
+    }                               
+
+====================================================================
+  private void BtChangeMouseClicked(java.awt.event.MouseEvent evt) {                                      
+        // TODO add your handling code here:
+       int PAY= Integer.parseInt(pay.getText());
+       change.setText("找零錢: "+ (PAY-this.total)+"元");
+       
+       
+        //o.getSum();
+        
+    }                                     
+========================================================
+public class Addorder extends javax.swing.JFrame {
+    private int total=0;
+   
+    public Addorder() {
+        initComponents();
+        
+        
+    }
+
+

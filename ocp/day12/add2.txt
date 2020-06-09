@@ -1,0 +1,12 @@
+﻿class add2
+{
+	public static void main(String[] args) {
+		//school s=new school("abc");
+
+		A a=new A("tttt");
+		//A_1 a_1=new A_1();
+
+
+
+	}
+}

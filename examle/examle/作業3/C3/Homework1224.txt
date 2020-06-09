@@ -1,0 +1,237 @@
+{\rtf1\ansi\ansicpg950\cocoartf1671\cocoasubrtf200
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww28300\viewh14740\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 class Order\
+\{\
+    private String name;\
+    boolean ATM;\
+    boolean VISA;\
+    boolean CASH;\
+\
+    public void setName(String name) \{\
+        this.name = name;\
+    \}\
+\
+    public void setATM(boolean ATM) \{\
+        this.ATM = ATM;\
+    \}\
+\
+    public void setVISA(boolean VISA) \{\
+        this.VISA = VISA;\
+    \}\
+\
+    public void setCASH(boolean CASH) \{\
+        this.CASH = CASH;\
+    \}\
+\
+    public String getName() \{\
+        return name;\
+    \}\
+\
+    public boolean isATM() \{\
+        return ATM;\
+    \}\
+\
+    public boolean isVISA() \{\
+        return VISA;\
+    \}\
+\
+    public boolean isCASH() \{\
+        return CASH;\
+    \}\
+    \
+    String show()\
+    \{\
+        return "NAME:"+name;\
+    \}\
+\}\
+\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\
+import java.util.Date;\
+\
+class ELC extends Order\
+\{\
+    private int lcd;\
+    private int ram;\
+    private int sum;\
+    private Date date;\
+\
+    public void setLcd(int lcd) \{\
+        this.lcd = lcd;\
+    \}\
+\
+    public void setRam(int ram) \{\
+        this.ram = ram;\
+    \}\
+\
+    public void setSum(int sum) \{\
+        this.sum = sum;\
+    \}\
+\
+    public int getLcd() \{\
+        return lcd;\
+    \}\
+\
+    public int getRam() \{\
+        return ram;\
+    \}\
+\
+    public int getSum() \{\
+        if(lcd>=0 && ram>=0)\
+        \{\
+            sum=lcd*4999+ram*1280;\
+        \}\
+        else\
+        \{\
+            sum=0;\
+        \}\
+        return sum;\
+    \}\
+\
+    public Date getDate() \{\
+        this.date=new Date();\
+        return date;\
+    \}\
+       \
+\
+    String show()\
+    \{\
+        return "Name:"+super.getName()+               \
+               "\\nLCD:"+getLcd()+\
+               "\\nRAM:"+getRam()+\
+               "\\nPAYWAY:"+(super.isATM()==true? "ATM":"")\
+                           +(super.isVISA()==true? "VISA":"")\
+                            +(super.isCASH()==true? "CASH":"")+\
+               "\\nTOTAL:"+getSum()+\
+               "\\nDATE:"+getDate();\
+        \
+    \}\
+ \}\
+\
+\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\
+import java.util.Date;\
+\
+\
+public class WriteTool extends Order \{\
+    private int ruler;\
+    private int pen;\
+    private int sum;\
+    private Date date;\
+\
+    public void setRuler(int ruler) \{\
+        this.ruler = ruler;\
+    \}\
+\
+    public void setPen(int pen) \{\
+        this.pen = pen;\
+    \}\
+\
+    public void setSum(int sum) \{\
+        this.sum = sum;\
+    \}\
+\
+    public void setDate(Date date) \{\
+        this.date = date;\
+    \}\
+\
+    public int getRuler() \{\
+        return ruler;\
+    \}\
+\
+    public int getPen() \{\
+        return pen;\
+    \}\
+\
+    public int getSum() \{\
+        if(ruler>=0 && pen>=0)\
+        \{\
+            sum=ruler*30+pen*20;\
+        \}\
+        else\
+        \{\
+            sum=0;\
+        \}\
+        return sum;\
+    \}\
+\
+    public Date getDate() \{\
+        this.date=new Date();\
+        return date;\
+    \}\
+    \
+    String show()\
+    \{\
+        return "Name:"+super.getName()+               \
+               "\\nRULER:"+getRuler()+\
+               "\\nPEN:"+getPen()+\
+               "\\nPAYWAY:"+(super.isATM()==true? "ATM":"")\
+                           +(super.isVISA()==true? "VISA":"")\
+                            +(super.isCASH()==true? "CASH":"")+\
+               "\\nTOTAL:"+getSum()+\
+               "\\nDATE:"+getDate();\
+        \
+    \}\
+    \
+    \
+\}\
+\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+    ELC elc=new ELC();\
+    WriteTool WT=new WriteTool();\
+    \
+    private void OKMouseClicked(java.awt.event.MouseEvent evt) \{                                \
+\
+        \
+        boolean EC=Ec.isSelected();\
+        boolean WRITE=Write.isSelected();\
+        \
+        if(EC == true)\
+        \{\
+            elc.setName(name.getText());\
+            elc.setLcd((int)(lcd.getValue()));\
+            elc.setRam((int)(ram.getValue()));\
+            elc.setATM(atm.isSelected());\
+            elc.setVISA(visa.isSelected());\
+            elc.setCASH(onsite.isSelected());\
+            ans1.setText(elc.show());\
+            \
+        \}\
+        else if(WRITE == true)\
+        \{\
+            WT.setName(name.getText());\
+            WT.setRuler((int)(ruler.getValue()));\
+            WT.setPen((int)(pen.getValue()));\
+            WT.setATM(atm.isSelected());\
+            WT.setVISA(visa.isSelected());\
+            WT.setCASH(onsite.isSelected());\
+            ans1.setText(WT.show()); \
+        \}\
+\
+        \
+    \}                               \
+\
+    private void changeMouseClicked(java.awt.event.MouseEvent evt) \{                                    \
+        boolean EC=Ec.isSelected();\
+        boolean WRITE=Write.isSelected();\
+        \
+        if(EC==true)\
+        \{\
+            int Payamount=Integer.parseInt(payamount.getText())-elc.getSum();\
+            ans2.setText(""+Payamount);\
+        \}\
+        else if(WRITE == true)\
+        \{\
+            int Payamount=Integer.parseInt(payamount.getText())-WT.getSum();\
+            ans2.setText(""+Payamount);  \
+        \}\
+        \
+    \}                                  \
+\
+}

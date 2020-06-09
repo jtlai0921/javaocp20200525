@@ -1,0 +1,731 @@
+
+import java.awt.Color;
+import java.awt.Component;
+import java.util.Calendar;
+import java.util.Random;
+import javax.swing.JOptionPane;
+
+
+
+public class foodorder extends javax.swing.JFrame {
+
+    /**
+     * Creates new form foodorder
+     */
+    public foodorder() {
+        initComponents();
+         Calendar cal = Calendar.getInstance();
+         Random ran = new Random();
+         String date_text;
+         //自動取年月日
+         dates.setText(Integer.toString(cal.get(Calendar.YEAR))+"/"+
+            Integer.toString(cal.get(Calendar.MONTH))+"/"+      
+             Integer.toString(cal.get(Calendar.DAY_OF_MONTH)));
+         //自動取年月日
+         //自動產生訂單編號 年月日+亂數    
+          date_text= Integer.toString(cal.get(Calendar.YEAR))+
+                  Integer.toString(cal.get(Calendar.MONTH))+
+                  Integer.toString(cal.get(Calendar.DAY_OF_MONTH))+
+                  Integer.toString(ran.nextInt(1000)+1);
+           no.setText( date_text);
+            //自動產生訂單編號   
+          //會員類預設值
+           nem4.setSelected(true);
+    }
+
+   
+  order or=null;
+  line l1=null;
+  line1 l2=null;
+  private void okMouseClicked(java.awt.event.MouseEvent evt) {                                
+        String NAME=name.getText();
+        double DISCOUNT=0.0;
+        //套餐數量
+        int AQTY = (int)(aqty.getValue());
+        int BQTY = (int)(bqty.getValue());
+        int CQTY = (int)(cqty.getValue());
+        //check套餐
+        boolean ACHECK=acheck.isSelected();
+        boolean BCHECK=bcheck.isSelected();
+        boolean CCHECK=ccheck.isSelected();
+        //小菜數量
+        int DQTY = (int)(dqty.getValue());
+        int EQTY = (int)(eqty.getValue());
+        int FQTY = (int)(fqty.getValue());
+        //check小菜
+        boolean DCHECK=dcheck.isSelected();
+        boolean ECHECK=echeck.isSelected();
+        boolean FCHECK=fcheck.isSelected();
+        String emsg="";
+        int sum=0;
+        int csum=0;
+        String level=null;
+         //判斷會員折扣
+        if (nem1.isSelected()==true)
+        { //VIP
+            DISCOUNT=0.85;
+            level="VIP";
+            //System.out.println(DISCOUNT);
+        }
+        else if  (nem2.isSelected()==true)
+         {
+          //金卡
+             DISCOUNT=0.9;
+              level="金卡";
+            //System.out.println(DISCOUNT); 
+         }
+        else if  (nem3.isSelected()==true)
+         {
+          //銀卡
+             level="銀卡";
+             DISCOUNT=0.95;
+           }
+           else if  (nem4.isSelected()==true)
+         {
+          //普通
+              level="普通";
+             DISCOUNT=1;
+         }
+        System.out.println("name.equals(name.getText())==false"+NAME);
+        System.out.println("name.getName()=="+NAME);
+        System.out.println("foodorder ok"+FQTY);
+       if (NAME.isEmpty()|| NAME==null )
+         { 
+          
+             emsg="\n姓名未填";
+             System.out.println("\n姓名未填");
+              ans.setText(emsg);
+              ans1.setText(emsg);
+         }
+         else
+       {
+          sum=AQTY+BQTY+CQTY+DQTY+EQTY+FQTY;
+          if(sum<=0)
+          {
+             emsg= emsg+"\n套餐與小菜數量總數為0\n請重新勾選數量";
+             System.out.println("\n套餐與小菜數量總數為0");
+              ans.setText(emsg);
+              ans1.setText(emsg);
+          }
+          else
+          {
+             csum=(ACHECK==true?1:0)+(BCHECK==true?1:0);
+             csum= csum+(CCHECK==true?1:0)+(DCHECK==true?1:0);
+             csum= csum+(ECHECK==true?1:0)+(FCHECK==true?1:0);  
+             if(csum==0)
+             {
+               emsg= emsg+"\n套餐與小菜勾選總數0";
+                ans.setText(emsg);
+                ans1.setText(emsg);
+             }
+             else
+             {
+              or=new order(NAME ,level,DISCOUNT);
+              l1=new line(NAME ,level,DISCOUNT,AQTY,BQTY,CQTY,ACHECK,BCHECK,CCHECK);
+               ans.setText(or.show()+"\n"+l1.show());
+               l2=new line1(NAME ,level,DISCOUNT,DQTY,EQTY,FQTY,DCHECK,ECHECK,FCHECK);
+                System.out.println("foodorder"+FQTY);
+               ans1.setText(or.show()+"\n"+l2.show());
+               //System.out.println("l1 getsum"+l1.getSum());
+               //System.out.println("l1 getsum"+l1.getOsum());
+               int total=0;
+               total=(l1.getSum()+l2.getSum1());
+               String total_msg="";
+               total_msg="合計==\t"+total;
+               ans4.setText(total_msg);
+            
+             }
+          }
+       }
+       
+    }                               
+
+    
+    
+    
+    private void ok3MouseClicked(java.awt.event.MouseEvent evt) {                                 
+          Calendar cal = Calendar.getInstance();
+         Random ran = new Random();
+         String date_text;
+         //自動取年月日
+         dates.setText(Integer.toString(cal.get(Calendar.YEAR))+"/"+
+            Integer.toString(cal.get(Calendar.MONTH))+"/"+      
+             Integer.toString(cal.get(Calendar.DAY_OF_MONTH)));
+            //自動取年月日
+            //自動產生訂單編號 年月日+亂數    
+                  date_text= Integer.toString(cal.get(Calendar.YEAR))+
+                  Integer.toString(cal.get(Calendar.MONTH))+
+                  Integer.toString(cal.get(Calendar.DAY_OF_MONTH))+
+                  Integer.toString(ran.nextInt(1000)+1);
+                  no.setText( date_text);
+                  name.setText("");
+                  acheck.setSelected(false);
+                  bcheck.setSelected(false);
+                  ccheck.setSelected(false);
+                  dcheck.setSelected(false);
+                  echeck.setSelected(false);
+                  fcheck.setSelected(false);
+                  nem4.setSelected(true);
+                  aqty.setValue(0);
+                  bqty.setValue(0);
+                  cqty.setValue(0);
+                  dqty.setValue(0);
+                  eqty.setValue(0);
+                  fqty.setValue(0);
+                  pay.setText("0");
+                  ans.setText("");
+                  ans1.setText("");
+                  ans3.setText("");
+                  ans4.setText("");
+                  ans5.setText("");
+                  l1.setOsum(0);
+                  l1.setSum(0);
+                  l2.setOsum1(0);
+                  l2.setSum1(0);
+                  edits(2); 
+                 
+    }                                
+ private void edits( int x)
+ {
+  int x1=0;
+  x1=x;
+          
+  switch(x)
+     {
+      case 1:
+        ok5.setEnabled(true);
+        name.setEnabled(false);
+        acheck.setEnabled(false);
+        bcheck.setEnabled(false);
+        ccheck.setEnabled(false);
+        dcheck.setEnabled(false);
+        echeck.setEnabled(false);
+        fcheck.setEnabled(false);
+        aqty.setEnabled(false);
+        bqty.setEnabled(false);
+        cqty.setEnabled(false);
+        dqty.setEnabled(false);
+        eqty.setEnabled(false);
+        fqty.setEnabled(false);
+        acheck.setEnabled(false);
+        bcheck.setEnabled(false);
+        ccheck.setEnabled(false);  
+        dcheck.setEnabled(false);
+        echeck.setEnabled(false);
+        fcheck.setEnabled(false);
+        nem1.setEnabled(false);
+        nem2.setEnabled(false);
+        nem3.setEnabled(false);
+        nem4.setEnabled(false);
+        break;  
+        case 2:
+          ok5.setEnabled(false); 
+          name.setEnabled(true);
+          acheck.setEnabled(true);
+          bcheck.setEnabled(true);
+          ccheck.setEnabled(true);
+          dcheck.setEnabled(true);
+          echeck.setEnabled(true);
+          fcheck.setEnabled(true);  
+          aqty.setEnabled(true);
+          bqty.setEnabled(true);
+          cqty.setEnabled(true);
+          dqty.setEnabled(true);
+          eqty.setEnabled(true);
+          fqty.setEnabled(true);
+          acheck.setEnabled(true);
+          bcheck.setEnabled(true);
+          ccheck.setEnabled(true);  
+          dcheck.setEnabled(true);
+          echeck.setEnabled(true);
+          fcheck.setEnabled(true);
+          nem1.setEnabled(true);
+          nem2.setEnabled(true);
+          nem3.setEnabled(true);
+          nem4.setEnabled(true);
+                  
+      default :
+         ok5.setEnabled(false);
+         break;         
+              
+      }
+ }
+    
+    
+    private void ok4MouseClicked(java.awt.event.MouseEvent evt) {                                 
+     
+     int PAY =Integer.parseInt(pay.getText());
+     int  paysum=0;
+     String msg="";
+     
+       if(PAY<=0)
+         {
+            msg="付款金額小於等於0,請重新輸入付款金額";
+            System.out.println(msg);
+            ans3.setText(msg);
+            ans5.setForeground(Color.red);
+            ans5.setText("付款金額小於等於0,請重新輸入付款金額");
+         }
+            else
+        {   
+              paysum=PAY-(l1.getSum()+l2.getSum1());
+              System.out.println("l1 getsum"+l1.getOsum());
+               if(paysum<0)
+               {
+                   msg="付款金額不足請再付==>"+paysum;
+                   ans3.setText(msg);
+                   ans5.setText("付款金額不足請再付==>請看找零明細");
+               }
+               else
+               {
+                 // int remst=  JOptionPane.showConfirmDialog(null, "結帳後會將相輸入欄位無法修改,若要修改請按修改訂單", "結帳", 0);
+                    //System.out.println(remst);   
+                  //if (remst==0)
+                
+                   paysum=PAY-(l1.getSum()+l2.getSum1());
+                   msg="付款金額為==>"+PAY+"";
+                   msg=msg+"\n找錢金額==>"+paysum;
+                   ans5.setText(msg);
+                   msg=msg+"\n會員類別==>"+or.getLevel();
+                   msg=msg+"\n套餐原價合計==>"+l1.getOsum();
+                   msg=msg+"\n套餐折扣價合計==>"+l1.getSum();
+                   msg=msg+"\n小菜原價合計==>"+l2.getOsum1();
+                   msg=msg+"\n小菜折扣價合計==>"+l2.getSum1();
+                   ans3.setText(msg);
+                    edits(1); 
+                  JOptionPane.showMessageDialog(null, "結帳後會將相輸入欄位無法修改,若要修改請按修改訂單", "結帳", 0);
+                  //else
+                  // edits(2); 
+                 // ok5.setEnabled(true);
+               }
+                    
+         }
+
+    }                                
+
+    private void ccheckActionPerformed(java.awt.event.ActionEvent evt) {                                       
+        // TODO add your handling code here:
+    }                                      
+
+    private void ok5MouseClicked(java.awt.event.MouseEvent evt) {                                 
+        edits(2);
+    }                                
+  
+
+================================================================================
+public class order {
+    private String name;
+    private double discount;
+    private String level;
+    private String emsg;
+    private String msg;
+    order(String name,String level,double discount)
+    {
+        this.name=name;
+        this.discount=discount;
+        this.level=level;
+    }
+   String show()
+   {
+       return "會員姓名\t"+getName()+"會員等級\t"+getLevel();
+   }
+    public String getName() {
+        return name;
+    }
+
+    public double getDiscount() {
+        return discount;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public String getEmsg() {
+        return emsg;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setName(String name) {
+        if (name.equals(name)==false)
+        {
+           emsg="未輸入姓名\n";
+            System.out.println("未輸入姓名\n");
+            
+        }
+        else
+        {
+            this.name = name;
+        }
+    }
+
+    public void setDiscount(double discount) {
+        if (discount>=0.1)
+        {
+          this.discount = discount;
+        }
+        else
+        {
+          //  this.emsg="未選擇會員等級\n";
+            emsg="未選擇會員等級\n";
+               System.out.println("未選擇會員等級\n");
+            this.discount=0;
+        }
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
+
+    public void setEmsg(String emsg) {
+        this.emsg = emsg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+    
+}
+==================================================================
+public class line extends order {
+  private   final int asut1=120;
+  private   final int asut2=130;
+  private   final int asut3=140;
+  private  int aqty;
+  private  int bqty;
+  private  int cqty;
+  private  int sum=0;
+  private  int osum=0;
+  private  boolean acheck;
+  private  boolean bcheck;
+  private  boolean ccheck;
+
+    public line(String name, String level, double discount,int aqty,int bqty, int cqty, boolean acheck, boolean bcheck, boolean ccheck)
+    {
+        super(name, level, discount);
+        this.aqty=aqty;
+        this.bqty=bqty;
+        this.cqty=cqty;
+        this.acheck = acheck;
+        this.bcheck = bcheck;
+        this.ccheck = ccheck;   
+    }
+
+    public void setAqty(int aqty) {
+        this.aqty = aqty;
+    }
+
+    public void setBqty(int bqty) {
+        this.bqty = bqty;
+    }
+
+    public void setCqty(int cqty) {
+        this.cqty = cqty;
+    }
+
+    public void setAcheck(boolean acheck) {
+        this.acheck = acheck;
+    }
+
+    public void setBcheck(boolean bcheck) {
+        this.bcheck = bcheck;
+    }
+
+    public void setCcheck(boolean ccheck) {
+        this.ccheck = ccheck;
+    }
+
+    public int getAsut1() {
+        
+        return asut1;
+    }
+
+    public int getAsut2() {
+        return asut2;
+    }
+
+    public int getAsut3() {
+        return asut3;
+    }
+
+    public int getAqty() {
+        return aqty;
+    }
+
+  
+
+    public int getBqty() {
+        return bqty;
+    }
+
+    public int getCqty() {
+        return cqty;
+    }
+
+ 
+    public boolean isAcheck() {
+        return acheck;
+    }
+
+    public boolean isBcheck() {
+        return bcheck;
+    }
+
+    public boolean isCcheck() {
+        return ccheck;
+    }
+
+    public void setSum(int sum) {
+        this.sum = sum;
+    }
+
+    public void setOsum(int osum) {
+        this.osum = osum;
+    }
+
+    public int getSum() {
+        return sum;
+    }
+
+    public int getOsum() {
+        return osum;
+    }
+
+  
+  
+ 
+   
+  
+ 
+  @Override
+  String show()
+  {  String msg="";
+     int rsum=0;
+     int osum=0;
+      if (isAcheck()== true&& getAqty()>=1)
+      {
+         msg="會員類別:"+super.getLevel()+"A套餐:"+getAqty()+"個\t小計:"+(int)((getAqty()* getAsut1())*super.getDiscount());
+         msg=msg+"\n原價:A套餐:"+getAqty()+"個\t小計:"+(getAqty()* getAsut1());
+         rsum=rsum+(int)((getAqty()*getAsut1())*super.getDiscount());
+         osum=osum+(getAqty()*getAsut1());
+       }
+      else
+      {
+         msg=msg+"\nA套餐0個小計0元";
+      } 
+      
+       if (isBcheck()== true && getBqty()>=1)
+       {
+            msg=msg+"\n會員類別:"+super.getLevel()+"B套餐:"+getBqty()+"個\t小計:"+(int)((getBqty()* getAsut2())*super.getDiscount());
+            msg=msg+"\n原價:B套餐:"+getAqty()+"個\t小計:"+(getBqty()* getAsut2());
+            rsum=rsum+(int)((getBqty()*getAsut2())*super.getDiscount());
+            osum=osum+(getBqty()*getAsut2());
+       }
+       else
+       {
+            msg=msg+"\nB套餐0個小計0元";
+       }
+       
+        if (isCcheck()== true && getCqty()>=1)
+       {
+           msg=msg+"\n會員類別:"+super.getLevel()+"C套餐:"+getCqty()+"個\t小計:"+(int)((getCqty()* getAsut3())*super.getDiscount());
+           msg=msg+"\n原價:c套餐:"+getAqty()+"個\t小計:"+(getCqty()* getAsut3());
+            rsum=rsum+(int)((getCqty()*getAsut3())*super.getDiscount());
+            osum=osum+(getCqty()*getAsut3());
+       }
+       else
+       {
+            msg=msg+"\nC套餐0個小計0元";
+       }
+       this.sum=rsum;
+       this.osum=osum;
+       msg=msg+"\n會員類別:"+super.getLevel()+"合計"+ getSum();
+       msg=msg+"\n原價合計"+getOsum();
+       return msg;
+  }
+  
+    
+}
+================================================================================
+public class line1 extends order {
+     private   final int asut4=30;
+     private   final int asut5=40;
+     private   final int asut6=50;
+     private  int dqty;
+     private  int eqty;
+     private  int fqty;
+     private  int sum1=0;
+     private  int osum1=0;
+     private  boolean dcheck;
+     private  boolean echeck;
+     private  boolean fcheck;
+     private String emsg1;
+    private String msg1;
+
+    public line1(String name, String level, double discount,int dqty,int eqty,
+      int fqty, boolean dcheck, boolean echeck, boolean fcheck)
+    {
+        super(name, level, discount);
+        this.dcheck=dcheck;
+        this.echeck=echeck;
+        this.fcheck=fcheck;
+        this.dqty=dqty;
+        this.eqty=eqty;
+        this.fqty=fqty;
+    }
+
+    public void setDqty(int dqty) {
+        this.dqty = dqty;
+    }
+
+    public void setEqty(int eqty) {
+        this.eqty = eqty;
+    }
+
+    public void setFqty(int fqty) {
+        this.fqty = fqty;
+    }
+
+
+
+ 
+    public void setDcheck(boolean dcheck) {
+        this.dcheck = dcheck;
+    }
+
+    public void setEcheck(boolean echeck) {
+        this.echeck = echeck;
+    }
+
+    public void setFcheck(boolean fcheck) {
+        this.fcheck = fcheck;
+    }
+
+    public int getAsut4() {
+        return asut4;
+    }
+
+    public int getAsut5() {
+        return asut5;
+    }
+
+    public int getAsut6() {
+        return asut6;
+    }
+
+    public int getDqty() {
+        return dqty;
+    }
+
+    public int getEqty() {
+        return eqty;
+    }
+
+    public int getFqty() {
+        return fqty;
+    }
+
+
+    public boolean isDcheck() {
+        return dcheck;
+    }
+
+    public boolean isEcheck() {
+        return echeck;
+    }
+
+    public boolean isFcheck() {
+        return fcheck;
+    }
+
+    public void setEmsg1(String emsg1) {
+        this.emsg1 = emsg1;
+    }
+
+    public void setMsg1(String msg1) {
+        this.msg1 = msg1;
+    }
+
+    public String getEmsg1() {
+        return emsg1;
+    }
+
+    public String getMsg1() {
+        return msg1;
+    }
+
+    public void setSum1(int sum1) {
+        this.sum1 = sum1;
+    }
+
+    public void setOsum1(int osum1) {
+        this.osum1 = osum1;
+    }
+
+    public int getSum1() {
+        return sum1;
+    }
+
+    public int getOsum1() {
+        return osum1;
+    }
+    
+    
+    
+    
+    
+     @Override
+    String show()
+    { 
+     String msg="";
+     int rsum=0;
+     int osum=0; 
+     if (isDcheck()== true&& getDqty()>=1)
+      {
+         msg="會員類別:"+super.getLevel()+"小菜1="+getDqty()+"個\t小計:"+(int)((getDqty()* getAsut4())*super.getDiscount());
+         msg=msg+"\n原價:小菜1="+getDqty()+"個\t小計:"+(getDqty()* getAsut4());
+         rsum=rsum+(int)((getDqty()* getAsut4())*super.getDiscount());
+         osum=osum+(getDqty()*getAsut4());
+         
+       }
+      else
+      {
+            msg=msg+"\n小菜1=0個小計0元";
+      }
+     if (isEcheck()== true&& getEqty()>=1)
+      {
+         msg=msg+"\n會員類別:"+super.getLevel()+"小菜2="+getEqty()+"個\t小計:"+(int)((getEqty()* getAsut5())*super.getDiscount());
+         msg=msg+"\n原價:小菜2="+getEqty()+"個\t小計:"+(getEqty()* getAsut5());
+         rsum=rsum+(int)((getEqty()* getAsut5())*super.getDiscount());
+         osum=osum+(getEqty()*getAsut5());
+        
+       }
+      else
+      {
+            msg=msg+"\n小菜2=0個小計0元";
+       }
+     System.out.println("isFcheck()"+isFcheck());
+     System.out.println("getFqty()"+getFqty());
+       if ( isFcheck()== true&& getFqty()>=1)
+      {
+         System.out.println("CCCCC");
+         msg=msg+"\n會員類別:"+super.getLevel()+"小菜3="+getEqty()+"個\t小計:"+(int)((getFqty()* getAsut6())*super.getDiscount());
+         msg=msg+"\n原價:小菜3="+getFqty()+"個\t小計:"+(getFqty()* getAsut6());
+         rsum=rsum+(int)((getFqty()* getAsut6())*super.getDiscount());
+         osum=osum+(getFqty()*getAsut6());
+        
+       }
+      else
+      {      System.out.println("ZZCCCC");
+            msg=msg+"\n小菜3=0個小計0元";
+       }
+       this.sum1=rsum;
+       this.osum1=osum;
+       msg=msg+"\n會員類別:"+super.getLevel()+"合計"+ getSum1();
+       msg=msg+"\n原價合計"+getOsum1();
+     return msg;
+    }
+}

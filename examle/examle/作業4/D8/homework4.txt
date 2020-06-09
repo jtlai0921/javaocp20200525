@@ -1,0 +1,373 @@
+package model;
+
+public class order {
+    private String name;
+    private int ruler;
+    private int pen;
+    private int sum;
+    private int id;
+    
+    public order(String name,String ruler,String pen)throws check
+    {
+        setName(name);
+        setRuler(ruler);
+        setPen(pen);
+        if(this.ruler==0 && this.pen==0 ) throw new check(0,8);
+        getSum();
+    }
+    
+    public order(String name,String ruler,String pen,String id)throws check
+    {
+        setName(name);
+        setRuler(ruler);
+        setPen(pen);        
+        if(this.ruler==0 && this.pen==0 ) throw new check(0,8);
+        setId(id);
+        getSum();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getRuler() {
+        return ruler;
+    }
+
+    public int getPen() {
+        return pen;
+    }
+
+    public int getSum() {        
+        return ruler*30+pen*29;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setName(String name) throws check{
+        if(name.isEmpty()) throw new check(0,5);
+        this.name = name;
+    }
+
+    public void setRuler(String ruler) throws check{
+        if(ruler.isEmpty()) throw new check(0,6,8);
+        checkTextIsNumber(ruler,6,0,9);
+        this.ruler = Integer.parseInt(ruler);
+    }
+
+    public void setPen(String pen) throws check{
+        if(pen.isEmpty()) throw new check(0,7,8);
+        checkTextIsNumber(pen,7,0,9);
+        this.pen = Integer.parseInt(pen);
+    }
+    
+    public void setId(String id)throws check
+    {
+        if(id.isEmpty()) throw new check(0,11);
+        checkTextIsNumber(id,11,0,9);
+        this.id = Integer.parseInt(id);
+    }
+    public void checkTextIsNumber(String sa, int a, int b, int c) throws check {
+        char[] sb = sa.toCharArray();
+        for (int i = 0; i < sb.length; i++) {
+            if (sb[i] >= 48 && sb[i] <= 57) {
+            } else {
+                throw new check(a, b, c);
+            }
+        }
+    }
+}
+======================================================================================================================================
+package dao;
+import model.order;
+import model.dataBaseSetting;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Connection;
+import model.check;
+
+public interface iDao {
+    void add(order o);
+    String query();
+    void update(order o);
+    void delete(int id);
+    
+    public static Connection getConn()
+    {
+        Connection conn=null;
+        try
+        {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection(dataBaseSetting.getUrl(),dataBaseSetting.getUser(),dataBaseSetting.getPassword());
+        }
+        catch(ClassNotFoundException | SQLException e)
+        {
+            new check(1,10);
+        }
+        return conn;
+    }
+}
+======================================================================================================================================
+package dao;
+
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.ResultSet;
+import model.check;
+import model.dataBaseSetting;
+import model.order;
+
+public class orderDao implements iDao {
+
+    @Override
+    public void add(order o) {
+        send("insert into "
+                + dataBaseSetting.getDataBaseField() + "."
+                + dataBaseSetting.getTableField() + "("
+                + dataBaseSetting.getNameField() + ","
+                + dataBaseSetting.getRulerField() + ","
+                + dataBaseSetting.getPenField() + ","
+                + dataBaseSetting.getSumField() + ") values('"
+                + o.getName() + "',"
+                + o.getRuler() + ","
+                + o.getPen() + ","
+                + o.getSum() + ")",
+                12,13,17);
+    }
+
+    @Override
+    public String query() {
+        String r = "";
+        ResultSet rs = null;
+        try {
+            rs = ((Statement) (iDao.getConn().createStatement())).executeQuery("select * from " + dataBaseSetting.getDataBaseField() + "." + dataBaseSetting.getTableField());
+            while (rs.next()) {
+                r += "ID:" + rs.getInt(dataBaseSetting.getIdField())
+                        + "\t名稱::" + rs.getString(dataBaseSetting.getNameField())
+                        + "\t尺數量:" + rs.getInt(dataBaseSetting.getRulerField())
+                        + "\t筆數量:" + rs.getInt(dataBaseSetting.getPenField())
+                        + "\t總金額:" + rs.getInt(dataBaseSetting.getSumField())
+                        + "\n";
+            }
+        } catch (SQLException e) {
+            new check(12,16,17);
+        }
+        return r;
+    }
+
+    @Override
+    public void update(order o) {
+        send("update "
+                + dataBaseSetting.getDataBaseField() + "."
+                + dataBaseSetting.getTableField() + " set "
+                + dataBaseSetting.getNameField() + "='" + o.getName() + "',"
+                + dataBaseSetting.getRulerField() + "=" + o.getRuler() + ","
+                + dataBaseSetting.getPenField() + "=" + o.getPen() + ","
+                + dataBaseSetting.getSumField() + "=" + o.getSum() + " where "
+                + dataBaseSetting.getIdField() + "=" + o.getId(),
+                12,14,17);
+    }
+
+    @Override
+    public void delete(int id) {
+        send("delete from "
+                + dataBaseSetting.getDataBaseField() + "."
+                + dataBaseSetting.getTableField() + " where "
+                + dataBaseSetting.getIdField() + "='" + id + "'",
+                12,15,17);
+    }
+
+    private void send(String sql,int a,int b,int c) {
+        try {
+            Statement st = iDao.getConn().createStatement();
+            st.executeUpdate(sql);
+        } catch (SQLException e) {
+            new check(a,b,c);
+        }
+    }
+}
+======================================================================================================================================
+    private void dbConnectionMouseClicked(java.awt.event.MouseEvent evt) {                                          
+        dataBaseSetting.setDataBaseField(dbName.getText());
+        dataBaseSetting.setTableField(dbTable.getText());
+        dataBaseSetting.setIdField(fieldId.getText());
+        dataBaseSetting.setNameField(fieldName.getText());
+        dataBaseSetting.setRulerField(fieldRuler.getText());
+        dataBaseSetting.setPenField(fieldPen.getText());
+        dataBaseSetting.setSumField(fieldSum.getText());
+        dataBaseSetting.setUrl(dbAddress.getText());
+        dataBaseSetting.setUser(dbUser.getText());
+        dataBaseSetting.setPassword(String.valueOf(dbPassword.getPassword()));
+        try {
+            dbConnText.setText(iDao.getConn().isClosed() ? "未連線" : "連線成功");
+            msgOutput.setText(new orderDao().query());
+        } catch (SQLException e) {
+        }
+    }                                         
+
+    private void orderCreateMouseClicked(java.awt.event.MouseEvent evt) {                                         
+        try {
+            new orderDao().add(new order(orderName.getText(), orderRuler.getText(), orderPen.getText()));
+            msgOutput.setText(new orderDao().query());
+        } catch (Exception e) {
+        }
+    }                                        
+
+    private void orderQueryMouseClicked(java.awt.event.MouseEvent evt) {                                        
+        try {
+            msgOutput.setText(new orderDao().query());
+        } catch (Exception e) {
+        }
+    }                                       
+
+    private void orderDeleteMouseClicked(java.awt.event.MouseEvent evt) {                                         
+        try {
+            new order("nn", "0", "0", orderId.getText());
+            new orderDao().delete(Integer.parseInt(orderId.getText()));
+            msgOutput.setText(new orderDao().query());
+        } catch (Exception e) {
+        }
+    }                                        
+
+    private void orderUpdateMouseClicked(java.awt.event.MouseEvent evt) {                                         
+        try {
+            new orderDao().update(new order(orderName.getText(), orderRuler.getText(), orderPen.getText(), orderId.getText()));
+            msgOutput.setText(new orderDao().query());
+        } catch (Exception e) {
+        }
+    }
+======================================================================================================================================
+package model;
+
+enum msgText
+        {   請輸入,資料庫,位置,帳號,密碼,
+        名稱,尺,筆,數量,數字,無法連線,
+        id,資料,新增,修改,刪除,
+        查詢,失敗
+}
+public class check extends Exception{
+    msgText[] mT = msgText.values();
+    private javax.swing.JDialog jd;
+    private javax.swing.JLabel tx;
+    
+    public check(int a,int b)
+    {
+        newDialog(mT[a].toString()+mT[b].toString()); 
+    }
+    public check(int a,int b,int c)
+    {
+        newDialog(mT[a].toString()+mT[b].toString()+mT[c].toString()); 
+    }
+    
+    private void newDialog(String e)
+    {
+        jd = new javax.swing.JDialog();
+        jd.setSize(400, 100);
+        jd.setVisible(true);
+        jd.setLocation(200, 200);
+        tx =new javax.swing.JLabel(e,javax.swing.SwingConstants.CENTER);
+        tx.setFont(new java.awt.Font("新明細體", 1, 30));
+        tx.setForeground(java.awt.Color.red);
+         jd.add(tx);
+    }
+}
+======================================================================================================================================
+package model;
+
+public class dataBaseSetting {
+    private static String dataBaseField;
+    private static String tableField;
+    private static String url;
+    private static String user;
+    private static String password;
+    private static String idField;
+    private static String nameField;
+    private static String rulerField;
+    private static String penField;
+    private static String sumField;
+    
+    private dataBaseSetting(){}
+
+    public static void setDataBaseField(String dataBaseField) {
+        dataBaseSetting.dataBaseField = dataBaseField;
+    }
+
+    public static void setTableField(String tableField) {
+        dataBaseSetting.tableField = tableField;
+    }
+
+    public static void setUrl(String url) {
+        dataBaseSetting.url = url;
+    }
+
+    public static void setUser(String user) {
+        dataBaseSetting.user = user;
+    }
+
+    public static void setPassword(String password) {
+        dataBaseSetting.password = password;
+    }
+
+    public static void setIdField(String idField) {
+        dataBaseSetting.idField = idField;
+    }
+    
+    public static void setNameField(String nameField) {
+        dataBaseSetting.nameField = nameField;
+    }
+
+    public static void setRulerField(String rulerField) {
+        dataBaseSetting.rulerField = rulerField;
+    }
+
+    public static void setPenField(String penField) {
+        dataBaseSetting.penField = penField;
+    }
+
+    public static void setSumField(String sumField) {
+        dataBaseSetting.sumField = sumField;
+    }
+
+    public static String getDataBaseField() {
+        return dataBaseField;
+    }
+
+    public static String getTableField() {
+        return tableField;
+    }
+
+    public static String getUrl() {
+        return url;
+    }
+
+    public static String getUser() {
+        return user;
+    }
+
+    public static String getPassword() {
+        return password;
+    }
+
+    public static String getIdField() {
+        return idField;
+    }
+    
+    public static String getNameField() {
+        return nameField;
+    }
+
+    public static String getRulerField() {
+        return rulerField;
+    }
+
+    public static String getPenField() {
+        return penField;
+    }
+
+    public static String getSumField() {
+        return sumField;
+    }
+}
+======================================================================================================================================

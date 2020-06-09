@@ -1,0 +1,188 @@
+import java.util.Date;
+
+public class Order 
+{
+    private int a,b,c;//主菜
+    private boolean m1,m2,m3;//配菜
+    private boolean vip,gold,silver,normal;//會員
+    private int sum;
+    private int cnange;
+    private Date date=new Date();
+    
+    Order(int a,int b,int c,boolean m1,boolean m2,boolean m3,boolean vip,boolean gold,boolean silver,boolean normal)
+    {
+        this.a=a;
+        this.b=b;
+        this.c=c;
+        this.m1=m1;
+        this.m2=m2;
+        this.m3=m3;
+        this.vip=vip;
+        this.gold=gold;
+        this.silver=silver;
+        this.normal=normal;        
+        this.date=new Date();
+            
+        if(a>=0 && b>=0 && c>=0)
+        {
+            sum=a*120+b*130+c*140;
+        }
+        
+        if(m1==true){sum=sum+30;}
+        if(m2==true){sum=sum+40;}
+        if(m3==true){sum=sum+50;}
+        
+        if(vip==true){sum=(int)(sum*0.85);}
+        if(gold==true){sum=(int)(sum*0.9);}
+        if(silver==true){sum=(int)(sum*0.95);}
+        if(normal==true){sum=(int)(sum*1);}       
+    }
+
+    public int getA() {
+        return a;
+    }
+
+    public void setA(int a) {
+        this.a = a;
+    }
+
+    public int getB() {
+        return b;
+    }
+
+    public void setB(int b) {
+        this.b = b;
+    }
+
+    public int getC() {
+        return c;
+    }
+
+    public void setC(int c) {
+        this.c = c;
+    }
+
+    public boolean isM1() {
+        return m1;
+    }
+
+    public void setM1(boolean m1) {
+        this.m1 = m1;
+    }
+
+    public boolean isM2() {
+        return m2;
+    }
+
+    public void setM2(boolean m2) {
+        this.m2 = m2;
+    }
+
+    public boolean isM3() {
+        return m3;
+    }
+
+    public void setM3(boolean m3) {
+        this.m3 = m3;
+    }
+
+    public boolean isVip() {
+        return vip;
+    }
+
+    public void setVip(boolean vip) {
+        this.vip = vip;
+    }
+
+    public boolean isGold() {
+        return gold;
+    }
+
+    public void setGold(boolean gold) {
+        this.gold = gold;
+    }
+
+    public boolean isSilver() {
+        return silver;
+    }
+
+    public void setSilver(boolean silver) {
+        this.silver = silver;
+    }
+
+    public boolean isNormal() {
+        return normal;
+    }
+
+    public void setNormal(boolean normal) {
+        this.normal = normal;
+    }
+
+    public int getSum() 
+    {
+        if(a>=0 && b>=0 && c>=0)
+        {
+            sum=a*120+b*130+c*140;
+        }
+        
+        if(m1==true){sum=sum+30;}
+        if(m2==true){sum=sum+40;}
+        if(m3==true){sum=sum+50;}
+        
+        if(vip==true){sum=(int)(sum*0.85);}
+        if(gold==true){sum=(int)(sum*0.9);}
+        if(silver==true){sum=(int)(sum*0.95);}
+        if(normal==true){sum=(int)(sum*1);}
+        
+        return sum;
+    }
+   
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+    
+   
+    
+        
+   
+    
+    String show1()
+    {
+        return "主餐A:"+getA()+
+               "\n主餐B:"+getB()+
+               "\n主餐C:"+getC()+
+               "\n小菜1:"+m1+
+               "\n小菜2:"+m2+
+               "\n小菜3:"+m3+
+               "\n金額："+getSum()+
+               "\n 訂單日期："+getDate();
+    }    
+}
+-----------------------------------------------------------------
+ Order o1 = null;
+    private void ok1MouseClicked(java.awt.event.MouseEvent evt) {                                 
+        int A=Integer.parseInt(a.getText());
+        int B=Integer.parseInt(b.getText());
+        int C=Integer.parseInt(c.getText());
+        boolean M1=m1.isSelected();
+        boolean M2=m2.isSelected();
+        boolean M3=m3.isSelected();   
+        boolean Vip=vip.isSelected();
+        boolean Gold=gold.isSelected();
+        boolean Silver=silver.isSelected();
+        boolean Normal=normal.isSelected();
+                              
+        
+        o1 = new Order(A,B,C,M1,M2,M3,Vip,Gold,Silver,Normal);
+        ans1.setText(o1.show1());       
+    }
+---------------------------------------------------------------------
+private void ok2MouseClicked(java.awt.event.MouseEvent evt) {                                 
+       int PAY=Integer.parseInt(pay.getText())-o1.getSum();
+        ans2.setText(PAY+"元");
+    }

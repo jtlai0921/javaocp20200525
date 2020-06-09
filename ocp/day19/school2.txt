@@ -1,0 +1,36 @@
+﻿class school2
+{
+	
+	void show()
+	{
+		System.out.println("hello school2");
+	}
+
+	class A2
+	{
+		void show()
+		{
+			System.out.println("hello A2");
+		}
+
+		void show2()
+		{
+			System.out.println("hello A2_2");
+		}
+
+		class A2_2
+		{
+			void show()
+			{
+				System.out.println("hello A2_1");
+			}
+
+			void show2()
+			{
+				System.out.println("hello A2_2");
+			}
+
+		}
+	}
+}
+

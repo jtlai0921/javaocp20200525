@@ -1,0 +1,33 @@
+﻿package lambDaEx;
+interface book4
+{
+	String bookName(String name);
+	int bookPrice(int price);
+}
+
+public class ex4 {
+
+	public static void main(String[] args) {
+		book4 b=new book4() 
+		{
+
+			@Override
+			public String bookName(String name) {
+				// TODO Auto-generated method stub
+				return "name="+name;
+			}
+
+			@Override
+			public int bookPrice(int price) {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+			
+		};
+		
+		
+		System.out.println(b.bookName("java"));
+
+	}
+
+}

@@ -1,0 +1,11 @@
+﻿class add3
+{
+	public static void main(String[] args) {
+		
+		school3.A3 s=new school3.A3();
+		s.show1();
+
+		school3.A3.show2("abc");
+		//school3.show();
+	}
+}

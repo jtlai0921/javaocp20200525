@@ -1,0 +1,27 @@
+﻿package com.sc;
+
+import com.sa.student2;
+import com.sb.A;
+import com.sb.B;
+
+public class test {
+
+	public static void main(String[] args) {
+		//System.out.println("hello");
+		
+		student2[] s=
+				{
+					new A("a",78),
+					new B("b",77),
+				};
+		
+		s[0].set(100);
+		s[1].set(90);
+		for(student2 o:s)
+		{
+			System.out.println(o.show());
+		}
+
+	}
+
+}

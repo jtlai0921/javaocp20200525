@@ -1,0 +1,24 @@
+﻿class add2
+{
+	public static void main(String[] args) {
+		
+		student a=new SA();
+		a.skill();
+		//a.abc();
+		/*SA a=new SA();
+		a.skill();
+		a.abc();
+		*/
+		/*
+		is-a SA
+		is-a student
+		*/
+
+		//student a=new SA();//a-->is-a student
+		//A a=new A();//a--->is-a A , is-a student
+		//B b=new B();
+	
+
+	}
+
+}

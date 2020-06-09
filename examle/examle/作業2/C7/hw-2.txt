@@ -1,0 +1,223 @@
+
+import java.util.Date;
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ *
+ * @author User
+ */
+public class FoodOrder {
+    String name;
+    int setA;
+    int setB;
+    int setC;
+    boolean dish1;
+    boolean dish2;
+    boolean dish3;
+    boolean vip;
+    boolean golden;
+    boolean silver;
+    boolean normal;
+    int sum;
+    int pay;
+    int change;
+    Date date;
+    String msg="";
+    
+    FoodOrder(String name,int setA,int setB,int setC)
+    {
+        this.name=name;
+        this.setA=setA;
+        this.setB=setB;
+        this.setC=setC;
+        
+        date=new Date();
+        sum=setA*120+setB*130+setC*140;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSetA(int setA) {
+        this.setA = setA;
+    }
+
+    public void setSetB(int setB) {
+        this.setB = setB;
+    }
+
+    public void setSetC(int setC) {
+        this.setC = setC;
+    }
+
+    public void setPay(int pay) {
+        this.pay = pay;
+    }
+
+    public void setDish1(boolean dish1) {
+        this.dish1 = dish1;
+    }
+
+    public void setDish2(boolean dish2) {
+        this.dish2 = dish2;
+    }
+
+    public void setDish3(boolean dish3) {
+        this.dish3 = dish3;
+    }
+
+    public void setVip(boolean vip) {
+        this.vip = vip;
+    }
+
+    public void setGolden(boolean golden) {
+        this.golden = golden;
+    }
+
+    public void setSilver(boolean silver) {
+        this.silver = silver;
+    }
+
+    public void setNormal(boolean normal) {
+        this.normal = normal;
+    }
+
+    
+    public int getSum() {
+        if(dish1==true)
+        {
+           sum=sum+30; 
+           msg=msg+"您加點了小菜1\n";
+        }
+        if(dish2==true)
+        {
+           sum=sum+40; 
+           msg=msg+"您加點了小菜2\n";
+        }
+        if(dish3==true)
+        {
+           sum=sum+50; 
+           msg=msg+"您加點了小菜3\n";
+        }
+        if(vip==true)
+        {
+            sum=(int)(sum*0.85);
+            msg=msg+"您為VIP會員, 打85折";
+        }
+        if(golden==true)
+        {
+            sum=(int)(sum*0.90);
+            msg=msg+"您為金卡會員, 打9折";
+        }
+        if(silver==true)
+        {
+            sum=(int)(sum*0.95);
+            msg=msg+"您為銀卡會員, 打95折";
+        }
+        if(normal==true)
+        {
+            sum=sum;
+        }
+        return sum;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public int getChange() {
+        if(pay>sum)
+        {
+        change=pay-sum;
+        }
+        return change;
+        
+    }
+    
+    
+    String show()
+    {
+        return "姓名:"+name+"\n"+
+               "總金額:"+getSum()+"\n"+
+               "時間:"+getDate()+"\n"+msg;
+               
+    }
+    
+}
+
+=================================================================================
+private void groupButton()
+    {
+        ButtonGroup bg1=new ButtonGroup();
+        
+        bg1.add(vip);
+        bg1.add(golden);
+        bg1.add(silver);
+        bg1.add(normal);
+    }
+
+FoodOrder o1=null;
+    
+    private void submitActionPerformed(java.awt.event.ActionEvent evt) {                                       
+        String Name=name.getText();
+        int SetA=Integer.parseInt(setA.getText());
+        int SetB=Integer.parseInt(setB.getText());
+        int SetC=Integer.parseInt(setC.getText());
+        
+        if(name!=null &&setA!=null &&setB!=null &&setC!=null)
+        {
+           o1=new FoodOrder(Name,SetA,SetB,SetC);
+        
+        if(dish1.isSelected())
+        {
+            o1.setDish1(true);
+        }
+        if(dish2.isSelected())
+        {
+            o1.setDish2(true);
+        }
+        if(dish3.isSelected())
+        {
+            o1.setDish3(true);
+        }
+        if(vip.isSelected())
+        {
+            o1.setVip(true);
+        }
+        if(golden.isSelected())
+        {
+            o1.setGolden(true);
+        }
+        if(silver.isSelected())
+        {
+            o1.setSilver(true);
+        }
+        if(normal.isSelected())
+        {
+            o1.setNormal(true);
+        }
+        if(vip.isSelected()==false && golden.isSelected()==false && 
+                silver.isSelected()==false && normal.isSelected()==false)
+        {
+            o1.setNormal(true);
+        }
+        msg1.setText(o1.show()); 
+        }
+        
+    }                                      
+
+    private void payActionPerformed(java.awt.event.ActionEvent evt) {                                    
+        if(paymoney!=null)
+        {
+            int Pay=Integer.parseInt(paymoney.getText());
+            o1.setPay(Pay);
+            
+            msg2.setText("找零:"+o1.getChange());
+        }
+    }                                   

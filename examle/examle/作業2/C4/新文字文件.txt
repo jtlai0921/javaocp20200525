@@ -1,0 +1,164 @@
+/**
+ *
+ * @author Jimmy 26
+ */
+//field定義
+public class test {
+    private int meals_A;//餐點A
+    private int meals_B;//餐點B
+    private int meals_C;//餐點C   
+    private boolean dish_1;//小菜1
+    private boolean dish_2;//小菜2
+    private boolean dish_3;//小菜3
+    private String member;//會員等級
+    private int sum;//總計金額
+    private int pay;//付款金額
+    private int cha;//找零金額
+    
+    //Constructor
+    public test(int meals_A,int meals_B,int meals_C,boolean dish_1,boolean dish_2,boolean dish_3,int m)
+    {
+        sum=meals_A*120+meals_B*130+meals_C*140;
+        this.dish_1=dish_1;
+        this.dish_2=dish_2;
+        this.dish_3=dish_3;
+        
+        if(this.dish_1==true) sum=sum+10;
+        if(this.dish_2==true) sum=sum+20;
+        if(this.dish_3==true) sum=sum+10;
+        
+        switch(m)
+        {
+            case  1:
+                sum=(int)(sum*0.85);
+                member="VIP";
+                break;   
+            case 2:
+                 sum=(int)(sum*0.9);
+                member="金卡";
+                 break;   
+            case 3:
+                 sum=(int)(sum*0.95);
+                member="銀卡";
+                 break;   
+            case 4:
+                 sum=(int)(sum*1);
+                member="普通會員";
+                 break;   
+        }//switch
+        
+        
+        
+        
+    }//public test
+//set
+    public void setmeals_A(int meals_A) {
+        this.meals_A = meals_A;
+    }
+
+    public void setmeals_B(int meals_AB) {
+        this.meals_B = meals_B;
+    }
+
+    public void setmeals_C(int meals_C) {
+        this.meals_C = meals_C;
+    }
+
+    public void setdish_1(boolean dish_1) {
+        this.dish_1 = dish_1;
+    }
+
+    public void setdish_2(boolean dish_2) {
+        this.dish_2 = dish_2;
+    }
+
+    public void setdish_3(boolean dish_3) {
+        this.dish_3 = dish_3;
+    }
+
+    public void setMember(String member) {
+        this.member = member;
+    }
+    public void setPay(int pay) {
+        this.pay = pay;
+    }
+//get
+    public int getmeals_A() {
+        return meals_A;
+    }
+
+    public int getmeals_B() {
+        return meals_B;
+    }
+
+    public int getmeals_C() {
+        return meals_C;
+    }
+
+    public boolean isdish_1() {
+        return dish_1;
+    }
+
+    public boolean isdish_2() {
+        return dish_2;
+    }
+
+    public boolean isdish_3() {
+        return dish_3;
+    }
+
+    public String getMember() {
+        return member;
+    }
+
+    public int getSum() {
+        return sum;
+    }
+    public int getPay() {
+        return pay;
+    }
+    
+    public int getCha() {
+        cha=pay-sum;
+        return cha;
+    }
+    
+    
+    //show
+    String show()
+    {
+        return "\n會員等級："+member+
+                 "\n共:"+getSum()+"元";
+    }//String show
+    
+    String show2()
+    {
+        return "找您:"+getCha()+"元";
+    }//String show
+    
+}//public class test
+=====
+    private void ok1MouseClicked(java.awt.event.MouseEvent evt) {                                 
+        // ok1:
+        int MA=Integer.parseInt(meals_A.getText());
+        int MB=Integer.parseInt(meals_B.getText());
+        int MC=Integer.parseInt(meals_C.getText());
+        boolean D1=dish_1.isSelected();
+        boolean D2=dish_2.isSelected();
+        boolean D3=dish_3.isSelected();
+        int M=0;
+        if(member_A.isSelected()) M=1;
+        if(member_B.isSelected()) M=2;
+        if(member_C.isSelected()) M=3;
+        if(member_D.isSelected()) M=4;
+        t1=new test(MA,MB,MC,D1,D2,D3,M);
+        ans1.setText(t1.show());
+    }                                
+
+    private void ok2MouseClicked(java.awt.event.MouseEvent evt) {                                 
+        // ok2:
+        int P=Integer.parseInt(pay.getText());
+        int C=P-t1.getSum();
+        ans2.setText("找您"+C+"元");
+        
+    }

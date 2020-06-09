@@ -1,0 +1,215 @@
+package HW;
+public class Menu 
+{
+    protected static final int priceA = 120;
+    protected static final int priceB = 130;
+    protected static final int priceC = 140;
+    protected static final int priceAdd1 = 30;
+    protected static final int priceAdd2 = 40;
+    protected static final int priceAdd3 = 50;
+    protected static final double memLv1 = 0.85; //VIP
+    protected static final double memLv2 = 0.9; //金卡
+    protected static final double memLv3 = 0.95; //銀卡
+}
+
+===================================================================================================================================
+package HW;
+import java.util.Date;
+public class Order extends Menu
+{
+    private int a;
+    private int b;
+    private int c;
+    private boolean add1;
+    private boolean add2;
+    private boolean add3;
+    private int memLv;
+    private String memLvStr;
+    private int sum;
+    private double discount()
+    {
+        switch (memLv) {
+            case 1:
+                return 0.85;
+            case 2:
+                return 0.9;
+            case 3:
+                return 0.95;
+            default:
+                return 0;
+        }
+    }
+    private int priceFinal()
+    {
+        if(memLv==1 || memLv==2 || memLv==3)
+        {
+           return (int)(getSum()*getDiscount());
+        }
+        else
+        {
+            return getSum();
+        }
+    }
+   
+     
+
+    public String show() 
+    {
+       
+        
+         return "\n您的訂單明細如下:"
+                + (a > 0 ? "\nA餐: " + a + "個 x " + priceA + "元 小計 " + a * priceA + " 元" : "")
+                + (b > 0 ? "\nB餐: " + b + "個 x " + priceB+ "元 小計 " + b * priceB + " 元" : "")
+                + (c > 0 ? "\nC餐: " + c + "個 x " + priceC + "元 小計 " + c * priceC + " 元" : "")
+                + (add1 ? "\n小菜1: " + priceAdd1 + " 元" : "")
+                + (add2 ? "\n小菜2: " + priceAdd2 + " 元" : "")
+                + (add3 ? "\n小菜3: " + priceAdd3 + " 元" : "")           
+               + "\n原價: "+getSum()+ " 元"
+                + "\n\n會員等級為: " + memLvStr                
+                +"\n折扣為: " +(int)(discount()*100)+ " 折";            
+                
+    }
+
+    public int getA() {
+        return a;
+    }
+
+    public void setA(int a) {
+        this.a = a;
+    }
+
+    public int getB() {
+        return b;
+    }
+
+    public void setB(int b) {
+        this.b = b;
+    }
+
+    public int getC() {
+        return c;
+    }
+
+    public void setC(int c) {
+        this.c = c;
+    }
+
+    public boolean isAdd1() {
+        return add1;
+    }
+
+    public void setAdd1(boolean add1) {
+        this.add1 = add1;
+    }
+
+    public boolean isAdd2() {
+        return add2;
+    }
+
+    public void setAdd2(boolean add2) {
+        this.add2 = add2;
+    }
+
+    public boolean isAdd3() {
+        return add3;
+    }
+
+    public void setAdd3(boolean add3) {
+        this.add3 = add3;
+    }
+
+    public int getMemLv() {
+        return memLv;
+    }
+
+    public void setMemLv(int memLv) {
+        this.memLv = memLv;
+    }
+
+    public String getMemLvStr() {
+        return memLvStr;
+    }
+
+    public void setMemLvStr(String memLvStr) {
+        this.memLvStr = memLvStr;
+    }
+
+    public int getSum() {
+        return sum=a*priceA+b*priceB+c*priceC
+                +(add1? priceAdd1:0)+(add2? priceAdd2:0)+(add2? priceAdd2:0);
+    }
+
+    public void setSum(int sum) {
+        this.sum = sum;
+    }
+   public double getDiscount()
+   {
+       return discount();
+   }
+   
+   public double getPriceFinal()
+   {
+       return priceFinal();
+   }
+   
+}
+
+===========================================================================================================================
+
+
+package HW;
+import java.util.Date;
+
+
+
+
+   Order o = new Order();
+   private Date date;
+    void orderDetail() 
+    {
+        o.setA((int)a.getValue());
+        o.setB((int) b.getValue());
+        o.setC((int) c.getValue());
+        o.setAdd1(add1.isSelected());
+        o.setAdd2(add2.isSelected());
+        o.setAdd3(add3.isSelected());
+        o.setMemLv(memLv.getSelectedIndex());
+        o.setMemLvStr(memLv.getSelectedItem().toString());
+        result.setText(o.show());
+    }
+    private void aStateChanged(javax.swing.event.ChangeEvent evt) {                               
+        orderDetail();
+    }                              
+
+    private void bStateChanged(javax.swing.event.ChangeEvent evt) {                               
+         orderDetail();
+    }                              
+
+    private void cStateChanged(javax.swing.event.ChangeEvent evt) {                               
+        orderDetail();       
+    }                              
+
+    private void add1ActionPerformed(java.awt.event.ActionEvent evt) {                                     
+        orderDetail();
+    }                                    
+
+    private void add2ActionPerformed(java.awt.event.ActionEvent evt) {                                     
+       orderDetail();
+    }                                    
+
+    private void add3ActionPerformed(java.awt.event.ActionEvent evt) {                                     
+        orderDetail();
+    }                                    
+
+    private void memLvActionPerformed(java.awt.event.ActionEvent evt) {                                      
+        orderDetail();  
+    }                                     
+
+    private void okMouseClicked(java.awt.event.MouseEvent evt) {                                
+      Date date=new Date();
+       int  payCash=Integer.parseInt(cash.getText());
+       
+       result.setText(o.show()+ "\n" +"收您 " + payCash+ " 元"
+               + "\n" +"找您 " +((int)(payCash-o.getPriceFinal()))+ " 元"               
+               + "\n訂單日期: " +date);
+    }                               

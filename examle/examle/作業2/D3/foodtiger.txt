@@ -1,0 +1,146 @@
+
+import javax.swing.JCheckBox;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+
+public class TF {
+    private int a;
+    private int b;
+    private int c;
+    int sum;
+    int sides;
+    boolean side1;
+    boolean side2;
+    boolean side3;
+    boolean vip;
+    boolean gold;
+    boolean silver;
+    boolean member;
+    
+String msg1=;
+int pay;
+TF(int a,int b,int c,boolean side1,boolean side2,boolean side3,boolean vip,boolean gold,boolean silver,boolean member)
+{
+    if(a=0 && b=0 && c=0)
+    {
+        this.a=a;
+        this.b=b;
+        this.c=c;
+        this.vip=vip;
+        this.gold=gold;
+        this.silver=silver;
+        this.member=member;
+        int s1=side1==true300;
+        int s2=side2==true400;
+        int s3=side3==true500;
+        sides=s1+s2+s3;
+        sum=a120+b130+c140+sides;
+    }
+}
+TF(int pay)
+{
+    this.pay=pay;
+}
+
+    TF(JTextField a, JTextField b, JTextField c, JCheckBox side1, JCheckBox side2, JCheckBox side3, JRadioButton vip, JRadioButton gold, JRadioButton silver, JRadioButton member) {
+        throw new UnsupportedOperationException(Not supported yet.); To change body of generated methods, choose Tools  Templates.
+    }
+
+    public void setA(int a) {
+        this.a = a;
+    }
+
+    public void setB(int b) {
+        this.b = b;
+    }
+
+    public void setC(int c) {
+        this.c = c;
+    }
+
+    public int getA() {
+        return a;
+    }
+
+    public int getB() {
+        return b;
+    }
+
+    public int getC() {
+        return c;
+    }
+
+    public int getSum() {
+        if(vip==true)
+        {
+            msg1=(vip);
+            sum=(int)(sum0.85);
+        }
+        else if(gold==true)
+                {
+                    msg1=(gold);
+                    sum=(int)(sum0.9);
+                }
+        else if(silver==true)
+        {
+            msg1=(silver);
+            sum=(int)(sum0.95);
+        }
+
+        return sum;
+    }
+
+    public int getSides() {
+        return sides;
+    }
+
+    public boolean isSide1() {
+        return side1;
+    }
+
+    public boolean isSide2() {
+        return side2;
+    }
+
+    public boolean isSide3() {
+        return side3;
+    }
+String show()
+{
+    System.out.println(showxx);
+
+    return total+sum+n總價：+getSum()+msg1;
+    
+
+}
+}
+=============================================================
+TF t=null;
+    private void okMouseClicked(java.awt.event.MouseEvent evt) {                                
+        int A=Integer.parseInt(a.getText());
+        int B=Integer.parseInt(b.getText());
+        int C=Integer.parseInt(c.getText());
+        boolean MEMBER=member.isSelected();
+        boolean Side1=side1.isSelected();
+        boolean Side2=side2.isSelected();
+        boolean Side3=side3.isSelected();
+        boolean Vip=vip.isSelected();
+        boolean Gold=gold.isSelected();
+        boolean Silver=silver.isSelected();
+        
+        
+        t=new TF(A,B,C,Side1,Side2,Side3,Vip,Gold,Silver,MEMBER);
+        ans.setText(t.show());
+        
+    }                               
+
+    private void ok2MouseClicked(java.awt.event.MouseEvent evt) {                                 
+        int Pay=Integer.parseInt(pay.getText());
+        //int Psum=Pay-t.getSum();
+        //System.out.println(Pay-Psum);
+        //String msg1="total:"+Psum;
+        ans2.setText("找零："+(Pay-t.sum)+"元");
+    }                                
+
+  
+

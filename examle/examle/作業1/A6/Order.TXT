@@ -1,0 +1,161 @@
+
+import java.util.Date;
+
+
+public class Order {  
+    private String name;
+    private int lcd;
+    private int ram;
+    private int mouse;
+    private int sum;
+    private String msg;
+    private Date date;
+    private int money;
+    private boolean member;
+    String a = "";
+    String k = "";
+    
+    Order(String name,int lcd,int ram,int mouse,boolean member)
+    {
+        if(lcd>0 && ram>0 && mouse>0)
+        {
+        this.name=name;
+        this.lcd=lcd;
+        this.ram=ram;
+        this.mouse=mouse;
+        this.date=new Date();
+        this.member=member;
+        //sum=lcd*4999+ram*1280+mouse*680;
+        }
+    }
+
+    Order(int money,int lcd,int ram,int mouse)
+    {
+        if(money>0) 
+        {
+        this.money=money;
+        this.lcd=lcd;
+        this.ram=ram;
+        this.mouse=mouse;
+        }
+    }
+
+    /*Order(int Money, int Lcd, int Ram, int Mouse) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }*/
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setLcd(int lcd) {
+        this.lcd = lcd;
+    }
+
+    public void setRam(int ram) {
+        this.ram = ram;
+    }
+
+    public void setMouse(int mouse) {
+        this.mouse = mouse;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getLcd() {
+        return lcd;
+    }
+
+    public int getRam() {
+        return ram;
+    }
+
+    public int getMouse() {
+        return mouse;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+
+    public int getSum() {
+        sum=lcd*4999+ram*1280+mouse*680;
+        if(sum>=10000)
+        {
+            sum=(int)(sum*0.95);
+            msg="\n95折";
+        }
+         if (member == true) {
+         a="會員";
+         k+="\t(會員享有95折優惠)";
+         sum=(int) (sum * 0.95);
+        } else {
+         a="一般客戶";
+        }
+        return sum;
+    }//sum運算
+    
+    public int getMoney() {
+        return money;
+    }
+    
+    String show()
+    {
+         if (member == true) {
+         a="會員";
+         k+="\t(會員享有95折優惠)";
+        } else {
+         a="一般客戶";
+        }
+        return "名:"+getName()+"\t"+a+k+
+        "\nLcd:"+getLcd()+
+        "\nRam:"+getRam()+
+        "\nmouse:"+getMouse()+
+        "\n總額:"+getSum()+
+        "\n 訂單日期:"+getDate()+msg;
+        
+    }
+    
+    String show2()
+    {
+        if((int)(getMoney()-getSum())>0){
+        return 
+               "收取金額："+getMoney()+
+               "\n找零："+(int)(getMoney()-getSum());
+        }
+        return "金額不足";
+    }
+}
+
+
+
+===========================================================================================================================
+    private void OKMouseClicked(java.awt.event.MouseEvent evt) {                                
+        String Name=name.getText();
+        int Lcd=Integer.parseInt(lcd.getText());
+        int Ram=Integer.parseInt(ram.getText());
+        int Mouse=Integer.parseInt(mouse.getText());
+        boolean Member=member.isSelected();
+        Order o1=new Order(Name,Lcd,Ram,Mouse,Member);
+        
+        ans.setText(o1.show());
+    }                               
+
+
+    private void changeMouseClicked(java.awt.event.MouseEvent evt) {                                    
+        int Money=Integer.parseInt(money.getText());
+        int Lcd=Integer.parseInt(lcd.getText());
+        int Ram=Integer.parseInt(ram.getText());
+        int Mouse=Integer.parseInt(mouse.getText());
+        
+        Order o2=new Order(Money,Lcd,Ram,Mouse);
+        
+        Ans.setText(o2.show2());
+    }                   

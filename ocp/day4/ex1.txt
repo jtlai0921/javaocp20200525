@@ -1,0 +1,18 @@
+﻿/*import java.util.Scanner;
+import java.util.Date;
+*/
+import java.util.*;
+class ex1
+{
+	public static void main(String[] args) {
+		
+	//java.lang.Thread t1=new java.lang.Thread();
+		Thread t1=new Thread();
+
+	Scanner sc=new Scanner(System.in);
+	Date d1=new Date();
+	System.out.println(d1);
+
+
+	}
+}

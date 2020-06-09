@@ -1,0 +1,7 @@
+﻿class SA extends student
+{
+	void abc()
+	{
+		System.out.println("SA");
+	}
+}

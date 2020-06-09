@@ -1,0 +1,39 @@
+﻿class member
+{
+	private String name;
+	private String address;
+
+	member(String name,String address)
+	{
+		this.name=name;
+		this.address=address;
+	}
+
+
+	void setName(String name)
+	{
+		this.name=name;
+	}
+
+	String getName()
+	{
+		return name;
+	}
+
+
+	void setAddress(String address)
+	{
+		this.address=address;
+	}
+
+	String getAddress()
+	{
+		return address;
+	}
+
+
+	void show()
+	{
+		System.out.println("名:"+getName()+"\t地址:"+getAddress());
+	}
+}

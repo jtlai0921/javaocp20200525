@@ -1,0 +1,35 @@
+@charset "BIG5";
+.header{
+	
+    width: 40%;
+    height: 50px;
+   	background-color:#EAC95B;
+    border: 1px solid red;
+    margin-left:30%;
+}
+.content{
+	width: 40%;
+    height: 200px;
+    background-image: url('pic/pic_foodQ1.jpg') ;
+  
+    background-size: cover;
+    border: 1px solid red;
+	margin-left:30%;
+	align:center;
+	}
+.content2{
+	
+	background-color:#EAC95B;
+	
+}
+.footer{
+	width:40%;
+	height:100px;
+	background-image:url('pic/ax.jpg');
+	background-size:contain;
+	margin-left:30%;
+}
+
+	
+	
+	

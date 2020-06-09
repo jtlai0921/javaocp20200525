@@ -1,0 +1,22 @@
+﻿class bookStore implements book,book2
+{
+	public void bookName(String name)
+	{
+		System.out.println("bookname="+name);
+	}
+
+	public int bookPrice(int price)
+	{
+		return price;
+	}
+
+	public void show()
+	{
+
+	}
+
+	public void abc()
+	{
+		
+	}
+}

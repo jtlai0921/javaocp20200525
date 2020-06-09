@@ -1,0 +1,280 @@
+
+class store
+{
+    private String name;
+    boolean ATM;
+    boolean VISA;
+    boolean CASH;
+
+    store(String name,boolean ATM,boolean VISA,boolean CASH)
+    {
+        this.name=name;
+        this.ATM=ATM;
+        this.VISA=VISA;
+        this.CASH=CASH;
+        
+    }
+ 
+    String show()
+	{
+		return "姓名:"+name+"\n";
+	}
+    
+}     
+
+
+=====================================================================================================================
+ 
+import java.util.Date;
+
+class computer extends store
+{
+    private int lcd;
+    private int ram;
+    private int sum;
+    private final Date date;
+    private int pay;
+ 
+    computer(String name,boolean ATM,boolean VISA,boolean CASH,int lcd,int ram)
+    {
+        super(name,ATM,VISA,CASH);
+        this.lcd=lcd;
+        this.ram=ram;
+        this.date=new Date();
+    }
+    computer(String name,boolean ATM,boolean VISA,boolean CASH,int lcd,int ram,int pay)
+    {
+        super(name,ATM,VISA,CASH);
+        this.lcd=lcd;
+        this.ram=ram;
+        this.pay=pay;
+        this.date=new Date();
+    }
+
+    public void setLcd(int lcd) {
+        this.lcd = lcd;
+    }
+
+    public void setRam(int ram) {
+        this.ram = ram;
+    }
+
+    public int getLcd() {
+        return lcd;
+    }
+
+    public int getRam() {
+        return ram;
+    }
+
+    public int getSum() {
+        
+       sum=(getLcd()*4999+getRam()*1280);
+       return sum;
+    }
+
+    public int getPay() {
+        return pay;
+    }
+    
+    
+    
+    String show()
+    {
+        if(ATM==true){
+            return super.show()+"您選擇的是3C賣場\n"+"LCD:"+getLcd()+"台\n"+"RAM:"+getRam()+"條\n"+"您選擇的付款方式為:ATM\n"
+            +"總共:"+getSum()+"元\n"+date;
+            }
+        if(VISA==true){
+            return super.show()+"您選擇的是3C賣場\n"+"LCD:"+getLcd()+"台\n"+"RAM:"+getRam()+"條\n"+"您選擇的付款方式為:VISA\n"
+            +"總共:"+getSum()+"元\n"+date;
+            }
+        if(CASH==true){
+            return super.show()+"您選擇的是3C賣場\n"+"LCD:"+getLcd()+"台\n"+"RAM:"+getRam()+"條\n"+"您選擇的付款方式為:貨到付款\n"
+            +"總共:"+getSum()+"元\n"+date;
+            }
+            
+        return show();
+        }
+    
+    String show2()
+    {  
+          if(getPay()<=0)
+      {
+            return ("沒錢就不要買");
+      }
+          
+          if(getPay()<getSum())
+      {
+            return ("請付足夠金額,尚欠"+(getSum()-getPay())+"元");
+      }
+        
+        else
+        {
+            return ("找您:"+(getPay()-getSum())+"元");
+        }
+    }
+    
+}
+    
+ =====================================================================================================================
+
+import java.util.Date;
+
+class write extends store
+{
+    private int pen;
+    private int ruler;
+    private int sum2;
+    private final Date date;
+    private int pay;
+    
+    write(String name,boolean ATM,boolean VISA,boolean CASH,int pen,int ruler)
+    {
+        super(name,ATM,VISA,CASH);
+        this.pen=pen;
+        this.ruler=ruler;
+        this.date=new Date();
+    }
+    write(String name,boolean ATM,boolean VISA,boolean CASH,int pen,int ruler,int pay)
+    {
+        super(name,ATM,VISA,CASH);
+        this.pen=pen;
+        this.ruler=ruler;
+        this.pay=pay;
+        this.date=new Date();
+    }
+
+    public void setPen(int pen) {
+        this.pen = pen;
+    }
+
+    public void setRuler(int ruler) {
+        this.ruler = ruler;
+    }
+
+    public int getPen() {
+        return pen;
+    }
+
+    public int getRuler() {
+        return ruler;
+    }
+
+    public int getSum2() {
+        
+       sum2=(getPen()*20+getRuler()*30);
+       
+       return sum2;
+    }
+
+    public int getPay() {
+        return pay;
+    }
+
+    
+    String show()
+    {
+        if(ATM==true){
+            return super.show()+"您選擇的是文具賣場\n"+"PEN:"+getPen()+"台\n"+"RAM:"+getRuler()+"條\n"+"您選擇的付款方式為:ATM\n"
+            +"總共:"+getSum2()+"元\n"+date;
+            }
+        if(VISA==true){
+            return super.show()+"您選擇的是文具賣場\n"+"PEN:"+getPen()+"台\n"+"RAM:"+getRuler()+"條\n"+"您選擇的付款方式為:VISA\n"
+            +"總共:"+getSum2()+"元\n"+date;
+            }
+        if(CASH==true){
+            return super.show()+"您選擇的是文具賣場\n"+"PEN:"+getPen()+"台\n"+"RAM:"+getRuler()+"條\n"+"您選擇的付款方式為:貨到付款\n"
+            +"總共:"+getSum2()+"元\n"+date;
+            }
+            
+        return show();
+        
+    }
+    
+    String show2()
+    {  
+          if(getPay()<=0)
+      {
+            return ("沒錢就不要買");
+      }
+          
+          if(getPay()<getSum2())
+      {
+            return ("請付足夠金額,尚欠"+(getSum2()-getPay())+"元");
+      }
+        
+        else
+        {
+            return ("找您:"+(getPay()-getSum2())+"元");
+        }
+    }
+
+    
+}
+    
+ 
+ =====================================================================================================================
+
+ private void okMouseClicked(java.awt.event.MouseEvent evt) {                                
+       
+            String N=(NAME.getText());
+            int L=(int)(lcdQ.getValue());
+            int R=(int)(ramQ.getValue());
+            int P=(int)(penQ.getValue());
+            int RU=(int)(rulerQ.getValue());
+            boolean C=ccc.isSelected();
+            boolean W=www.isSelected();
+            boolean AT=ATM.isSelected();
+            boolean VI=VISA.isSelected();
+            boolean CA=CASH.isSelected();
+
+	     if(C==true){
+                
+                  if(N.equals(""))
+            {
+                ans.setText("請輸入姓名");
+            }
+                  else{
+                        computer co=new computer(N,AT,VI,CA,L,R);
+                        ans.setText(co.show());
+                        }
+            }
+            
+             if(W==true){
+                 
+                   if(N.equals(""))
+            {
+                ans.setText("請輸入姓名");
+            }
+                   else{
+                        write wr=new write(N,AT,VI,CA,P,RU);
+                        ans.setText(wr.show());
+                        }
+                   }
+ ===================================================================================================================
+
+ private void payokMouseClicked(java.awt.event.MouseEvent evt) {                                   
+
+            boolean C=ccc.isSelected();
+            boolean W=www.isSelected();
+            boolean AT=ATM.isSelected();
+            boolean VI=VISA.isSelected();
+            boolean CA=CASH.isSelected();
+            String N=(NAME.getText());
+            int L=(int)(lcdQ.getValue());
+            int R=(int)(ramQ.getValue());
+            int P=(int)(penQ.getValue());
+            int RU=(int)(rulerQ.getValue());
+            int PA=Integer.parseInt(pay.getText());
+            
+            if(C==true){
+            computer co=new computer(N,AT,VI,CA,L,R,PA);
+            change.setText(co.show2());
+            }
+            
+             if(W==true){
+            write wr=new write(N,AT,VI,CA,P,RU,PA);
+            change.setText(wr.show2());
+            }
+   

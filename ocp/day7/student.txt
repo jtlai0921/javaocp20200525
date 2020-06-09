@@ -1,0 +1,63 @@
+﻿
+public class student {
+    private String name;
+    private int chi;
+    private int eng;
+    private int sum;
+    private double ave;
+
+    public student(String name, int chi, int eng) {
+      if(chi>=0 && chi<=100 && eng>=0 && eng<=100)
+      {
+        
+        this.name = name;
+        this.chi = chi;
+        this.eng = eng;
+        
+        sum=chi+eng;
+        ave=sum/2.;
+      }      
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getChi() {
+        return chi;
+    }
+
+    public void setChi(int chi) {
+        this.chi = chi;
+        
+    }
+
+    public int getEng() {
+        return eng;
+    }
+
+    public void setEng(int eng) {
+        this.eng = eng;
+    }
+
+    public int getSum() {
+      sum=chi+eng;
+        return sum;
+    }
+
+    public double getAve() {
+        sum=chi+eng;
+        ave=sum/2.;
+        return ave;
+    }
+    
+    
+    
+    
+    
+    
+}

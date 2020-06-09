@@ -1,0 +1,20 @@
+class add
+{
+	public static void main(String[] args) {
+
+		member[][] m=new member[2][2];
+
+		System.out.println(m);
+		System.out.println(m[0]);
+		System.out.println(m[0][0]);
+		//m[0][0].show();
+		System.out.println("==========================");
+
+		m[0][0]=new member("abc","ttt");
+		System.out.println(m);
+		System.out.println(m[0]);
+		System.out.println(m[0][0]);
+		m[0][0].show();
+		
+	}
+}

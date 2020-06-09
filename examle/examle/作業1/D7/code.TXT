@@ -1,0 +1,163 @@
+package work1;
+
+
+import java.util.Date;
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ *
+ * @author Administrator
+ */
+public class Work1 {
+   private String name;
+   private  int lcd;
+   private  int ram;
+   private  int mouse;
+   private  int pay;
+   private  int change;
+   private  int sum;
+   private  boolean member;
+   private  String msg;
+   private  Date date;
+    
+    Work1(String name,int lcd,int ram,int mouse)
+    {
+        if(lcd>=0 && ram>=0 && mouse>=0)
+        {
+        this.name=name;
+        this.lcd=lcd;
+        this.ram=ram;
+        this.mouse=mouse;
+        this.member=false;
+        this.pay=pay;
+        this.date=new Date();
+        sum=lcd*4999+ram*1280+mouse*680;
+        }
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setLcd(int lcd) {
+        this.lcd = lcd;
+    }
+
+    public void setRam(int ram) {
+        this.ram = ram;
+    }
+
+    public void setMouse(int mouse) {
+        this.mouse = mouse;
+    }
+
+    public void setMember(boolean member) {
+        this.member = member;
+    }
+
+    public void setPay(int pay) {
+        this.pay = pay;
+    }
+    
+    
+
+    public String getName() {
+        return name;
+    }
+
+    public int getLcd() {
+        return lcd;
+    }
+
+    public int getRam() {
+        return ram;
+    }
+
+    public int getMouse() {
+        return mouse;
+    }
+
+    
+    public int getSum() {
+        if(member==true)
+        {
+            if(sum>=10000)
+            {
+                sum=(int)(sum*0.95*0.95);
+                msg="符合會員滿額雙折扣";
+            }
+            else
+            {
+                sum=(int)(sum*0.95);
+                msg="符合會員折扣";
+            }
+            
+        }
+        else
+        {
+            if(sum>=10000)
+            {
+                sum=(int)(sum*0.95);
+                msg="符合滿額折扣";
+            }
+            sum=sum;
+        }
+        
+        return sum;
+    }
+
+    public int getChange() {
+        if(pay>sum)
+        {
+          change=pay-sum;  
+        }
+        
+        return change;
+    }
+    
+    
+
+    public Date getDate() {
+        return date;
+    }
+    
+    String show()
+    {
+        
+        return "姓名:"+getName()+
+                "\nLCD:"+getLcd()+"個"+
+                "\nRAM:"+getRam()+"個"+
+                "\nMOUSE:"+getMouse()+"個"+
+                "\n總金額:"+getSum()+"元"+msg+
+                "\n訂單日期:"+getDate();
+    }
+}
+
+
+＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+private void ok1MouseClicked(java.awt.event.MouseEvent evt) {                                 
+           
+        String NAME=name.getText();
+        int LCD=Integer.parseInt(lcd.getText());
+        int RAM=Integer.parseInt(ram.getText());
+        int MOUSE=Integer.parseInt(ram.getText());
+        
+        
+        o1=new Work1(NAME,LCD,RAM,MOUSE);
+
+        if(member.isSelected()==true)
+        {
+            o1.setMember(true);            
+        }
+＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+private void ok2MouseClicked(java.awt.event.MouseEvent evt) {                                 
+        int PAY=Integer.parseInt(pay.getText());
+        o1.setPay(PAY);
+        String CHANGE=String.valueOf(o1.getChange());
+        msg1.setText(CHANGE+"元");
+    }       

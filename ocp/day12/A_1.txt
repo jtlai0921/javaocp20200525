@@ -1,0 +1,10 @@
+﻿class A_1 extends A
+{
+	int word;
+
+	A_1(String name)
+	{
+		super(name);
+		System.out.println("A_1小組");
+	}
+}

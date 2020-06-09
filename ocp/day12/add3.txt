@@ -1,0 +1,11 @@
+﻿class add3
+{
+	public static void main(String[] args) {
+		
+
+		SB sb=new SB();
+
+		//sb.eng=75;
+		System.out.println(sb.getEng());
+	}
+}

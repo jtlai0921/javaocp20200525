@@ -1,0 +1,15 @@
+﻿class B extends school
+{
+	int eng;
+
+	B(String name)
+	{
+		super(name);
+	}
+	void show()
+	{
+		System.out.println("名:"+name+
+			"\t國文:"+chi+
+			"\t英文:"+eng);
+	}
+}

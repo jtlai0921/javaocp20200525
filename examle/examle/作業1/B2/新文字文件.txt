@@ -1,0 +1,159 @@
+import java.util.Date;
+
+
+
+
+public class order {
+    private String name;
+    private int lcd;
+    private int ram;
+    private int mouse;
+    private Date date; 
+    private int sum;   
+    private int money;
+    private boolean member;
+ 
+    
+    
+    
+    order(String name,int lcd,int ram,int mouse,boolean member)
+    {
+        if(lcd>=0 && ram>=0 && mouse>=0)
+        {
+        this.name=name;
+        this.lcd=lcd;
+        this.ram=ram;
+        this.mouse=mouse;
+        this.date=new Date();
+        this.member=member;
+        sum=lcd*4999+ram*1280+mouse*680;
+        
+       
+        }
+    }
+    
+    order(int money)
+    {
+        this.money=money;
+        
+    }
+
+   
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setLcd(int lcd) {
+        this.lcd = lcd;
+    }
+
+    public void setRam(int ram) {
+        this.ram = ram;
+    }
+
+    public void setMouse(int mouse) {
+        this.mouse = mouse;
+    }
+
+    public void setMember(boolean member) {
+        this.member = member;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
+    }
+    
+    
+
+    public String getName() {
+        return name;
+    }
+
+    public int getLcd() {
+        return lcd;
+    }
+
+    public int getRam() {
+        return ram;
+    }
+
+    public int getMouse() {
+        return mouse;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+     public boolean getMember() {
+      
+     
+        return member;
+    }
+
+    public int getMoney() {
+        return money;
+    }
+
+    
+   
+    
+    public int getSum() {
+        sum=lcd*4999+ram*1280+mouse*680;
+        if(sum>=10000) 
+        {
+            sum=(int)(sum*0.95);
+        }          
+        if(member==true) 
+            {
+                sum=(int)(sum*0.95);          
+            }
+        return sum;
+    }
+
+       
+    
+    
+    
+    String show()
+   {
+             
+       
+       return "姓名:"+getName()+
+                "\nLCD:"+getLcd()+
+                "\nRAM:"+getRam()+
+               "\nMOUSE:"+getMouse()+
+                "\n總金額:"+getSum()+
+                "\n日期:"+getDate();
+   }
+       
+      
+        
+}
+======================================================================================================================
+     	order o1=null;
+   private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {                                      
+        String NAME=name.getText();
+        int LCD=Integer.parseInt(lcd.getText());
+        int RAM=Integer.parseInt(ram.getText());
+        int MOUSE=Integer.parseInt(mouse.getText());
+        boolean m=member.isSelected();
+        o1=new order(NAME,LCD,RAM,MOUSE,m);
+                
+        
+        ans.setText(o1.show()+"\n"+m);
+    }
+----------------------------------------------------------------------------------------------
+    private void backMouseClicked(java.awt.event.MouseEvent evt) {                                  
+        
+        if(o1!=null)
+        {
+        int Money=Integer.parseInt(money.getText())-o1.getSum();
+        m_ans.setText("找零："+ Money);
+        }
+        else
+        {
+            m_ans.setText("請先輸入訂單資料");
+        }
+     }

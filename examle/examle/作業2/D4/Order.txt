@@ -1,0 +1,249 @@
+import java.util.Date;
+
+public class Order {
+
+    private String name;
+    private String phone;
+    private String address;
+    private int aFood;
+    private int bFood;
+    private int cFood;
+    private int aDish;
+    private int bDish;
+    private int cDish;
+    private int vip;
+    private int sum =0;
+    private Date date;
+    
+    public Order(int aFood, int bFood, int cFood, int aDish, int bDish, int cDish, int vip) {
+        this.aFood = aFood;
+        this.bFood = bFood;
+        this.cFood = cFood;
+        this.aDish = aDish;
+        this.bDish = bDish;
+        this.cDish = cDish;
+        this.vip = vip;
+        this.date = new Date();
+        this.sum();
+    }
+
+    public void sum() {
+        sum = aFood * 120 + bFood * 130 + cFood * 140 + aDish * 30 + bDish * 40 + cDish * 50;
+        if (vip == 1) {
+            sum = (int) (sum * 0.85);
+        } else if (vip == 2) {
+            sum = (int) (sum * 0.9);
+        } else if (vip == 3) {
+            sum = (int) (sum * 0.95);
+        }
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public int getaFood() {
+        return aFood;
+    }
+
+    public int getbFood() {
+        return bFood;
+    }
+
+    public int getcFood() {
+        return cFood;
+    }
+
+    public int getaDish() {
+        return aDish;
+    }
+
+    public int getbDish() {
+        return bDish;
+    }
+
+    public int getcDish() {
+        return cDish;
+    }
+
+    public String getVip() {
+        if(vip == 0){
+            return "您是一般會員，並無折扣優惠";
+        }else if(vip == 1){
+            return "您是尊貴的白金會員，總價打85折";
+        }else if(vip == 2){
+            return "您是尊貴的黃金會員，總價打9折";
+        }else{
+            return "您是尊貴的白銀會員，總價打95折";
+        }
+    }
+
+    public int getSum() {
+        return sum;
+    }
+    
+    public Date getDate(){
+        return date;
+    }
+}
+
+================================================================================================================================
+
+    Order o;
+    boolean show = false;
+    private void okMouseClicked(java.awt.event.MouseEvent evt) {                                
+        
+        show = true;
+        int VIP = 0;
+        int af = 0;
+        int bf = 0;
+        int cf = 0;
+        int A = 0;
+        int B = 0;
+        int C = 0;
+        String error = "";
+        
+        if (aFood.getText().equals("") && bFood.getText().equals("") && cFood.getText().equals("")) {
+            ans1.setText("都不點餐是要外送什麼？請輸入正確訂單，別調皮！");
+            show = false;
+        } else {
+            if (vip1.isSelected() == true) {
+                VIP = 1;
+            } else if (vip2.isSelected() == true) {
+                VIP = 2;
+            } else if (vip3.isSelected() == true) {
+                VIP = 3;
+            }
+            
+            if (!aFood.getText().equals("")) {
+                af = Integer.parseInt(aFood.getText());
+            }
+            if (!bFood.getText().equals("")) {
+                bf = Integer.parseInt(bFood.getText());
+            }
+            if (!cFood.getText().equals("")) {
+                cf = Integer.parseInt(cFood.getText());
+            }
+            
+            if (a.isSelected() == true) {
+                if (aDish.getText().equals("")) {
+                    error = "請輸入小菜1的數量\n";
+                    ans1.setText(error);
+                    show = false;
+                } else {
+                    A = Integer.parseInt(aDish.getText());
+                }
+            }
+            
+            if (b.isSelected() == true) {
+                if (bDish.getText().equals("")) {
+                    error = error + "請輸入小菜2的數量\n";
+                    ans1.setText(error);
+                    show = false;
+                } else {
+                    B = Integer.parseInt(bDish.getText());
+                }
+            }
+            
+            if (c.isSelected() == true) {
+                if (cDish.getText().equals("")) {
+                    error = error + "請輸入小菜3的數量\n";
+                    ans1.setText(error);
+                    show = false;
+                } else {
+                    C = Integer.parseInt(cDish.getText());
+                }
+            }
+            System.out.println(show);
+            if (show == true) {
+                o = new Order(af, bf, cf, A, B, C, VIP);
+                ans1.setText("==============訂單明細==============\n"
+                        + "主餐：\n\tA餐：" + o.getaFood() + "份\t總計：" + o.getaFood() * 120 + "元\n"
+                        + "\tB餐：" + o.getbFood() + "份\t總計：" + o.getbFood() * 130 + "元\n"
+                        + "\tC餐：" + o.getcFood() + "份\t總計：" + o.getcFood() * 140 + "元\n"
+                        + "\n副菜(選購)：\n\t小菜1：" + o.getaDish() + "份\t總計：" + o.getaDish() * 30 + "元\n"
+                        + "\t小菜2：" + o.getbDish() + "份\t總計：" + o.getbDish() * 40 + "元\n"
+                        + "\t小菜3：" + o.getcDish() + "份\t總計：" + o.getcDish() * 50 + "元\n\n會員狀態：\n\t" + o.getVip()
+                        + "\n\n訂單金額：" + o.getSum()+" 元\n\n訂單日期："+o.getDate());
+            }
+        }
+    }                               
+
+================================================================================================================================
+
+    private void ok2MouseClicked(java.awt.event.MouseEvent evt) {                                 
+        boolean boo = true;
+        if (show == true) {
+            String error = "";
+            int Sum = o.getSum();
+            int Pay = 0;
+            
+            if (name.getText().equals("")) {
+                error = "請輸入顧客姓名！\n";
+                ans2.setText(error);
+                boo = false;
+            } else {
+                o.setName(name.getText());
+            }
+            
+            if (phone.getText().equals("")) {
+                error = error + "請輸入聯絡電話！\n";
+                ans2.setText(error);
+                boo = false;
+            } else {
+                o.setPhone(phone.getText());
+            }
+            
+            if (address.getText().equals("")) {
+                error = error + "請輸入外送地址！\n";
+                ans2.setText(error);
+                boo = false;
+            } else {
+                o.setAddress(address.getText());
+            }
+            
+            if(pay.getText().equals("")){
+                error = error + "請輸入付款金額！";
+                ans2.setText(error);
+                boo = false;
+            }else{
+                Pay = Integer.parseInt(pay.getText());
+            }
+            
+            if (boo == true) {
+                if (Pay >= Sum) {
+                    ans2.setText("==============顧客資料==============\n"
+                            + "顧客名字：" + o.getName() + "\n聯絡電話：" + o.getPhone() + "\n外送地址：" + o.getAddress() + "\n\n"
+                            + "==============交易明細==============\n"
+                            + "您的商品總價為：" + Sum + "元\n"
+                            + "您的付款金額為：" + Pay + "元\n"
+                            + "找您 " + (Pay - Sum) + " 元\n\n"
+                            + "祝您用餐愉快！");
+                } else {
+                    ans2.setText("客人您的金錢好像不夠喔！\n差了 " + (Sum - Pay) + " 元呢，是否要去提款一下呢！");
+                }
+            }
+        } else {
+            ans2.setText("請先建立訂購清單！");
+        }
+    }                                

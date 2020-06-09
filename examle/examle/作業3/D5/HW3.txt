@@ -1,0 +1,343 @@
+computer order1=null;
+    write order2=null;
+    private void ok1MouseClicked(java.awt.event.MouseEvent evt) {                                 
+        
+        String Name=name.getText();
+        int A=0,B=0,C=0,D=0;
+        if(!a.getText().equals("")){
+            A=Integer.parseInt(a.getText());
+        }
+        if(!b.getText().equals("")){
+            B=Integer.parseInt(b.getText());
+        }
+        if(!c.getText().equals("")){
+            C=Integer.parseInt(c.getText());
+        }
+        if(!d.getText().equals("")){
+            D=Integer.parseInt(d.getText());
+        }
+        String member = null;
+        if(v1.isSelected() == true){
+            member = "VIP";
+        }else if(v2.isSelected() == true){
+            member = "金卡";
+        }else if(v3.isSelected()==true){
+            member = "銀卡";
+        }else if(v4.isSelected()==true){
+            member = "普通";
+        }
+        String paymethod = null;
+        if(pay1.isSelected() == true){
+            paymethod = "線上付款";
+        }else if(pay2.isSelected() == true){
+            paymethod = "貨到付款";
+        }else if(pay3.isSelected()==true){
+            paymethod = "iBON";
+        }
+        if(p1.isSelected()==true)
+        {order1=new computer(A,B,member,Name,paymethod);
+        ans1.setText(order1.show1());
+        }
+        else if(p2.isSelected()==true)
+        {order2=new write(C,D,member,Name,paymethod);
+        ans1.setText(order2.show1());
+        }
+        
+    }                                
+
+    private void ok2MouseClicked(java.awt.event.MouseEvent evt) {                                 
+        if(order1 != null || order2 != null){
+            int  paymoney=Integer.parseInt(pay.getText());
+            if(p1.isSelected()==true)
+            {order1.setChargesum(paymoney);
+            ans2.setText(order1.show2());
+            }//把paymoney放至class裡
+            else if(p2.isSelected()==true)
+            {order2.setChargesum(paymoney);
+            ans2.setText(order2.show2());
+            }
+            
+        }
+    }                                
+
+    private void p1MouseClicked(java.awt.event.MouseEvent evt) {                                
+        if(p1.isSelected()==true)
+        {
+        a.setEnabled(true);
+        b.setEnabled(true);
+        c.setEnabled(false);
+        d.setEnabled(false);
+        }
+    }                               
+
+    private void p2MouseClicked(java.awt.event.MouseEvent evt) {                                
+      if(p2.isSelected()==true)
+        {
+        a.setEnabled(false);
+        b.setEnabled(false);
+        c.setEnabled(true);
+        d.setEnabled(true);
+        }
+    }      
+==========================================================================================
+
+import java.util.Date;
+
+public class computer {
+ private int a,b,sum;
+ private String name,member,paymethod;
+ private Date date;   
+ private int givesum;
+ private int chargesum;
+ computer(int a,int b,String member,String name,String paymethod)
+ {
+     if(a>0 || b>0)
+        {
+
+            this.a=a;
+            this.b=b;
+            this.date=new Date();    
+            this.member=member;
+            this.paymethod=paymethod;
+            this.name=name;
+            sum=a*4999+b*1280;
+         switch(member)
+        {
+            case  "VIP":
+                sum=(int)(sum*0.85);
+                break;   
+            case "金卡":
+                 sum=(int)(sum*0.9);                
+                 break;   
+            case "銀卡":
+                 sum=(int)(sum*0.95);             
+                 break;   
+            case "普通":
+                 sum=(int)(sum*1);            
+                 break;   
+        }   
+        }
+ }
+public void setPaymethod(String paymethod) {
+        this.paymethod = paymethod;
+    }
+
+    public int getSum() {
+        return sum;
+    }
+
+    public String getPaymethod() {
+        return paymethod;
+    }
+    public void setA(int a) {
+        this.a = a;
+    }
+
+    public void setB(int b) {
+        this.b = b;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setMember(String member) {
+        this.member = member;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void setGivesum(int givesum) {
+        this.givesum = givesum;
+    }
+
+    public void setChargesum(int chargesum) {
+        this.chargesum = chargesum;
+    }
+
+    public int getA() {
+        return a;
+    }
+
+    public int getB() {
+        return b;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getMember() {
+        return member;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public int getGivesum() {
+        return givesum;
+    }
+
+    public int getChargesum() {
+        return chargesum;
+    }
+    String show1(){
+        
+         return "\nLCD數量:"+getA()+
+                "\nRAM數量:"+getB()+
+                 "\n客戶姓名:"+getName()+
+                 "\n會員等級:"+getMember()+
+                 "\n付款方式:"+getPaymethod()+
+                "\n總金額:"+getSum()+
+                "\n日期:"+getDate();
+    }
+    String show2()
+    {
+    this.givesum=this.chargesum-sum;
+    return "\nLCD數量:"+getA()+
+                "\nRAM數量:"+getB()+
+            "\n客戶姓名:"+getName()+
+                  "\n會員等級:"+getMember()+
+            "\n付款方式:"+getPaymethod()+
+                "\n總金額:"+getSum()+
+                "\n付款"+getChargesum()+
+                "\n找零"+getGivesum()+
+                "\n日期:"+getDate();
+    }
+ 
+}
+====================================================================
+
+import java.util.Date;
+
+public class write {
+private int c,d,sum;
+ private String name,member,paymethod;
+ private Date date;   
+ private int givesum;
+ private int chargesum;
+    write(int c,int d,String member,String name,String paymethod)
+ {
+     if(c>0 || d>0)
+        {
+
+            this.c=c;
+            this.d=d;
+            this.date=new Date();    
+            this.member=member;
+            this.paymethod=paymethod;
+            this.name=name;
+            sum=c*30+d*20;
+         switch(member)
+        {
+            case  "VIP":
+                sum=(int)(sum*0.85);
+                break;   
+            case "金卡":
+                 sum=(int)(sum*0.9);                
+                 break;   
+            case "銀卡":
+                 sum=(int)(sum*0.95);             
+                 break;   
+            case "普通":
+                 sum=(int)(sum*1);            
+                 break;   
+        }   
+        }
+ }
+
+    public void setPaymethod(String paymethod) {
+        this.paymethod = paymethod;
+    }
+
+    public String getPaymethod() {
+        return paymethod;
+    }
+
+    public void setC(int c) {
+        this.c = c;
+    }
+
+    public void setD(int d) {
+        this.d = d;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setMember(String member) {
+        this.member = member;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void setChargesum(int chargesum) {
+        this.chargesum = chargesum;
+    }
+
+    public int getC() {
+        return c;
+    }
+
+    public int getD() {
+        return d;
+    }
+
+    public int getSum() {
+        return sum;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getMember() {
+        return member;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public int getGivesum() {
+        return givesum;
+    }
+
+    public int getChargesum() {
+        return chargesum;
+    }
+
+    public void setGivesum(int givesum) {
+        this.givesum = givesum;
+    }
+    String show1(){
+        
+         return "\n尺數量:"+getC()+
+                "\n筆數量:"+getD()+
+                 "\n客戶姓名:"+getName()+
+                 "\n會員等級:"+getMember()+
+                 "\n付款方式:"+getPaymethod()+
+                "\n總金額:"+getSum()+
+                "\n日期:"+getDate();
+    }
+    String show2()
+    {
+    this.givesum=this.chargesum-sum;
+    return "\n尺數量:"+getC()+
+                "\n筆數量:"+getD()+
+            "\n客戶姓名:"+getName()+
+                  "\n會員等級:"+getMember()+
+            "\n付款方式:"+getPaymethod()+
+                "\n總金額:"+getSum()+
+                "\n付款"+getChargesum()+
+                "\n找零"+getGivesum()+
+                "\n日期:"+getDate();
+    }
+    
+}

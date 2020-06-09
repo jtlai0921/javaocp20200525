@@ -1,0 +1,68 @@
+﻿class ex2
+{
+	public static void main(String[] args) {
+		
+
+		int[] x={10,20,30};
+		int[] y={40,50,60};
+		int[] z={70,80,90};
+		
+		System.out.println("x[0]="+x[0]);
+		System.out.println("y[0]="+y[0]);
+
+		System.out.println("=========================");
+
+
+		//x=y;//--->address--->x被回收
+		x[0]=y[0];//value--->copy
+		System.out.println("x="+x);
+		System.out.println("y="+y);
+		System.out.println("x[0]="+x[0]);
+		System.out.println("y[0]="+y[0]);
+
+		System.out.println("=========================");
+
+		x[0]=100;
+		System.out.println("x[0]="+x[0]);
+		System.out.println("y[0]="+y[0]);
+
+		System.out.println("=========================");
+		System.out.println("x="+x);
+		System.out.println("y="+y);
+		System.out.println("z="+z);
+		System.out.println("=========================");
+		x=z;
+		System.out.println("x="+x);
+		System.out.println("y="+y);
+		System.out.println("z="+z);
+		System.out.println("=========================");
+		y=x;
+
+		System.out.println("x="+x);
+		System.out.println("y="+y);
+		System.out.println("z="+z);
+	
+
+		/*int x=10;
+		int y=20;
+
+		System.out.println("x="+x);
+		System.out.println("y="+y);
+
+		System.out.println("=========================");
+
+		x=y;
+		System.out.println("x="+x);
+		System.out.println("y="+y);
+
+		System.out.println("=========================");
+
+
+		x=30;
+		System.out.println("x="+x);
+		System.out.println("y="+y);
+		*/
+
+
+	}
+}

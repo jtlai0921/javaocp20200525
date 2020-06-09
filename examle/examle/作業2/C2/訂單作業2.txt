@@ -1,0 +1,297 @@
+
+package homework;
+import java.util.Date;
+public class Homework {
+
+   private int mealA;
+   private int mealB;
+   private int mealC;
+   private int sum;
+   private boolean dish1;
+   private boolean dish2;
+   private boolean dish3;
+   private boolean vip;
+   private boolean gold;
+   private boolean silver;
+   private boolean normal;
+   private final Date date;
+   private int pay;
+    private int change;
+   
+   Homework(int mealA,int mealB,int mealC,boolean dish1,boolean dish2,boolean dish3,boolean vip,boolean gold,boolean silver,boolean normal)
+   {
+       this.mealA=mealA;
+       this.mealB=mealB;
+       this.mealC=mealC;
+       this.dish1=dish1;
+       this.dish2=dish2;
+       this.dish3=dish3;
+       this.vip=vip;
+       this.gold=gold;
+       this.silver=silver;
+       this.normal=normal;
+       this.date=new Date();
+   }
+   
+      Homework(int mealA,int mealB,int mealC,boolean dish1,boolean dish2,boolean dish3,boolean vip,boolean gold,boolean silver,boolean normal,int pay)
+   {
+       this.mealA=mealA;
+       this.mealB=mealB;
+       this.mealC=mealC;
+       this.dish1=dish1;
+       this.dish2=dish2;
+       this.dish3=dish3;
+       this.vip=vip;
+       this.gold=gold;
+       this.silver=silver;
+       this.normal=normal;
+       this.date=new Date();
+       this.pay=pay;
+   }
+
+
+    public void setMealA(int mealA) {
+        this.mealA = mealA;
+    }
+
+    public void setMealB(int mealB) {
+        this.mealB = mealB;
+    }
+
+    public void setMealC(int mealC) {
+        this.mealC = mealC;
+    }
+
+    public void setDish1(boolean dish1) {
+        this.dish1 = dish1;
+    }
+
+    public void setDish2(boolean dish2) {
+        this.dish2 = dish2;
+    }
+
+    public void setDish3(boolean dish3) {
+        this.dish3 = dish3;
+    }
+
+    public void setVip(boolean vip) {
+        this.vip = vip;
+    }
+
+    public void setGold(boolean gold) {
+        this.gold = gold;
+    }
+
+    public void setSilver(boolean silver) {
+        this.silver = silver;
+    }
+
+    public void setNormal(boolean normal) {
+        this.normal = normal;
+    }
+
+    public void setPay(int pay) {
+        this.pay = pay;
+    }
+    
+
+    public int getMealA() {
+        
+        if(mealA<=0)
+        {
+            return mealA=0;
+        }  
+        else {return mealA;
+        }
+    }
+
+    public int getMealB() {
+        
+          if(mealB<=0)
+        {
+            return mealB=0;
+        }
+        else{return mealB;
+        }
+    }
+
+    public int getMealC() {
+        if(mealC<=0)
+        {
+            return mealC=0;
+        }
+        else{return mealC;
+        }
+    }
+
+    public int getSum() {
+        
+         sum=mealA*120+mealB*130+mealC*140;
+        
+        if(dish1==true)
+        {
+            sum=sum+30;    
+        }
+        if(dish2==true)
+        {
+            sum=sum+40;
+        }
+        if(dish3==true)
+        {
+            sum=sum+50;
+        }
+        
+        if(vip==true)
+        {
+            sum=(int)(sum*0.85);
+        }
+         if(gold==true)
+        {
+            sum=(int)(sum*0.9);
+        }
+          if(silver==true)
+        {
+            sum=(int)(sum*0.95);
+        }
+           if(normal==true)
+        {
+            sum=(int)(sum*1);
+        }
+        return sum;
+    }
+
+    public boolean isDish1() {
+        return dish1;
+    }
+
+    public boolean isDish2() {
+        return dish2;
+    }
+
+    public boolean isDish3() {
+        return dish3;
+    }
+
+    public boolean isVip() {
+        return vip;
+    }
+
+    public boolean isGold() {
+        return gold;
+    }
+
+    public boolean isSilver() {
+        return silver;
+    }
+
+    public boolean isNormal() {
+        return normal;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+     public int getPay() {
+        return pay; 
+    }
+
+    public int getChange() {
+       return change; 
+    }
+
+   String show()
+   {
+       
+     if(dish1==true && dish2==false && dish3==false)
+        {
+            return ("確認訂單\n"+"A餐 : "+getMealA()+"份\n"+"B餐 : "+getMealB()+"份\n"+"C餐 : "+getMealC()+"份\n"+"========================\n"+"搭配一號配餐\n"+"========================\n"+"總金額共:\t"+getSum()+"元"+"\n\n"+date);    
+        }
+     if(dish2==true && dish1==false && dish3==false)
+        {
+            return ("確認訂單\n"+"A餐 : "+getMealA()+"份\n"+"B餐 : "+getMealB()+"份\n"+"C餐 : "+getMealC()+"份\n"+"========================\n"+"搭配二號配餐\n"+"========================\n"+"總金額共:\t"+getSum()+"元"+"\n\n"+date);    
+        }
+     if(dish3==true && dish1==false && dish2==false)
+        {
+            return ("確認訂單\n"+"A餐 : "+getMealA()+"份\n"+"B餐 : "+getMealB()+"份\n"+"C餐: "+getMealC()+"份\n"+"========================\n"+"搭配三號配餐\n"+"========================\n"+"總金額共:\t"+getSum()+"元"+"\n\n"+date);    
+        }
+     if(dish1==true && dish2==true && dish3==false)
+        {
+            return ("確認訂單\n"+"A餐 : "+getMealA()+"份\n"+"B餐 : "+getMealB()+"份\n"+"C餐 : "+getMealC()+"份\n"+"========================\n"+"搭配一、二號配餐\n"+"========================\n"+"總金額共:\t"+getSum()+"元"+"\n\n"+date);    
+        }
+     if(dish1==true && dish3==true && dish2==false)
+        {
+            return ("確認訂單\n"+"A餐 : "+getMealA()+"份\n"+"B餐 : "+getMealB()+"份\n"+"C餐 : "+getMealC()+"份\n"+"========================\n"+"搭配一、三號配餐\n"+"========================\n"+"總金額共:\t"+getSum()+"元"+"\n\n"+date);    
+        }
+      if(dish1==false && dish2==true && dish3==true)
+        {
+            return ("確認訂單\n"+"A餐 : "+getMealA()+"份\n"+"B餐 : "+getMealB()+"份\n"+"C餐 : "+getMealC()+"份\n"+"========================\n"+"搭配二、三號配餐\n"+"========================\n"+"總金額共:\t"+getSum()+"元"+"\n\n"+date);    
+        }
+      if(dish1==true && dish2==true && dish3==true)
+        {
+            return ("確認訂單\n"+"A餐 : "+getMealA()+"份\n"+"B餐 : "+getMealB()+"份\n"+"C餐 : "+getMealC()+"份\n"+"========================\n"+"搭配全部配餐\n"+"========================\n"+"總金額共:\t"+getSum()+"元"+"\n\n"+date);    
+        }
+      if(dish1==false && dish2==false && dish3==false)
+      {
+            return ("確認訂單\n"+"A餐 : "+getMealA()+"份\n"+"B餐 : "+getMealB()+"份\n"+"C餐 : "+getMealC()+"份\n"+"========================\n"+"您未選擇配餐\n"+"========================\n"+"總金額共:\t"+getSum()+"元"+"\n\n"+date);
+      }
+     return show();         
+   }
+   
+   String show2()
+    {  
+          if(getPay()<=0)
+      {
+            return ("沒錢就不要買");
+      }
+          
+          if(getPay()<getSum())
+      {
+            return ("請付足夠金額,尚欠"+(getSum()-getPay())+"元");
+      }
+        
+        else
+        {
+            return ("找您:"+(getPay()-getSum())+"元");
+        }
+    }
+        
+
+    
+}
+============================================================================================================================================================================
+
+ private void okMouseClicked(java.awt.event.MouseEvent evt) {                                
+        int A=Integer.parseInt(mealA.getText());
+        int B=Integer.parseInt(mealB.getText());
+        int C=Integer.parseInt(mealC.getText());  
+        boolean D1=dish1.isSelected();
+        boolean D2=dish2.isSelected();
+        boolean D3=dish3.isSelected();
+        boolean V=vip.isSelected();
+        boolean G=gold.isSelected();
+        boolean S=silver.isSelected();
+        boolean N=normal.isSelected();
+        
+        
+        Homework HO=new Homework(A,B,C,D1,D2,D3,V,G,S,N);
+        ans.setText(HO.show());
+                
+    }                              
+
+============================================================================================================================================================================
+private void payokMouseClicked(java.awt.event.MouseEvent evt) {                                   
+        int A=Integer.parseInt(mealA.getText());
+        int B=Integer.parseInt(mealB.getText());
+        int C=Integer.parseInt(mealC.getText());  
+        boolean D1=dish1.isSelected();
+        boolean D2=dish2.isSelected();
+        boolean D3=dish3.isSelected();
+        boolean V=vip.isSelected();
+        boolean G=gold.isSelected();
+        boolean S=silver.isSelected();
+        boolean N=normal.isSelected();
+        int P=Integer.parseInt(pay.getText());
+
+        
+        Homework HO2=new Homework(A,B,C,D1,D2,D3,V,G,S,N,P);
+        change.setText(HO2.show2());

@@ -1,0 +1,37 @@
+﻿class A extends school
+{
+	private int chi;
+	A(String name,int chi)
+	{
+		super(name);
+		this.chi=chi;
+	}
+	//void abc(){}
+
+
+
+
+	void change(int chi)
+	{
+		this.chi=chi;
+	}
+	int getChi()
+	{
+		return chi;
+	}
+
+
+	String show()
+	{
+		//return "名:"+getName()+"\t國文:"+getChi();
+		return super.show()+"\t國文:"+getChi();
+	}
+
+
+	public String abc(int o)
+	{
+		return null;
+	}
+
+
+}

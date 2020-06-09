@@ -1,0 +1,34 @@
+@charset "UTF-8";
+
+body{
+	
+	background:url(pic/background.gif);
+}
+
+a{
+	text-decoration:none;
+}
+
+.login{
+	padding-top:24%;
+	padding-bottom:24%;
+}
+
+.logintable{
+	background-color : #fff2f2;
+	border-color:#14CC60;
+	margin-top:15%;
+	margin-left:35%;
+}
+
+marquee{
+	background-color : #E1E9F0;
+}
+
+.marquee{
+	margin-top:2%;
+}
+
+.pay{
+	margin-top:2%;
+}

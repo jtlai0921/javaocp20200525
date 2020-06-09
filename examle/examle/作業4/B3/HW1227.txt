@@ -1,0 +1,380 @@
+
+package Model;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class DBConnection {
+
+    public Connection conn(String url, String name, String password, String driver) throws Exception {
+        Connection conn = null;
+        System.out.println(driver);
+        System.out.println(url);
+        System.out.println(name);
+        System.out.println(password);
+        try {
+            Class.forName(driver);
+            conn = DriverManager.getConnection(url, name, password);
+        } catch (ClassNotFoundException | SQLException ex) {
+            throw ex;
+        }
+        System.out.println(conn);
+        return conn;
+    }
+}
+
+====================================================================================================================
+
+ 
+package Model;
+ 
+public class Porder {
+    private int id;
+    private String name;
+    private int ruler;
+    private int pen;
+    private int sum;
+
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * @return the ruler
+     */
+    public int getRuler() {
+        return ruler;
+    }
+
+    /**
+     * @param ruler the ruler to set
+     */
+    public void setRuler(int ruler) {
+        this.ruler = ruler;
+    }
+
+    /**
+     * @return the pen
+     */
+    public int getPen() {
+        return pen;
+    }
+
+    /**
+     * @param pen the pen to set
+     */
+    public void setPen(int pen) {
+        this.pen = pen;
+    }
+
+    /**
+     * @return the sum
+     */
+    public int getSum() {
+        return sum;
+    }
+
+    /**
+     * @param sum the sum to set
+     */
+    public void setSum(int sum) {
+        this.sum = sum;
+    }
+    
+}
+
+====================================================================================================================
+ 
+package DAO;
+
+import Model.Porder;
+import java.util.ArrayList;
+ 
+public interface PorderInterface { 
+    
+    public String add(Porder po);
+
+    public ArrayList<Porder> query();
+
+    public ArrayList<Porder> query(int id);
+
+    public String update(Porder po);
+
+    public String del(int id);
+}
+
+====================================================================================================================
+ 
+  
+package DAO;
+
+import Model.Porder;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+ 
+public class PorderDAO implements PorderInterface {
+
+    Connection conn;
+    int result = 0;
+
+    public PorderDAO(Connection conn) {
+        this.conn =  conn;
+    }
+
+    @Override
+    public String add(Porder po) {
+        String sql = "insert into gjun.Porder(name,ruler,pen,sum) values(?,?,?,?)";
+
+        try {
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, po.getName());
+            pst.setInt(2, po.getRuler());
+            pst.setInt(3, po.getPen());
+            pst.setInt(4, po.getRuler() + po.getPen());
+            System.out.println(pst);
+            result = pst.executeUpdate();
+        } catch (SQLException ex) {
+            return ex.toString();
+        }
+        return "新增" + (result > 0 ? "成功" : "失敗");
+    }
+
+    @Override
+    public ArrayList<Porder> query() {
+
+        String sql = "select * from gjun.Porder";
+        Porder p = null;
+        ArrayList<Porder> arr = new ArrayList<>();
+
+        try {
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                p = new Porder();
+                p.setId(rs.getInt("id"));
+                p.setName(rs.getString("name"));
+                p.setRuler(rs.getInt("ruler"));
+                p.setPen(rs.getInt("pen"));
+                p.setSum(rs.getInt("sum"));
+                arr.add(p);
+            }
+        } catch (SQLException ex) {
+        }
+        return arr;
+    }
+
+    @Override
+    public ArrayList<Porder> query(int id) {
+        String sql = "select * from gjun.Porder where id = ?";
+        Porder p = null;
+        ArrayList<Porder> arr = new ArrayList<>();
+
+        try {
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setInt(1, id);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                p = new Porder();
+                p.setId(rs.getInt("id"));
+                p.setName(rs.getString("name"));
+                p.setRuler(rs.getInt("ruler"));
+                p.setPen(rs.getInt("pen"));
+                p.setSum(rs.getInt("sum"));
+                arr.add(p);
+            }
+        } catch (SQLException ex) {
+        }
+        return arr;
+    }
+
+    @Override
+    public String update(Porder po) {
+        String sql = "update gjun.Porder set name = ? , ruler = ? , pen = ? , sum = ? where id = ? ";
+        try {
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, po.getName());
+            pst.setInt(2, po.getRuler());
+            pst.setInt(3, po.getPen());
+            pst.setInt(4, po.getRuler() + po.getPen());
+            pst.setInt(5, po.getId());
+            System.out.println(pst);
+            result = pst.executeUpdate();
+        } catch (SQLException ex) {
+            return ex.toString();
+        }
+        return "修改" + (result > 0 ? "成功" : "失敗");
+    }
+
+    @Override
+    public String del(int id) {
+        String sql = "delete from gjun.Porder where id = ? ";
+        try {
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setInt(1, id);
+            result = pst.executeUpdate();
+        } catch (SQLException ex) {
+            return ex.toString();
+        }
+        return "刪除" + (result > 0 ? "成功" : "失敗");
+    }
+
+}
+
+====================================================================================================================
+ 
+package view;
+
+import DAO.PorderDAO;
+import Model.DBConnection;
+import Model.Porder;
+import java.sql.Connection;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+ 
+public class PorderUI extends javax.swing.JFrame {
+
+    PorderDAO dao;
+ 
+    public PorderUI() {
+        initComponents();
+        jPanel2.setVisible(false);
+        port.setValue(3306);
+    }
+	
+	private void insertMouseClicked(java.awt.event.MouseEvent evt) {                                    
+       
+        String idstr = id.getText();
+        Porder p = new Porder();
+        if (!idstr.isEmpty()) {
+            p.setId(Integer.parseInt(idstr));
+        }
+        p.setName(name.getText());
+        p.setRuler((int) ruler.getValue());
+        p.setPen((int) pen.getValue());
+
+        operatorResult.setText(idstr.isEmpty() ? dao.add(p) : dao.update(p));
+        query();
+        reset();
+    }                                   
+    private void query() {
+        ArrayList<Porder> arr = dao.query();
+        DefaultTableModel dtm = (DefaultTableModel) showDetail.getModel();
+        dtm.getDataVector().clear();
+        String result = "";
+
+        if (arr.isEmpty()) {
+            dtm.addRow(new Object[]{"查無資料"});
+        } else {
+//            for (Porder p : arr) {
+//                dtm.addRow(new Object[]{
+//                    p.getId(),
+//                    p.getName(),
+//                    p.getRuler(),
+//                    p.getPen(),
+//                    p.getSum()
+//                });
+//            }
+//          同上寫法
+            arr.forEach((p) -> {
+                dtm.addRow(new Object[]{
+                    p.getId(),
+                    p.getName(),
+                    p.getRuler(),
+                    p.getPen(),
+                    p.getSum()
+                });
+            });
+        }
+
+        showDetail.clearSelection();
+    }
+
+    private void reset() {
+
+        id.setText("");
+        name.setText("");
+        ruler.setValue(0);
+        pen.setValue(0);
+    }
+    private void selectMouseClicked(java.awt.event.MouseEvent evt) { 
+        query();
+        reset();
+        operatorResult.setText("");
+    }                                   
+
+    private void deleteMouseClicked(java.awt.event.MouseEvent evt) { 
+        String idstr = id.getText(); 
+        operatorResult.setText(idstr.isEmpty() ? "請選擇欲刪除資料" : dao.del(Integer.parseInt(id.getText())));
+        query();
+        reset();
+    }                                   
+
+    private void showDetailMouseClicked(java.awt.event.MouseEvent evt) { 
+        int uuid = (int) showDetail.getModel().getValueAt(showDetail.getSelectedRow(), 0);
+        ArrayList<Porder> arr = dao.query(uuid);
+        if (arr.size() > 0) {
+            Porder p = arr.get(0);
+            id.setText(String.valueOf(p.getId()));
+            name.setText(p.getName());
+            ruler.setValue(p.getRuler());
+            pen.setValue(p.getPen());
+            operatorResult.setText("");
+        } else {
+            operatorResult.setText("查無此訂單");
+        }
+    }                                       
+
+    private void resetMouseClicked(java.awt.event.MouseEvent evt) { 
+        reset();
+        operatorResult.setText("");
+    }                                  
+
+    private void linkMouseClicked(java.awt.event.MouseEvent evt) { 
+		//mac會自動把driver改為com.mysql.cj.jdbc.Driver
+        String driver = "com.mysql.jdbc.Driver";
+        String urlstr = "jdbc:mysql://localhost:" + port.getValue() + "/" + db.getText();
+        String accountstr = account.getText();
+        String passwordstr = password.getText();
+        try {
+            DBConnection dbc = new DBConnection();
+            Connection conn = dbc.conn(urlstr, accountstr, passwordstr, driver);
+            dao = new PorderDAO(conn);
+            System.out.println(dao);
+
+            query();
+            jPanel1.setVisible(false);
+            jPanel2.setVisible(true);
+        } catch (Exception ex) {
+            msg.setText("連線失敗");
+        } 
+    }
+}	

@@ -1,0 +1,302 @@
+import java.util.Date;
+public class order {
+
+   private int a;
+   private int b;
+   private int c;
+   private int sum;
+   private boolean dish1;
+   private boolean dish2;
+   private boolean dish3;
+   private boolean vip;
+   private boolean gold;
+   private boolean silver;
+   private boolean normal;
+   private final Date date;
+   private int pay;
+   private int change; 
+   
+   order(int a,int b,int c,boolean dish1,boolean dish2,boolean dish3,boolean vip,boolean gold,boolean silver,boolean normal)
+   {
+       this.a=a;
+       this.b=b;
+       this.c=c;
+       this.dish1=dish1;
+       this.dish2=dish2;
+       this.dish3=dish3;
+       this.vip=vip;
+       this.gold=gold;
+       this.silver=silver;
+       this.normal=normal;
+       this.date=new Date();
+   }
+   
+      order(int a,int b,int c,boolean dish1,boolean dish2,boolean dish3,boolean vip,boolean gold,boolean silver,boolean normal,int pay)
+   {
+       this.a=a;
+       this.b=b;
+       this.c=c;
+       this.dish1=dish1;
+       this.dish2=dish2;
+       this.dish3=dish3;
+       this.vip=vip;
+       this.gold=gold;
+       this.silver=silver;
+       this.normal=normal;
+       this.date=new Date();
+       this.pay=pay;
+   }
+
+    public void setA(int a) {
+        this.a = a;
+    }
+
+    public void setB(int b) {
+        this.b = b;
+    }
+
+    public void setC(int c) {
+        this.c = c;
+    }
+
+    public void setSum(int sum) {
+        this.sum = sum;
+    }
+
+    public void setDish1(boolean dish1) {
+        this.dish1 = dish1;
+    }
+
+    public void setDish2(boolean dish2) {
+        this.dish2 = dish2;
+    }
+
+    public void setDish3(boolean dish3) {
+        this.dish3 = dish3;
+    }
+
+    public void setVip(boolean vip) {
+        this.vip = vip;
+    }
+
+    public void setGold(boolean gold) {
+        this.gold = gold;
+    }
+
+    public void setSilver(boolean silver) {
+        this.silver = silver;
+    }
+
+    public void setNormal(boolean normal) {
+        this.normal = normal;
+    }
+
+    public void setPay(int pay) {
+        this.pay = pay;
+    }
+
+    public void setChange(int change) {
+        this.change = change;
+    }
+
+    public int getA() {
+        if(a<=0)
+        {    
+           return a=0;
+        }   
+        else
+        {
+           return a;
+        }    
+    }
+
+    public int getB() {
+        if(b<=0)
+        {    
+           return b=0;
+        }   
+        else
+        {
+           return b;
+        }    
+    }
+
+    public int getC() {
+        if(c<=0)
+        {    
+           return c=0;
+        }   
+        else
+        {
+           return c;
+        }    
+    }
+
+    public int getSum() {
+        sum=a*100+b*150+c*200;
+        
+        if(dish1==true)
+        {
+            sum=sum+20;    
+        }
+        if(dish2==true)
+        {
+            sum=sum+40;
+        }
+        if(dish3==true)
+        {
+            sum=sum+60;
+        }
+        
+        if(vip==true)
+        {
+            sum=(int)(sum*0.85);
+        }
+         if(gold==true)
+        {
+            sum=(int)(sum*0.9);
+        }
+          if(silver==true)
+        {
+            sum=(int)(sum*0.95);
+        }
+           if(normal==true)
+        {
+            sum=(int)(sum*1);
+        }
+        
+        return sum;
+    }
+
+    public boolean isDish1() {
+        return dish1;
+    }
+
+    public boolean isDish2() {
+        return dish2;
+    }
+
+    public boolean isDish3() {
+        return dish3;
+    }
+
+    public boolean isVip() {
+        return vip;
+    }
+
+    public boolean isGold() {
+        return gold;
+    }
+
+    public boolean isSilver() {
+        return silver;
+    }
+
+    public boolean isNormal() {
+        return normal;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public int getPay() {
+        return pay;
+    }
+
+    public int getChange() {
+        return change;
+    }
+  String show()
+   {
+       
+     if(dish1==true && dish2==false && dish3==false)
+        {
+            return ("確認訂單\n"+"A餐 : "+getA()+"份\n"+"B餐 : "+getB()+"份\n"+"C餐 : "+getC()+"份\n"+"========================\n"+"搭配一號配餐\n"+"========================\n"+"總金額共:\t"+getSum()+"元"+"\n\n"+date);    
+        }
+     if(dish2==true && dish1==false && dish3==false)
+        {
+            return ("確認訂單\n"+"A餐 : "+getA()+"份\n"+"B餐 : "+getB()+"份\n"+"C餐 : "+getC()+"份\n"+"========================\n"+"搭配二號配餐\n"+"========================\n"+"總金額共:\t"+getSum()+"元"+"\n\n"+date);    
+        }
+     if(dish3==true && dish1==false && dish2==false)
+        {
+            return ("確認訂單\n"+"A餐 : "+getA()+"份\n"+"B餐 : "+getB()+"份\n"+"C餐: "+getC()+"份\n"+"========================\n"+"搭配三號配餐\n"+"========================\n"+"總金額共:\t"+getSum()+"元"+"\n\n"+date);    
+        }
+     if(dish1==true && dish2==true && dish3==false)
+        {
+            return ("確認訂單\n"+"A餐 : "+getA()+"份\n"+"B餐 : "+getB()+"份\n"+"C餐 : "+getC()+"份\n"+"========================\n"+"搭配一、二號配餐\n"+"========================\n"+"總金額共:\t"+getSum()+"元"+"\n\n"+date);    
+        }
+     if(dish1==true && dish3==true && dish2==false)
+        {
+            return ("確認訂單\n"+"A餐 : "+getA()+"份\n"+"B餐 : "+getB()+"份\n"+"C餐 : "+getC()+"份\n"+"========================\n"+"搭配一、三號配餐\n"+"========================\n"+"總金額共:\t"+getSum()+"元"+"\n\n"+date);    
+        }
+      if(dish1==false && dish2==true && dish3==true)
+        {
+            return ("確認訂單\n"+"A餐 : "+getA()+"份\n"+"B餐 : "+getB()+"份\n"+"C餐 : "+getC()+"份\n"+"========================\n"+"搭配二、三號配餐\n"+"========================\n"+"總金額共:\t"+getSum()+"元"+"\n\n"+date);    
+        }
+      if(dish1==true && dish2==true && dish3==true)
+        {
+            return ("確認訂單\n"+"A餐 : "+getA()+"份\n"+"B餐 : "+getB()+"份\n"+"C餐 : "+getC()+"份\n"+"========================\n"+"搭配全部配餐\n"+"========================\n"+"總金額共:\t"+getSum()+"元"+"\n\n"+date);    
+        }
+      if(dish1==false && dish2==false && dish3==false)
+      {
+            return ("確認訂單\n"+"A餐 : "+getA()+"份\n"+"B餐 : "+getB()+"份\n"+"C餐 : "+getC()+"份\n"+"========================\n"+"您未選擇配餐\n"+"========================\n"+"總金額共:\t"+getSum()+"元"+"\n\n"+date);
+      }
+     return show();         
+   }
+   
+   String show2()
+    {  
+          if(getPay()<=0)
+      {
+            return ("沒錢就不要買");
+      }
+          
+          if(getPay()<getSum())
+      {
+            return ("請付足夠金額,尚欠"+(getSum()-getPay())+"元");
+      }
+        
+        else
+        {
+            return ("找您:"+(getPay()-getSum())+"元");
+        }
+    }
+            
+} 
+===============================================================================================================
+
+private void okMouseClicked(java.awt.event.MouseEvent evt) {                                
+        int A=Integer.parseInt(a.getText());
+        int B=Integer.parseInt(b.getText());
+        int C=Integer.parseInt(c.getText());  
+        boolean D1=dish1.isSelected();
+        boolean D2=dish2.isSelected();
+        boolean D3=dish3.isSelected();
+        boolean V=vip.isSelected();
+        boolean G=gold.isSelected();
+        boolean S=silver.isSelected();
+        boolean N=normal.isSelected();
+        
+        
+        order x=new order(A,B,C,D1,D2,D3,V,G,S,N);
+        ans.setText(x.show());
+
+==============================================================================================================
+
+private void ok2MouseClicked(java.awt.event.MouseEvent evt) {                                 
+        int A=Integer.parseInt(a.getText());
+        int B=Integer.parseInt(b.getText());
+        int C=Integer.parseInt(c.getText());  
+        boolean D1=dish1.isSelected();
+        boolean D2=dish2.isSelected();
+        boolean D3=dish3.isSelected();
+        boolean V=vip.isSelected();
+        boolean G=gold.isSelected();
+        boolean S=silver.isSelected();
+        boolean N=normal.isSelected();
+        int P=Integer.parseInt(pay.getText());
+
+        
+        order x2=new order(A,B,C,D1,D2,D3,V,G,S,N,P);
+        sum.setText(x2.show2());

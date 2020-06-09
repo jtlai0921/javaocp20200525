@@ -1,0 +1,38 @@
+﻿package collectionEx;
+
+import java.util.ArrayList;
+
+public class add3 {
+
+	public static void main(String[] args) {
+		ArrayList<Integer> x=new ArrayList<Integer>();
+		x.add(50);
+		x.add(52);
+		x.add(65);
+		x.add(85);
+		x.add(45);
+		x.add(55);
+		
+		for(Integer o:x)
+		{
+			System.out.print(o+" ");
+		}
+		x.set(1, 33);
+		System.out.println("\n=================");
+		
+		x.add(2,75);
+		
+		for(Integer o:x)
+		{
+			System.out.print(o+" ");
+		}
+		System.out.println("\n=================");
+		System.out.println(x.get(3));
+		
+		System.out.println(x.size());
+		
+		Object[] o=x.toArray();
+		System.out.println(o[0]);
+	}
+
+}

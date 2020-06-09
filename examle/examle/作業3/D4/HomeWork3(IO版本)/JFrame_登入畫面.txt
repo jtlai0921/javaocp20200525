@@ -1,0 +1,163 @@
+package homework3;
+
+import java.awt.Toolkit;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+
+/**
+ * 登入畫面JFrame
+ */
+public class Login extends javax.swing.JFrame {
+
+    private static int num = 0; //判斷第一次new執行就好
+
+    /*註冊會員按鈕*/
+    private void registerMouseClicked(java.awt.event.MouseEvent evt) {                                      
+        Member member = new Member();
+        member.setVisible(true);
+        /*為了讓跳出的畫面能置中於螢幕上 */
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        int x = (int) (toolkit.getScreenSize().getWidth() - member.getWidth()) / 2;
+        int y = (int) (toolkit.getScreenSize().getHeight() - member.getHeight()) / 2;
+        member.setLocation(x, y);
+        setVisible(false);
+    }                                     
+
+    /* 登入按鈕*/
+    private void loginMouseClicked(java.awt.event.MouseEvent evt) {                                   
+        int show;
+        userNameError.setText("              ");
+        passWordError.setText("              ");
+        if (userName.getText().equals("")) {
+            userNameError.setText("請輸入帳號");
+        } else {
+            /*搜尋帳號是否有在使用者陣列中，密碼是否正確*/
+            show = UserArray.search(userName.getText(), passWord.getText());
+
+            if (show == 1) {
+                OrderSystem os = new OrderSystem();
+                Toolkit toolkit = Toolkit.getDefaultToolkit();
+                int x = (int) (toolkit.getScreenSize().getWidth() - os.getWidth()) / 2;
+                int y = (int) (toolkit.getScreenSize().getHeight() - os.getHeight()) / 2;
+                os.setLocation(x, y);
+                os.setVisible(true);
+                os.setUserName(userName.getText());
+                setVisible(false);
+            } else if (show == -1) {
+                passWordError.setText("密碼錯誤");
+            } else {
+                userNameError.setText("查無此帳號");
+            }
+        }
+    }                                  
+
+    /*讀取存放在memberFile資料夾中的資料*/
+    private static void setFile() {
+        BufferedReader bw;
+        int userCount = 0;
+        try {
+            bw = new BufferedReader(new InputStreamReader(new FileInputStream("memberFile/userCount.txt")));
+            userCount = Integer.parseInt(bw.readLine());
+            for (int i = 0; i < userCount; i++) {
+                bw = new BufferedReader(new InputStreamReader(new FileInputStream("memberFile/member" + (i + 1) + "/userName.txt")));
+                String UserName = bw.readLine();
+                bw = new BufferedReader(new InputStreamReader(new FileInputStream("memberFile/member" + (i + 1) + "/passWord.txt")));
+                String PassWord = bw.readLine();
+                bw = new BufferedReader(new InputStreamReader(new FileInputStream("memberFile/member" + (i + 1) + "/name.txt")));
+                String Name = bw.readLine();
+                bw = new BufferedReader(new InputStreamReader(new FileInputStream("memberFile/member" + (i + 1) + "/phone.txt")));
+                String Phone = bw.readLine();
+                bw = new BufferedReader(new InputStreamReader(new FileInputStream("memberFile/member" + (i + 1) + "/address.txt")));
+                String Address = bw.readLine();
+                bw = new BufferedReader(new InputStreamReader(new FileInputStream("memberFile/member" + (i + 1) + "/vip.txt")));
+                String Vip = bw.readLine();
+                User user = new User(UserName, PassWord, Name, Phone, Address, Vip);
+                UserArray.addUser(user);
+            }
+        } catch (IOException ex) {
+
+        }
+
+        for (int i = 0; i < userCount; i++) {
+            try {
+                
+                bw = new BufferedReader(new InputStreamReader(new FileInputStream("memberFile/member" + (i + 1) + "/orderCount.txt")));
+                int orderCount = Integer.parseInt(bw.readLine());
+                
+                for (int j = 0; j < orderCount; j++) {
+                    bw = new BufferedReader(new InputStreamReader(new FileInputStream("memberFile/member" + (i + 1) + "/order" + (j + 1) + "/typeName.txt")));
+                    String TypeName = bw.readLine();
+                    if (TypeName.equals("A3C")) {
+                        bw = new BufferedReader(new InputStreamReader(new FileInputStream("memberFile/member" + (i + 1) + "/order" + (j + 1) + "/LCD.txt")));
+                        int LCD = Integer.parseInt(bw.readLine());
+                        bw = new BufferedReader(new InputStreamReader(new FileInputStream("memberFile/member" + (i + 1) + "/order" + (j + 1) + "/RAM.txt")));
+                        int RAM = Integer.parseInt(bw.readLine());
+                        bw = new BufferedReader(new InputStreamReader(new FileInputStream("memberFile/member" + (i + 1) + "/order" + (j + 1) + "/SUM.txt")));
+                        int SUM = Integer.parseInt(bw.readLine());
+                        bw = new BufferedReader(new InputStreamReader(new FileInputStream("memberFile/member" + (i + 1) + "/order" + (j + 1) + "/ListShow.txt")));
+                        String ListShow = "";
+                        for (int k = 0; k < 11; k++) {
+                            String show = bw.readLine() + "\n";
+                            ListShow += show;
+                        }
+                        bw = new BufferedReader(new InputStreamReader(new FileInputStream("memberFile/member" + (i + 1) + "/order" + (j + 1) + "/Date.txt")));
+                        String Date = bw.readLine();
+                        A_3C a3c = new A_3C(LCD, RAM);
+                        a3c.setSum(SUM);
+                        a3c.setListShow(ListShow);
+                        a3c.setDate(Date);
+                        User[] u;
+                        u = UserArray.getArray();
+                        u[i].addA_3C(a3c);
+                    } else {
+                        bw = new BufferedReader(new InputStreamReader(new FileInputStream("memberFile/member" + (i + 1) + "/order" + (j + 1) + "/Ruler.txt")));
+                        int Ruler = Integer.parseInt(bw.readLine());
+                        bw = new BufferedReader(new InputStreamReader(new FileInputStream("memberFile/member" + (i + 1) + "/order" + (j + 1) + "/Pen.txt")));
+                        int Pen = Integer.parseInt(bw.readLine());
+                        bw = new BufferedReader(new InputStreamReader(new FileInputStream("memberFile/member" + (i + 1) + "/order" + (j + 1) + "/SUM.txt")));
+                        int SUM = Integer.parseInt(bw.readLine());
+                        bw = new BufferedReader(new InputStreamReader(new FileInputStream("memberFile/member" + (i + 1) + "/order" + (j + 1) + "/ListShow.txt")));
+                        String ListShow = "";
+                        for (int k = 0; k < 11; k++) {
+                            String show = bw.readLine() + "\n";
+                            ListShow += show;
+                        }
+                        bw = new BufferedReader(new InputStreamReader(new FileInputStream("memberFile/member" + (i + 1) + "/order" + (j + 1) + "/Date.txt")));
+                        String Date = bw.readLine();
+                        B_Write BW = new B_Write(Ruler, Pen);
+                        BW.setSum(SUM);
+                        BW.setListShow(ListShow);
+                        BW.setDate(Date);
+                        User[] u;
+                        u = UserArray.getArray();
+                        u[i].addB_Write(BW);
+                    }
+                }
+            } catch (IOException ex) {
+
+            }
+        }
+    }
+    public static void main(String args[]) {
+
+        if(num == 0){
+            setFile();
+            num++;
+        }
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                Login login = new Login();
+                login.setVisible(true);
+                Toolkit toolkit = Toolkit.getDefaultToolkit();
+                int x = (int) (toolkit.getScreenSize().getWidth() - login.getWidth()) / 2;
+                int y = (int) (toolkit.getScreenSize().getHeight() - login.getHeight()) / 2;
+                login.setLocation(x, y);
+            }
+        });
+    }
+}

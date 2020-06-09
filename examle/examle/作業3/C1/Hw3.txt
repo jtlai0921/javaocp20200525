@@ -1,0 +1,173 @@
+
+public class buy {
+    private String name;
+    private int qty1;
+    private int qty2;
+    private int point;
+    private int sum;
+    
+    public buy(String name,int qty1,int qty2){
+        this.name=name;
+        this.qty1=qty1;
+        this.qty2=qty2;
+        
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setQty1(int qty1) {
+        this.qty1 = qty1;
+    }
+
+    public void setQty2(int qty2) {
+        this.qty2 = qty2;
+    }
+    
+    public void setSum(int a,int b){
+        sum=a*getQty1()+b*getQty2();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getQty1() {
+        return qty1;
+    }
+
+    public int getQty2() {
+        return qty2;
+    }
+    
+    public int getSum(){
+        return sum;
+    }
+
+    public int getPoint() {
+        return point;
+    }
+
+    public void setPoint(int point) {
+        this.point = point;
+    }
+        
+    
+}
+==================================================================================================================
+public class b3c extends buy {
+    private final int lcd=4999;
+    private final int ram=1280;
+    public b3c(String name, int qty1, int qty2) {
+        super(name, qty1, qty2);
+        setSum(lcd,ram);
+    }
+    
+    public String show(String pay,int psum){
+        String msg="會員姓名:"+getName()+
+                "\nLCD:"+lcd+" x "+getQty1()+" = "+lcd*getQty1()+
+                "\nRAM:"+ram+" x "+getQty2()+" = "+ram*getQty2()+
+                "\n合計:"+getSum()+"元"+
+                "\n付款方式:"+pay+"\n"+  (pay=="點數扣款" ? psum+" - "+getSum()+"\t餘額:"+(psum-getSum()):"")
+                ;
+        if(pay=="點數扣款"){
+            if(psum>=getSum()){
+                setPoint(psum-getSum());
+                return msg;
+            } else return "點數不足";
+        } else return msg;
+        
+    }
+}
+==================================================================================================================
+public class bpr extends buy{
+    private final int pen=35;
+    private final int ruler=28;
+    public bpr(String name, int qty1, int qty2) {
+        super(name, qty1, qty2);
+        setSum(pen,ruler);
+    }
+    
+    public String show(String pay,int psum){
+        String msg="會員姓名:"+getName()+
+                    "\nPEN:"+pen+" x "+getQty1()+" = "+pen*getQty1()+
+                    "\nRULER:"+ruler+" x "+getQty2()+" = "+ruler*getQty2()+
+                    "\n合計:"+getSum()+"元"+
+                    "\n付款方式:"+pay+"\n"+  (pay=="點數扣款" ? psum+" - "+getSum()+"\t餘額:"+(psum-getSum()):"");
+        if(pay=="點數扣款"){
+            if(psum>=getSum()){
+                setPoint(psum-getSum());
+                return msg;
+                
+            } else return "點數不足";
+        } else return msg;
+        
+    }
+}
+==================================================================================================================
+    private void RB3cMouseClicked(java.awt.event.MouseEvent evt) {                                  
+        if(RB3c.isSelected()==true){
+            sell1.setText("LCD(4999元/個):");
+            sell2.setText("RAM(1280元/個):");
+            qty1.setEnabled(true);
+            qty2.setEnabled(true);
+            ok.setEnabled(true);
+            
+        }
+    }                                 
+--------------------------------------------------------------------------------------------------------------
+    private void RBpenMouseClicked(java.awt.event.MouseEvent evt) {                                   
+        if(RBpen.isSelected()==true){
+            sell1.setText("PEN(35元/個):");
+            sell2.setText("RULER(28元/個):");
+            qty1.setEnabled(true);
+            qty2.setEnabled(true);
+            ok.setEnabled(true);
+            
+        }
+    }                                  
+--------------------------------------------------------------------------------------------------------------
+    private void okMouseClicked(java.awt.event.MouseEvent evt) {                                
+        String name=nameKey.getText();
+        
+        try{
+            int q1=(Integer)(qty1.getValue());
+            int q2=(Integer)(qty2.getValue());
+            if(q1==0){int a=q1/q2;}
+            if(q2==0){int b=q2/q1;}
+                    
+        int psum=Integer.parseInt(point50000.getText());
+        String pay="";
+        pay=(atm.isSelected() ? atm.getText():(
+            card.isSelected() ? card.getText():(
+            home.isSelected() ? home.getText():(
+            point.isSelected() ? point.getText():"請選擇付款方式"))));
+        
+        if(RB3c.isSelected()==true){
+            if(pay!="請選擇付款方式"){
+            b3c x=new b3c(name,q1,q2);
+            x.setPoint(psum);
+            ANS.setText(x.show(pay,psum));
+            point50000.setText(x.getPoint()+"");
+            }
+            else{
+                ANS.setText(pay);
+            }
+        }
+        if(RBpen.isSelected()==true){
+            if(pay!="請選擇付款方式"){
+            bpr x=new bpr(name,q1,q2);
+            x.setPoint(psum);
+            ANS.setText(x.show(pay,psum));
+            point50000.setText(x.getPoint()+"");
+            }
+            else{
+                ANS.setText(pay);
+            }
+        }
+        } catch(ArithmeticException e) {
+            ANS.setText("選擇購買數量");
+        }
+    }
+--------------------------------------------------------------------------------------------------------------

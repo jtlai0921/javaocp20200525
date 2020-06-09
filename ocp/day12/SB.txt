@@ -1,0 +1,14 @@
+﻿class SB extends student
+{
+	private int eng;
+
+	void show()
+	{
+		//System.out.println("name="+name+"\teng="+eng);
+	}
+
+	int getEng()
+	{
+		return eng;
+	}
+}

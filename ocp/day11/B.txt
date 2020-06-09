@@ -1,0 +1,5 @@
+﻿class B extends school
+{
+	
+	int eng;
+}

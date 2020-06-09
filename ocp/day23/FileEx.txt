@@ -1,0 +1,18 @@
+﻿package ioEX;
+
+import java.io.File;
+import java.io.IOException;
+
+public class FileEx {
+
+	public static void main(String[] args) throws IOException  {
+		File f1=new File("c:/dEF/SS/TT/UU");
+		
+		//f1.createNewFile();
+		//f1.delete();
+		//f1.mkdir();
+		f1.mkdirs();
+
+	}
+
+}

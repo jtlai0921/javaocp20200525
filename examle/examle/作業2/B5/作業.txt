@@ -1,0 +1,309 @@
+import java.util.Date;
+
+/**
+ *
+ * @author chung
+ */
+public class order {
+  
+   private String name;
+   
+    private int sum;
+    public int e_sum;
+   
+   private Date date;
+    private int a_food ;
+    private int b_food;
+    private int c_food;
+    private int food1;
+    private int food2;
+    private int food3;
+    private boolean food_1 , food_2,food_3;
+    private boolean memberRank_gold,memberRank_silver,memberRank_vip,memberRank_classic;
+    private String rk_msg,discount;
+    int pay,charge;
+   
+   order(String name,int a_food,int b_food,int c_food,boolean food_1,boolean food_2,boolean food_3,
+           int food1,int food2,int food3,boolean memberRank_gold,
+            boolean memberRank_silver,boolean memberRank_vip,boolean memberRank_classic,int pay)
+   {
+      
+       this.name=name;
+        this.date=new Date();
+         this.a_food=a_food;
+        this.b_food=b_food;
+        this.c_food=c_food;
+        this.food1=food1;
+        this.food2=food2;
+        this.food3=food3;
+        this.food_1=food_1;
+        this.food_2=food_2;
+        this.food_3=food_3;
+        this.memberRank_gold=memberRank_gold;
+        this.memberRank_silver=memberRank_silver;
+        this.memberRank_vip=memberRank_vip;
+        this.memberRank_classic=memberRank_classic;
+        this.pay=pay;
+        
+              
+         sum=a_food*120+b_food*130+c_food*140+(food_1==true ? food1 :0) *30+(food_2==true ? food2 :0)*40+(food_3==true ? food3 :0)*50;
+         System.out.println(food1);
+        if (memberRank_gold==true){
+            e_sum=(int) (sum*0.85);
+            rk_msg="金卡";
+            discount="八五折";
+        }
+        if(memberRank_silver==true){
+            e_sum=(int)(sum*0.90);
+              rk_msg="銀卡";
+              discount="九折";
+        }
+        if (memberRank_vip==true){
+            e_sum=(int)(sum*0.95);
+              rk_msg="VIP卡";
+              discount="九五折";
+        }
+        if(memberRank_classic==true){
+            e_sum=sum;
+              rk_msg="普卡";
+              discount="無折扣";
+        } 
+         
+        
+        }
+   
+
+
+
+    public String getName() {
+        return name;
+    }
+
+    
+    
+
+    public int getSum() {
+        return sum;
+    }
+
+    public int getE_sum() {
+        return e_sum;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+        
+    }
+
+
+  
+
+    public int getA_food() {
+        return a_food;
+    }
+
+    public int getB_food() {
+        return b_food;
+    }
+
+    public int getC_food() {
+        return c_food;
+    }
+
+    public int getFood1() {
+        return food1;
+    }
+
+    public int getFood2() {
+        return food2;
+    }
+
+    public int getFood3() {
+        return food3;
+    }
+
+    public boolean isFood_1() {
+          
+        return food_1;
+    }
+
+    public boolean isFood_2() {
+        return food_2;
+    }
+
+    public boolean isFood_3() {
+        return food_3;
+    }
+
+    public boolean isMemberRank_gold() {
+        return memberRank_gold;
+    }
+
+    public boolean isMemberRank_silver() {
+        return memberRank_silver;
+    }
+
+    public boolean isMemberRank_vip() {
+        return memberRank_vip;
+    }
+
+    public boolean isMemberRank_classic() {
+        return memberRank_classic;
+    }
+
+    public String getDiscount() {
+        return discount;
+    }
+
+    public void setA_food(int a_food) {
+        this.a_food = a_food;
+          
+    }
+
+    public void setB_food(int b_food) {
+        this.b_food = b_food;
+    }
+
+    public void setC_food(int c_food) {
+        this.c_food = c_food;
+    }
+
+    public void setFood1(int food1) {
+        this.food1 = food1;
+    }
+
+    public void setFood2(int food2) {
+        this.food2 = food2;
+    }
+
+    public void setFood3(int food3) {
+        this.food3 = food3;
+    }
+
+    public void setMemberRank_gold(boolean memberRank_gold) {
+        this.memberRank_gold = memberRank_gold;
+    }
+
+    public void setMemberRank_silver(boolean memberRank_silver) {
+        this.memberRank_silver = memberRank_silver;
+    }
+
+    public void setMemberRank_vip(boolean memberRank_vip) {
+        this.memberRank_vip = memberRank_vip;
+    }
+
+    public void setMemberRank_classic(boolean memberRank_classic) {
+        this.memberRank_classic = memberRank_classic;
+    }
+
+    public void setPay(int pay) {
+        this.pay = pay;
+    }
+
+
+
+    public String getRk_msg() {
+        return rk_msg;
+    }
+
+    public int getPay() {
+        
+        return pay;
+    }
+
+    public int getCharge() {
+         
+        return charge;
+    }
+    public void setFood_1(boolean food_1) {
+        
+        this.food_1 = food_1;
+           
+    }        
+    public void setFood_2(boolean food_2) {
+        this.food_2 = food_2;
+        
+    }        
+    public void setFood_3(boolean food_3) {
+        this.food_3 = food_3;
+        
+    }   
+    String show1(){
+      
+        return "訂購日期"+date+"\n購買人:"+name+"\n會員等級:"+rk_msg+"\n購買商品:\nA餐:"+a_food+"*130"+"\nB餐:"+b_food+"*140"+"\nC餐:"+c_food
+              +"*150"+"\n小菜1:" +food1+"*30"+"\n小菜2:"+food2+"*40"+"\n小菜3:"+food3+"*50"+"\n總金額:"+sum+"\n折扣:"
+                 +discount+"\n應付金額:"+e_sum;
+      
+  }
+  
+        
+
+    String show2(){
+        return String.valueOf(charge);
+    }
+     String show3(){
+        if (charge>=0){
+         return "購買人:"+name+"\n會員等級:"+rk_msg+"\n購買商品:\nA餐:"+a_food+"*130"+"\nB餐:"+b_food+"*140"+"\nC餐:"+c_food
+              +"*150"+"\n小菜1:" +food1+"*30"+"\n小菜2:"+food2+"*40"+"\n小菜3:"+food3+"*50"+"\n總金額:"+sum+"\n折扣:"
+                 +discount+"\n應付金額:"+e_sum+"\n收您:"+pay+"元\n找您:"+charge+"元";
+    }
+        else 
+        {
+            return "結帳失敗";
+        }
+     }
+        String show4(){
+        return String.valueOf(e_sum);
+    }
+     }
+
+
+"==================================================================="
+
+
+ order o1;
+
+private void sureMouseClicked(java.awt.event.MouseEvent evt) {                                  
+    
+        String Name=name.getText();
+        int A_food=Integer.parseInt(a_food.getText());
+        int B_food=Integer.parseInt(b_food.getText());
+        int C_food=Integer.parseInt(c_food.getText());
+        boolean Food_1=food_1.isSelected();
+        boolean Food_2=food_2.isSelected();
+        boolean Food_3=food_3.isSelected();
+        boolean memberrank_gold=memberRank_gold.isSelected();
+        boolean memberrank_classic=memberRank_classic.isSelected();
+        boolean memberrank_silver=memberRank_silver.isSelected();
+        boolean memberrank_vip=memberRank_vip.isSelected();
+        
+        int Food1= food1.getSelectedIndex();
+        int Food2= food2.getSelectedIndex();
+        int Food3= food3.getSelectedIndex();
+        int Pay=0;//Integer.parseInt(pay.getText());
+           o1= new order(Name, A_food, B_food, C_food, Food1, Food2, 
+             Food3,Food_1, Food_2, Food_3, memberrank_gold,
+             memberrank_silver, memberrank_vip, memberrank_classic, Pay);
+           
+        
+          ans.setText(o1.show1());
+        E_sum.setText(o1.show4()); 
+         
+    }                                 
+
+    private void PAYMouseClicked(java.awt.event.MouseEvent evt) {                                 
+       
+        int Pay=Integer.parseInt(pay.getText());
+         
+         o1.setPay(Pay);
+         o1.charge=o1.pay-o1.e_sum;
+        
+        Charge.setText(o1.show2());
+        ans2.setText(o1.show3());
+    }                                
+
+

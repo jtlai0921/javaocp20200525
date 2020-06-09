@@ -1,0 +1,13 @@
+﻿package com.sa;
+
+public interface student2 {
+	//輸出顯示的功能
+	
+	String show();
+	
+	//修改分數功能
+	
+	void set(int o);
+	
+
+}

@@ -1,0 +1,328 @@
+String itemType = "";
+
+public orderView() {
+    initComponents();
+    
+    lab1.setVisible(false);
+    lab2.setVisible(false);
+    num1.setVisible(false);
+    num2.setVisible(false);
+}
+
+private void payActionPerformed(java.awt.event.ActionEvent evt) {                                    
+    // TODO add your handling code here:
+    orderDetail();
+}                                   
+
+private void num2StateChanged(javax.swing.event.ChangeEvent evt) {                                  
+    // TODO add your handling code here:
+    orderDetail();
+}                                 
+
+private void num1StateChanged(javax.swing.event.ChangeEvent evt) {                                  
+    // TODO add your handling code here:
+    orderDetail();
+}                                 
+
+private void radio3CActionPerformed(java.awt.event.ActionEvent evt) {                                        
+    // TODO add your handling code here:
+    itemType = "3C";
+    
+    lab1.setText(menu.getLcdStr());
+    lab2.setText(menu.getRamStr());
+    visible();
+
+    orderDetail();
+}                                       
+
+private void radioWriteActionPerformed(java.awt.event.ActionEvent evt) {                                           
+    // TODO add your handling code here:
+    itemType = "Write";
+
+    lab1.setText(menu.getRulerStr());
+    lab2.setText(menu.getPenStr());
+    visible();
+
+    orderDetail();
+}                                          
+
+private void nameFocusLost(java.awt.event.FocusEvent evt) {                               
+    // TODO add your handling code here:
+    orderDetail();
+}                              
+
+private void visible(){
+    
+    lab1.setVisible(true);
+    lab2.setVisible(true);
+    num1.setVisible(true);
+    num2.setVisible(true);
+    num1.setValue(0);
+    num2.setValue(0);
+}
+private void orderDetail() {
+
+    order or = new order();
+    or.setName(name.getText());
+    or.setItemType(itemType);
+    or.setNum1((int) num1.getValue());
+    or.setNum2((int) num2.getValue());
+    or.setPay(pay.getSelectedIndex());
+    or.setPayStr(pay.getSelectedItem().toString());
+
+    showDetail.setText(or.show());
+}
+
+===========================================================================
+
+package HW;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class order extends menu {
+
+    private String name;
+    private int num1;
+    private int num2;
+    private int pay;
+    private String itemType;
+    private String payStr;
+
+    public String show() {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+       
+        int total = getItemType().equals("3C") ? getNum1() * getLcdPrice() + getNum2() * getRamPrice() 
+                : getItemType().equals("Write") ? getNum1() * getRulerPrice() + getNum2() * getPenPrice() : 0 ;
+        
+        String itemType3C = (getNum1() > 0 ? "\nLCD: " + getNum1() + "個 x " + getLcdPrice() + "元 小計 " + getNum1() * getLcdPrice() + " 元" : "")
+                + (getNum2() > 0 ? "\nRAM: " + getNum2() + "個 x " + getRamPrice() + "元 小計 " + getNum2() * getRamPrice() + " 元" : "");
+        String itemTypeWrite = (getNum1() > 0 ? "\nRuler: " + getNum1() + "個 x " + getRulerPrice() + "元 小計 " + getNum1() * getRulerPrice() + " 元" : "")
+                + (getNum2() > 0 ? "\nPen: " + getNum2() + "個 x " + getPenPrice() + "元 小計 " + getNum2() * getPenPrice() + " 元" : "");
+
+        String body = total == 0 ? "\n\n請選擇商品數量"
+                : "，您的訂單明細如下:\n"
+                + (getItemType().equals("3C") ? itemType3C : itemTypeWrite)
+                + "\n\n" + "總價: " + total + " 元"
+                + "\n\n付款方式為: " + getPayStr()
+                + "\n\n訂單日期: " + sdf.format(new Date());
+
+        return "\n"+ (getName().isEmpty() ? "請問你哪位?" : getName() + " 您好" + body);
+
+    }
+
+    /**
+     * @return the pay
+     */
+    public int getPay() {
+        return pay;
+    }
+
+    /**
+     * @param pay the pay to set
+     */
+    public void setPay(int pay) {
+        this.pay = pay;
+    }
+
+    /**
+     * @return the payStr
+     */
+    public String getPayStr() {
+        return payStr;
+    }
+
+    /**
+     * @param payStr the payStr to set
+     */
+    public void setPayStr(String payStr) {
+        this.payStr = payStr;
+    }
+
+    /**
+     * @return the itemType
+     */
+    public String getItemType() {
+        return itemType;
+    }
+
+    /**
+     * @param itemType the itemType to set
+     */
+    public void setItemType(String itemType) {
+        this.itemType = itemType;
+    }
+
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name.trim();
+    }
+
+    /**
+     * @return the num1
+     */
+    public int getNum1() {
+        return num1;
+    }
+
+    /**
+     * @param num1 the num1 to set
+     */
+    public void setNum1(int num1) {
+        this.num1 = num1;
+    }
+
+    /**
+     * @return the num2
+     */
+    public int getNum2() {
+        return num2;
+    }
+
+    /**
+     * @param num2 the num2 to set
+     */
+    public void setNum2(int num2) {
+        this.num2 = num2;
+    }
+
+}
+
+===========================================================================
+
+package HW;
+
+public class menu {
+
+    private static String lcdStr = "LCD (4999元)";
+    private static String ramStr = "RAM (1280元)";
+    private static String rulerStr = "Ruler (30元)";
+    private static String penStr = "Pen (20元)";
+    private static int lcdPrice = 4999;
+    private static int ramPrice = 1280;
+    private static int rulerPrice = 30;
+    private static int penPrice = 20;
+
+    /**
+     * @return the lcdStr
+     */
+    public static String getLcdStr() {
+        return lcdStr;
+    }
+
+    /**
+     * @param aLcdStr the lcdStr to set
+     */
+    public static void setLcdStr(String aLcdStr) {
+        lcdStr = aLcdStr;
+    }
+
+    /**
+     * @return the ramStr
+     */
+    public static String getRamStr() {
+        return ramStr;
+    }
+
+    /**
+     * @param aRamStr the ramStr to set
+     */
+    public static void setRamStr(String aRamStr) {
+        ramStr = aRamStr;
+    }
+
+    /**
+     * @return the rulerStr
+     */
+    public static String getRulerStr() {
+        return rulerStr;
+    }
+
+    /**
+     * @param aRulerStr the rulerStr to set
+     */
+    public static void setRulerStr(String aRulerStr) {
+        rulerStr = aRulerStr;
+    }
+
+    /**
+     * @return the penStr
+     */
+    public static String getPenStr() {
+        return penStr;
+    }
+
+    /**
+     * @param aPenStr the penStr to set
+     */
+    public static void setPenStr(String aPenStr) {
+        penStr = aPenStr;
+    }
+
+    /**
+     * @return the lcdPrice
+     */
+    public static int getLcdPrice() {
+        return lcdPrice;
+    }
+
+    /**
+     * @param aLcdPrice the lcdPrice to set
+     */
+    public static void setLcdPrice(int aLcdPrice) {
+        lcdPrice = aLcdPrice;
+    }
+
+    /**
+     * @return the ramPrice
+     */
+    public static int getRamPrice() {
+        return ramPrice;
+    }
+
+    /**
+     * @param aRamPrice the ramPrice to set
+     */
+    public static void setRamPrice(int aRamPrice) {
+        ramPrice = aRamPrice;
+    }
+
+    /**
+     * @return the rulerPrice
+     */
+    public static int getRulerPrice() {
+        return rulerPrice;
+    }
+
+    /**
+     * @param aRulerPrice the rulerPrice to set
+     */
+    public static void setRulerPrice(int aRulerPrice) {
+        rulerPrice = aRulerPrice;
+    }
+
+    /**
+     * @return the penPrice
+     */
+    public static int getPenPrice() {
+        return penPrice;
+    }
+
+    /**
+     * @param aPenPrice the penPrice to set
+     */
+    public static void setPenPrice(int aPenPrice) {
+        penPrice = aPenPrice;
+    }
+}
+

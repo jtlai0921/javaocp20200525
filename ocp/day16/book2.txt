@@ -1,0 +1,5 @@
+﻿interface book2
+{
+	void show();
+	void bookName(String name);
+}

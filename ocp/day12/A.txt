@@ -1,0 +1,30 @@
+﻿class A extends school
+{
+	int math;
+
+
+	A(String name)
+	{
+		super(name,10);
+		//super(name);
+		System.out.println("hello !");		
+		System.out.println("A班學員");
+	}
+
+	A(String name,int chi,int math)
+	{
+		super(name,chi);
+	}
+
+	A(String name,int chi)
+	{
+		super(name,chi);
+	}
+
+	void show()
+	{
+		System.out.println("名:"+name+
+			"\t國文:"+chi+
+			"\t數學:"+math);
+	}
+}

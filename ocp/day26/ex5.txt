@@ -1,0 +1,64 @@
+﻿package lambDaEx;
+interface book5
+{
+	double bookPrice(double price);
+}
+
+public class ex5 {
+
+	public static void main(String[] args) {
+		/*book5 b=new book5()
+		{
+
+			@Override
+			public double bookPrice(double price) {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+			
+		};*/
+		
+		//book5 b=(double price)->price*0.95;
+		book5 b=cal::p3;
+		System.out.println(b.bookPrice(1000));
+
+	}
+
+}
+
+class cal
+{
+	static double p1(double price)
+	{
+		if(price>=0)
+		{
+			return price*0.95;
+		}
+		else
+		{
+			return 0;
+		}
+	}
+	static double p2(double price)
+	{
+		if(price>=0)
+		{
+			return price*0.9;
+		}
+		else
+		{
+			return 0;
+		}
+	}
+	static double p3(double price)
+	{
+		if(price>=0)
+		{
+			return price*0.85;
+		}
+		else
+		{
+			return 0;
+		}
+	}
+}

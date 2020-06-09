@@ -1,0 +1,173 @@
+﻿
+package Dao;
+
+import Model.student;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+public class studentDao implements implDao{
+
+    public static void main(String[] args) {
+        
+    //    student s=new student("yy",48,74);
+      //  new studentDao().add(s);
+  
+    System.out.println(new studentDao().readAll());
+     
+     
+    // new studentDao().update(4, "def");
+    
+   // new studentDao().delete(3);
+                               
+    }
+
+    @Override
+    public void add(student s) {
+         String url="jdbc:mysql://localhost:3306/school";
+		String user="root";
+		String password="1234";
+		String SQL="insert into student(name,chi,eng,sum) values(?,?,?,?)";
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection conn=DriverManager.getConnection(url, user, password);
+			PreparedStatement ps=conn.prepareStatement(SQL);
+			
+			ps.setString(1,s.getName());
+			ps.setInt(2,s.getChi());
+			ps.setInt(3, s.getEng());
+			ps.setInt(4, s.getSum());
+			
+			
+			ps.executeUpdate();
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("no Driver");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			System.out.println("no connection");
+		}
+        
+    }
+
+    @Override
+    public String readAll() {
+        String str="";
+           String url="jdbc:mysql://localhost:3306/school";
+		String user="root";
+		String password="1234";
+		String SQL="select * from student";
+		
+		
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection conn=DriverManager.getConnection(url, user, password);
+			
+			Statement st=conn.createStatement();
+			
+			ResultSet rs=st.executeQuery(SQL);
+			
+			while(rs.next())
+			{
+			
+			str=str+"id="+rs.getInt("id")+
+			"\tname:"+rs.getString("name")+
+			"\tchi:"+rs.getInt("chi")+
+			"\teng:"+rs.getInt("eng")+
+			"\tsum:"+rs.getInt("sum")+"\n";
+					
+			
+			}
+		
+		
+		
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("no Driver");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			System.out.println("no connection");
+		}
+        
+        
+        
+        
+        return str;
+    }
+
+    @Override
+    public void update(int id, String name) {
+          
+             String url="jdbc:mysql://localhost:3306/school";
+		String user="root";
+		String password="1234";
+		
+		String SQL="update student set name='"+name+"' where id="+id;
+		
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection conn=DriverManager.getConnection(url, user, password);
+			Statement st=conn.createStatement();
+			
+			st.executeUpdate(SQL);
+			
+			
+		
+		
+		
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("no Driver");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			System.out.println("no connection");
+		}
+    }
+
+    @Override
+    public void delete(int id) {
+          String url="jdbc:mysql://localhost:3306/school";
+		String user="root";
+		String password="1234";
+		
+		String SQL="delete from student where id="+id;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection conn=DriverManager.getConnection(url, user, password);
+			Statement st=conn.createStatement();
+			
+			st.executeUpdate(SQL);
+			
+			
+		
+		
+		
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("no Driver");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			System.out.println("no connection");
+		}
+        
+    }
+    
+}

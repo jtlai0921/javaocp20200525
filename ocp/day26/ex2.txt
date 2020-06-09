@@ -1,0 +1,48 @@
+﻿package lambDaEx;
+interface book2_2
+{
+	void show1();
+}
+interface book2_3
+{
+	void show2();
+}
+interface book2 extends book2_2,book2_3
+{
+	void show3();
+	void show2();
+}
+
+class bookStore2 implements book2
+{
+
+	@Override
+	public void show1() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void show3() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void show2() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+	
+}
+
+public class ex2 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

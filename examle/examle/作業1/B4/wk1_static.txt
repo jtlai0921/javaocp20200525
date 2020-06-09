@@ -1,0 +1,216 @@
+
+import java.util.Date;
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ *
+ * @author peter
+ */
+public class wk1_static
+{
+       private String name;
+       private static  int lcd;
+       private static  int ram;
+       private static int mouse;
+       private  int sum;
+       private static int sum_st;
+       private int give_sum;
+       private int charge_sum;
+       private boolean member;
+       private Date date;
+       wk1_static(String name, int lcd,int ram,int mouse,boolean member)       
+      {
+           if (lcd>=0 || ram>=0 || mouse>=0)
+           {
+             
+             this.name=name;
+             this.lcd=lcd;
+             this.ram=ram;
+             this.mouse=mouse;
+             this.member=member;
+             this.date=new Date();
+             sum=lcd*4999+ram*1280+mouse*680;
+           }
+      }
+    
+
+    public int getSum(boolean member) {
+       int r_sum=lcd*4999+ram*1280+mouse*680;
+      if(r_sum>9999 && member==true )
+       {
+       r_sum=(int)((r_sum*0.95)*0.95);
+       }
+      else if(r_sum<9999 && member==true)
+      {
+         r_sum=(int)(r_sum*0.95);
+      }
+        else if(r_sum>9999 && member==false) 
+        {
+            r_sum=(int)(r_sum*0.95); 
+        } 
+       sum_st=r_sum;
+        return r_sum;
+    }
+
+    public void setMember(boolean member) {
+        this.member = member;
+    }
+    public static void setLcd(int lcd) {
+        wk1_static.lcd = lcd;
+    }
+
+    public static void setRam(int ram) {
+        wk1_static.ram = ram;
+    }
+
+    public static void setMouse(int mouse) {
+        wk1_static.mouse = mouse;
+    }
+
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getLcd() {
+        return lcd;
+    }
+
+    public int getRam() {
+        return ram;
+    }
+
+    public int getMouse() {
+        return mouse;
+    }
+
+
+    public static int getSum_st() {
+        return sum_st;
+    }
+
+  
+
+    public int getGive_sum() {
+        return give_sum;
+    }
+
+    public int getCharge_sum() {
+        return charge_sum;
+    }
+
+    public boolean isMember() {
+        return member;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+   String get_Msg(boolean member)
+    {
+     String g_msg="";
+     System.out.println(member);
+    System.out.println("get Msg member"+member);
+     int g_sum=this.lcd*4999+this.ram*1280+this.mouse*680;
+     
+    if(g_sum>9999 && this.member==true )
+     {
+       g_msg="滿一萬打95折會員再打95折\n";
+      }
+     else if(g_sum<9999 && this.member==true)
+       {
+        g_msg="未滿一萬會員打95折\n";
+       }
+     else if(g_sum>9999 && this.member==false)
+        {
+              g_msg="滿一萬打95折\n";
+        }
+      else
+      {
+           g_msg="不打折\n";
+      }
+     
+   
+     return g_msg;
+    }
+    
+    
+    String show(boolean member,int getCharge_sum,int show_num)
+    {
+      
+         
+      String  msg= get_Msg(member)+
+        "\n姓名=>"+getName()+
+        "\n LCD==>"+getLcd()+"小計"+getLcd()*4999+
+        "\n RAM==>"+getRam()+"小計"+getRam()*1280+
+         "\n MOUSE==>"+getMouse()+"小計"+getMouse()*680+
+         "\n 會員==>"+isMember()+
+         "\n 總價==>"+getSum(member)+
+         "\n 日期==>"+ getDate();
+       if (show_num>=1)
+          {
+          msg=msg+"\n"+show1(getCharge_sum);
+          }
+        
+        return msg;
+    }
+   String show1(int getCharge_sum)
+    {
+        String msg1;
+           msg1 = "";
+          if(getCharge_sum>1)
+          {
+           msg1="找你"+getCharge_sum+"元";
+          }
+          else
+          {
+            msg1="請再付"+getCharge_sum+"元";
+          }
+          System.out.println("show1"+msg1);
+        return msg1;
+}
+}
+===========================================================================================
+  private void okMouseClicked(java.awt.event.MouseEvent evt) {                                
+        // TODO add your handling code here:
+         String NAME=name.getText();
+        int LCD=Integer.parseInt(lcd.getText());
+        int RAM=Integer.parseInt(ram.getText());
+        int MOUSE=Integer.parseInt(mouse.getText());
+        boolean MEMBER=member.isSelected();
+        wk1_static wko_st;
+        wko_st = new wk1_static(NAME,LCD,RAM,MOUSE,MEMBER);
+        //System.out.println("getSum()=="+wko_st.getSum(MEMBER));
+        
+       System.out.println("wk1_static.getSum_st()==>"+wk1_static.getSum_st());
+        ans.setText(wko_st.show(MEMBER,0,0));
+        
+    }                               
+
+    private void ok1MouseClicked(java.awt.event.MouseEvent evt) {                                 
+        // TODO add your handling code here:
+        
+          String NAME=name.getText();
+        int LCD=Integer.parseInt(lcd.getText());
+        int RAM=Integer.parseInt(ram.getText());
+        int MOUSE=Integer.parseInt(mouse.getText());
+        boolean MEMBER=member.isSelected();
+        int GIVE_SUM=Integer.parseInt(give_sum.getText());
+        int charegs=GIVE_SUM-wk1_static.getSum_st();
+         wk1_static wko_st;
+         wko_st = new wk1_static(NAME,LCD,RAM,MOUSE,MEMBER);
+         charge_sum.setText(Integer.toString(GIVE_SUM-wk1_static.getSum_st()));
+         System.out.println("getSum_st()=="+wk1_static.getSum_st());
+            ans1.setText(wko_st.show(MEMBER,charegs,1));
+         
+         // charge_sum.setText(wk1_static.getSum_st() );
+    }                                

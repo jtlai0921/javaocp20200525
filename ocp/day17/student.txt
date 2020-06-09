@@ -1,0 +1,19 @@
+﻿package com.sa;
+
+public class student
+{
+	private String name;
+	public int t1=10;
+	protected int t2=10;
+
+	public student(String name)
+	{
+		this.name=name;
+	}
+
+
+	public String show()
+	{
+		return "名:"+name;
+	}
+}

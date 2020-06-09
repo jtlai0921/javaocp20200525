@@ -1,0 +1,42 @@
+﻿package jdbcEX;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class ex2 {
+
+	public static void main(String[] args) {
+		String url="jdbc:mysql://localhost:3306/company";
+		String user="root";
+		String password="1234";
+		//String SQL="insert into test(name,lcd,ram,mouse,sum) values('ddd',2,1,2,10000)";
+		//String SQL="update corder set name='yyy' where id=2 ";
+		String SQL="delete from corder where id=2";
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection conn=DriverManager.getConnection(url, user, password);
+			Statement st=conn.createStatement();
+			
+			st.executeUpdate(SQL);
+			
+			
+		
+		
+		
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("no Driver");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			System.out.println("no connection");
+		}
+
+
+	}
+
+}

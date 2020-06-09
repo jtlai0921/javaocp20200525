@@ -1,0 +1,166 @@
+import java.util.Date;
+public class Order {
+    private String name;
+    private int led,ram,mouse,sum;
+    private boolean member;
+    private Date date=new Date();
+    private int memDis,sumDis,pay,change;
+    private static int totalSum;
+    
+    Order (String name, int led, int ram, int mouse, boolean member)
+    {
+        if(led>=0 && ram>=0 && mouse>=0){
+            this.name=name;
+            this.led=led;
+            this.ram=ram;
+            this.mouse=mouse;
+            this.member=member;
+            this.date=new Date();
+        }
+        
+    }
+    
+    Order (int pay)
+    {
+        this.pay=pay;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setLed(int led) {
+        this.led = led;
+    }
+
+    public void setRam(int ram) {
+        this.ram = ram;
+    }
+
+    public void setMouse(int mouse) {
+        this.mouse = mouse;
+    }
+
+    public void setMember(boolean member) {
+        this.member = member;
+    }
+
+    public void setPay(int pay) {
+        this.pay = pay;
+    }
+
+    public void setChange(int change) {
+        this.change = change;
+    }
+
+    public void setTotalSum(int totalSum) {
+        this.totalSum = totalSum;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getLed() {
+        return led;
+    }
+
+    public int getRam() {
+        return ram;
+    }
+
+    public int getMouse() {
+        return mouse;
+    }
+
+    public int getSum() {
+        return sum;
+    }
+
+    public boolean isMember() {
+        return member;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public int getMemDis() {
+        return memDis;
+    }
+
+    public int getSumDis() {
+        return sumDis;
+    }
+
+    public int getTotalSum() {
+        return totalSum;
+    }
+
+    public int getPay() {
+        return pay;
+    }
+
+    public int getChange() {
+        return change;
+    }
+    
+    String show()
+    {    
+        this.sum=led*4999+ram*1280+mouse*680;
+        if (member==true)
+        {
+            memDis=(int)(Math.round(this.sum*0.05));
+        }
+        if (sum>=10000)
+        {
+            sumDis=(int)(Math.round((this.sum-memDis)*0.05));
+        }
+        this.totalSum=this.sum-memDis-sumDis;
+        return "結帳日期："+getDate()+
+               "\n姓名："+name+
+               "\nLed："+getLed()+"*4999元="+getLed()*4999+
+               "元\nRam："+getRam()+"*1280元="+getRam()*1280+
+               "元\nMouse："+getMouse()+"*680元="+getMouse()*680+
+               "元\n合計："+this.sum+
+               "元\n\n會員(折扣)："+memDis+
+               "元\n消費滿1萬(折扣)："+sumDis+
+               "元\n總合計："+this.totalSum+"元";              
+    }
+    
+    String showChange()
+    {
+        String err = "";
+        if(this.pay>this.totalSum)
+        {
+            change=this.pay-this.totalSum;
+            return Integer.toString(change);
+        }
+        else
+        {
+            err = "輸入金額不足";
+        }
+        return err;
+    }
+}
+
+
+=============================================================================
+    private void okMouseClicked(java.awt.event.MouseEvent evt) {                                
+        String Name=name.getText();
+        int Led=Integer.parseInt(led.getText());
+        int Ram=Integer.parseInt(ram.getText());
+        int Mouse=Integer.parseInt(mouse.getText());
+        boolean Member=member.isSelected();
+        
+        Order c1=new Order(Name, Led, Ram, Mouse, Member);
+        output.setText(c1.show());
+    }                               
+
+
+=============================================================================
+    private void giveChangeMouseClicked(java.awt.event.MouseEvent evt) {                                        
+        int PAY=Integer.parseInt(pay.getText());
+        Order p1=new Order(PAY);
+        change.setText(p1.showChange()); 
+    }        

@@ -1,0 +1,569 @@
+=====================login 畫面 
+private void resetMouseClicked(java.awt.event.MouseEvent evt) {                                   
+        // TODO add your handling code here:
+        username.setText("");
+        password.setText("");
+    }                                  
+
+    private void loginMouseClicked(java.awt.event.MouseEvent evt) {                                   
+        // TODO add your handling code here:
+        String USERNAME=username.getText();
+          String PASSWORD=password.getText().trim();
+          System.out.println("---"+password.getText().trim());
+            longin lo;
+            lo = new longin(USERNAME,PASSWORD);
+             if (lo.getLogint()==false)
+       {
+              JOptionPane.showMessageDialog(null,"請重新輸入帳號密碼", "結帳", 0);
+       }
+       else
+       {
+                orderlin cust1=new orderlin();
+                String s=username.getText();
+                cust1.username.setText(s);
+                cust1.setVisible(true);
+                this.dispose();
+          
+       }
+    }
+
+======================================訂單=============================================================      
+     private void okMouseClicked(java.awt.event.MouseEvent evt) {                                
+        // TODO add your handling code here:
+        String NAMES=names.getText();
+        String ADDRESS=address.getText();
+        USERNAME=username.getText();
+       // System.out.println(" USERNAME=="+ USERNAME);
+        int MENUS=menus.getSelectedIndex();
+        String MENUSITEN=menus.getSelectedItem().toString();
+        int MENUSO=menuso.getSelectedIndex();
+        String MENUSOITEM=menuso.getSelectedValue();
+        int QTY=(int)(qty.getValue());
+        int QTY1=(int)(qty1.getValue());
+        if (names.getText().equals(""))
+        {
+            JOptionPane.showMessageDialog(null,"姓名欄位未輸入請輸入姓名", "姓名", 0);
+        }
+        else
+        {
+        
+          ol=new header(NAMES,ADDRESS,USERNAME);
+            try
+            {
+             int PAY=Integer.parseInt(pay.getText());
+             System.out.println("pay-->"+PAY);
+        ll=new line(NAMES,ADDRESS,USERNAME,MENUS,MENUSITEN,MENUSO,MENUSOITEM,QTY,QTY1
+                  ,lcdp,ramp,rulerp,panp,PAY);
+          System.out.println("   public orderlin()"+USERNAME);
+            if(ll.getSum()<=0)
+           {
+             ans.setText("數量為零請輸入數量並重新計算");
+           }
+           else
+           {      
+         
+             ans.setText(ll.show());
+              }
+          }
+         catch(java.lang.NumberFormatException e)
+          {
+           ans.setText("現金欄位不能是空值或非數字");
+          }
+        
+        }
+        /*System.out.println("menus"+menus.getSelectedIndex());
+        System.out.println("menuso"+menuso.getSelectedIndex());
+        System.out.println("qty"+qty.getValue());
+        */
+    }                                                      
+  ===========================商品 enus===========================
+
+package info;
+
+/**
+ *
+ * @author peter
+ */
+public enum menus {
+       lcd(1499),ram(1280);
+    private  int x;
+    private menus(int x)
+    {
+     this.x=x;
+    }
+
+    public static menus getLcd() {
+        return lcd;
+    }
+
+    public static menus getRam() {
+        return ram;
+    }    
+
+    public int getX() {
+        return x;
+    }
+    
+    public enum wirtes
+    {
+     ruler(30),pan(20);
+     private int y;
+     private wirtes(int y)
+     {
+       this.y=y;
+     }
+
+        public static wirtes getRuler() {
+            return ruler;
+        }
+
+        public static wirtes getPan() {
+            return pan;
+        }
+
+        public int getY() {
+            return y;
+        }
+     
+    }
+}       
+===============================login password============================
+public interface logininfo {
+    public enum login {
+ 	admin("admin123", "管理者", 1), userall("useral123", "超級使用者", 2), user("user123", "使用者", 3);
+	private String a;
+	private String b;
+	private int c;
+
+	private login(String a, String b, int c) {
+		this.a = a;
+		this.b = b;
+		this.c = c;
+	}
+
+        public String getA() {
+            return a;
+        }
+
+        public void setA(String a) {
+            this.a = a;
+        }
+
+        public String getB() {
+            return b;
+        }
+
+        public void setB(String b) {
+            this.b = b;
+        }
+
+        public int getC() {
+            return c;
+        }
+
+        public void setC(int c) {
+            this.c = c;
+        }
+
+
+ public  enum powers
+{
+	 admin("會員等級",1,"產品",2,"訂單",3), userall("會員等級",1,"產品",0,"訂單",3), user("會員等級",0,"產品",0,"訂單",3);
+	private String a1;
+	private int a2;
+	private String b1;
+	private int b2;
+	private String c1;
+	private int c2;
+	
+	private powers(String a1, int a2, String b1,int b2,String c1,int c2)
+	{
+		this.a1 = a1;
+		this.a2 = a2;
+		this.b1 = b1;
+		this.b2 = b2;
+		this.c1 = c1;
+		this.c2 = c2;
+	}
+
+            public String getA1() {
+                return a1;
+            }
+
+            public void setA1(String a1) {
+                this.a1 = a1;
+            }
+
+            public int getA2() {
+                return a2;
+            }
+
+            public void setA2(int a2) {
+                this.a2 = a2;
+            }
+
+            public String getB1() {
+                return b1;
+            }
+
+            public void setB1(String b1) {
+                this.b1 = b1;
+            }
+
+            public int getB2() {
+                return b2;
+            }
+
+            public void setB2(int b2) {
+                this.b2 = b2;
+            }
+
+            public String getC1() {
+                return c1;
+            }
+
+            public void setC1(String c1) {
+                this.c1 = c1;
+            }
+
+            public int getC2() {
+                return c2;
+            }
+
+            public void setC2(int c2) {
+                this.c2 = c2;
+            }
+
+           
+        
+	
+}       
+    }
+       
+}
+
+=============login main class   ========
+import info.logininfo.login;
+import info.logininfo.login.powers;
+import info.menus;
+
+/**
+ *
+ * @author peter
+ */
+public class longin {
+        private String inusernaem = "";
+	private String inpassword = "";
+	private String username = "";
+	private String password = "";
+	private String longmsg = "";
+	int power = 0;
+	String x1 = "";
+	int x2 = 0;
+	String y1 = "";
+	int y2 = 0;
+	String z1 = "";
+        int z2 = 0;
+        Boolean logint=false;
+        public	longin(String inusernaem, String inpassword) {
+
+		login[] li = login.values();
+		powers[] pi = powers.values();
+                System.out.println("inpassword===>"+inpassword);
+                System.out.println("li[0].getX()===>"+li[0].getA());
+                for (int i = 0; i < li.length; i++) {
+                    if (li[i].name() .trim().equals(inusernaem) && li[i].getA().trim().equals(inpassword)) {
+				
+			System.out.println("true");
+		        System.out.println("y1=>" + pi[0].name());
+			// System.out.println("y1=>" + pi[0].);
+			this.username = li[i].name();
+			this.password = li[i].getB();
+			this.power = li[i].getC();
+                        this.logint=true;
+                        for (int y = 0; y < pi.length; y++) {
+                            System.out.println("username==" + username);
+                            if (pi[y].name() == username) {
+						x1 = pi[i].getA1();
+						x2 = pi[i].getA2();
+						y1 = pi[i].getB1();
+						y2 = pi[i].getB2();
+						z1 = pi[i].getC1();
+						z2 = pi[i].getC2();
+						System.out.println("x1=>" + pi[i].getA1());
+						System.out.println("x2=>" + pi[i].getA2());
+						System.out.println("y1=>" + pi[i].getB1());
+						System.out.println("y2=>" + pi[i].getB2());
+						System.out.println("z1=>" + pi[i].getC1());
+						System.out.println("z2=>" + pi[i].getC2());
+					}
+                            
+                        }
+                        }
+                    }
+                    
+                    
+                }
+===============================父類別==============================
+package haedorder;
+
+import info.menus;
+import info.menus.wirtes;
+import static onlinorder.orderlin.username;
+
+/**
+ *
+ * @author peter
+ */
+public class header {
+    private String names;
+    private String address;
+    private String username;
+    private String msg;
+    private int lcdprice;
+    private int ramprice;
+    private int rulerprice;
+    private int panprice;
+  
+            
+    public header(String names,String address,String username)
+    { 
+        this.names=names;
+        this.address=address;
+        this.username=username;
+        menus[] li = menus.values();
+        wirtes[] wi=wirtes.values();
+        this.lcdprice=li[0].getX();
+        this.ramprice=li[1].getX();
+        this.rulerprice=wi[0].getY();
+        this.panprice=wi[1].getY();
+       // System.out.println(" this.lcdprice=li[0].getX();"+ li[0].getX());
+       // System.out.println(" this.lcdprice=li[1].getX();"+ li[1].getX());
+        
+    }
+    public header()
+    {   menus[] li = menus.values();
+        wirtes[] wi=wirtes.values();
+         this.lcdprice=li[0].getX();
+        this.ramprice=li[1].getX();
+        this.rulerprice=wi[0].getY();
+        this.panprice=wi[1].getY();
+    }       
+    public String getNames() {
+        return names;
+    }
+
+    public void setNames(String name) {
+        this.names = name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public int getLcdprice() {
+        return lcdprice;
+    }
+
+    public int getRamprice() {
+        return ramprice;
+    }
+
+    public int getRulerprice() {
+        return rulerprice;
+    }
+
+    public int getPanprice() {
+        return panprice;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+ 
+    
+    
+   public String show()
+  { 
+      msg="建單者\t"+ getUsername(); 
+      msg=msg+"\n客戶姓名:"+getNames()+"\n地址:"+getAddress();
+      return msg;
+  }
+}
+=================子類別=================================
+package onlinorder;
+
+import haedorder.header;
+
+/**
+ *
+ * @author peter
+ */
+public class line extends header {
+    private int qty2=0;
+    private int qty1=0;
+    private int qty3=0;
+    private int menus=0;
+    private String menusitem="";
+    private int menus1=0;
+    private String menus1item="";
+    private int sum=0;
+    private String msg="";
+    private int lcdp=0;
+    private int ramp=0;
+    private int rulerp=0;
+    private int panp=0;
+    private int pay=0;
+   
+    
+    line(String names,String address,String loginnname ,int menus,String menusitem,int menus1,String menus1item ,int qty1,int qty2,
+           int lcdp,int ramp,int rulerp, int panp,int pay)
+    { 
+      super(names,address,loginnname);
+ 
+      
+      this.qty2=qty2;
+      this.qty1=qty1;
+      this.menus=menus;
+      this.menus1=menus1;
+      this.menusitem=menusitem;
+      this.menus1item=menus1item;
+      this.lcdp=lcdp;
+      this.ramp=ramp;
+      this.rulerp=rulerp;
+      this.panp=panp;
+      this.pay=pay;
+
+    }
+
+    public void setQty2(int qty2) {
+        this.qty2 = qty2;
+    }
+
+    public void setQty1(int qty1) {
+        this.qty1 = qty1;
+    }
+
+    public int getQty2() {
+        return qty2;
+    }
+
+    public int getQty1() {
+        return qty1;
+    }
+
+    public int getMenus() {
+        return menus;
+    }
+
+    public int getMenus1() {
+        return menus1;
+    }
+
+    public int getSum() {
+      
+         switch ( getMenus())
+         {
+                case 0:
+                 sum=0;
+                 break;
+                 case 1:  
+                 sum=qty1*lcdp+qty2*ramp;
+                 break;
+                 case 2:  
+                   sum=qty1*rulerp+qty2*panp;
+                 break;
+         }
+                
+        return sum;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public String getMenusitem() {
+        return menusitem;
+    }
+
+    public void setMenusitem(String menusitem) {
+        this.menusitem = menusitem;
+    }
+
+    public String getMenus1item() {
+        return menus1item;
+    }
+
+    public void setMenus1item(String menus1item) {
+        this.menus1item = menus1item;
+    }
+
+    public int getPay() {
+        return pay;
+    }
+
+    public void setPay(int pay) {
+        this.pay = pay;
+    }
+    
+     @Override
+    public String show()
+    { 
+     String msg="";  
+     msg=super.show();
+     msg=msg+"\n付款方式:"+menus1item;
+     msg=msg+"\n商品種類"+menusitem;
+   //  System.out.println("line menus==>"+menus);
+    // System.out.println("line qty2==>"+qty2);
+      switch (menus)
+      {
+          case 1:
+           msg=msg+"\nlcd 數量:"+qty1+"\t單價:"+lcdp+"\t小計:"+qty1*lcdp;
+           msg=msg+"\nram 數量:"+qty2+"\t單價:"+ramp+"\t小計:"+qty2*ramp;
+           msg=msg+"\n合計"+getSum();
+            break;
+          case 2:
+            msg=msg+"\nruler 數量:"+qty1+"\t單價:"+rulerp+"\t小計:"+qty1*rulerp;
+            msg=msg+"\npan 數量:"+qty2+"\t單價:"+panp+"\t小計:"+qty2*panp;   
+            msg=msg+"\n合計"+getSum();
+             break;
+           case 0:   
+              msg=msg+"\n合計:0";
+               break;
+      }
+      
+     if (menus1==1 && getPay()-getSum()<=-1 )
+        
+       {
+          msg=msg+"\n不足金額:"+Math.abs(getPay()-getSum());
+          System.out.println("\n不足金額:"+Math.abs(getPay()-getSum()));
+          
+       }
+       else
+       { 
+           msg=msg+"\n找你金額:"+ (getPay()-getSum());
+       }
+      //if (menus1==1 && getPay()-getSum()>=0 )
+    
+     return  msg;
+    }
+  
+}
+

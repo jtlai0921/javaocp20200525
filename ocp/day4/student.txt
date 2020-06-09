@@ -1,0 +1,42 @@
+﻿class student
+{
+	String name;
+	int chi;
+	int eng;
+
+	student()
+	{
+
+	}
+	student(int chi,int eng)
+	{
+		
+		this.chi=chi;
+		this.eng=eng;
+	}
+
+	student(String name,int chi,int eng)
+	{
+		
+		this.name=name;
+		this.chi=chi;
+		this.eng=eng;
+	}
+
+	student(String name,int chi)
+	{
+
+	}
+
+	student(int chi,String name)
+	{
+
+	}
+	/*student(int x,int y)
+	{
+
+	}*/
+
+
+
+}

@@ -1,0 +1,205 @@
+
+import java.util.Date;
+
+public class foodorder 
+{
+
+    private int a;
+    private int b;
+    private int c;
+    private int sum;
+    private int givesum;
+    private int chargesum;
+    private String member;
+    private Date date;
+    private boolean p1;
+    private boolean p2;
+    private boolean p3;
+    foodorder(int a,int b,int c,boolean p1,boolean p2,boolean p3,String member)
+    {
+        if(a>0 || b>0 || c>0)
+        {
+
+            this.a=a;
+            this.b=b;
+            this.c=c;
+            this.p1 =p1;
+            this.p2 =p2;
+            this.p3 =p3;
+            this.date=new Date();    
+            this.member=member;
+            sum=a*120+b*130+c*140;
+        if(p1==true) sum=sum+30;
+        if(p2==true) sum=sum+40;
+        if(p3==true) sum=sum+50;
+           switch(member)
+        {
+            case  "VIP":
+                sum=(int)(sum*0.85);
+                break;   
+            case "金卡":
+                 sum=(int)(sum*0.9);                
+                 break;   
+            case "銀卡":
+                 sum=(int)(sum*0.95);             
+                 break;   
+            case "普通":
+                 sum=(int)(sum*1);            
+                 break;   
+        }
+        }
+    }
+
+    public int getA() {
+        return a;
+    }
+
+    public void setChargesum(int chargesum) {
+        this.chargesum = chargesum;
+    }
+
+    public void setGivesum(int givesum) {
+        this.givesum = givesum;
+    }
+
+    public void setMember(String member) {
+        this.member = member;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void setP1(boolean p1) {
+        this.p1 = p1;
+    }
+
+    public void setP2(boolean p2) {
+        this.p2 = p2;
+    }
+
+    public void setP3(boolean p3) {
+        this.p3 = p3;
+    }
+
+    public int getSum() {
+        return sum;
+    }
+
+    public int getGivesum() {
+        return givesum;
+    }
+
+    public int getChargesum() {
+        return chargesum;
+    }
+
+    public String getMember() {
+        return member;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public boolean isP1() {
+        return p1;
+    }
+
+    public boolean isP2() {
+        return p2;
+    }
+
+    public boolean isP3() {
+        return p3;
+    }
+
+    public int getB() {
+        return b;
+    }
+
+    public int getC() {
+        return c;
+    }
+      public void setA(int a) {
+        this.a = a;
+    }
+
+    public void setB(int b) {
+        this.b = b;
+    }
+
+    public void setC(int c) {
+        this.c = c;
+    }
+    String show1(){
+        
+         return "\nA餐:"+getA()+
+                "\nB餐:"+getB()+
+                "\nC餐:"+getC()+
+                 "\n小菜1:"+isP1()+
+                  "\n小菜2:"+isP2()+
+                  "\n小菜3:"+isP3()+
+                 "\n會員等級:"+getMember()+
+                "\n總金額:"+getSum()+
+                "\n日期:"+getDate();
+    }
+    String show2()
+    {
+    this.givesum=this.chargesum-sum;
+    return "\nA餐:"+getA()+
+                "\nB餐:"+getB()+
+                "\nC餐:"+getC()+
+                 "\n小菜1:"+isP1()+
+                  "\n小菜2:"+isP2()+
+                  "\n小菜3:"+isP3()+
+                  "\n會員等級:"+getMember()+
+                "\n總金額:"+getSum()+
+                "\n付款"+getChargesum()+
+                "\n找零"+getGivesum()+
+                "\n日期:"+getDate();
+    }
+    
+}
+===================================================================
+foodorder order=null;
+    private void ok1MouseClicked(java.awt.event.MouseEvent evt) {                                 
+        
+        int A=0 ,B=0 ,C=0;
+        if(!a.getText().equals("")){
+            A=Integer.parseInt(a.getText());
+        }
+        if(!b.getText().equals("")){
+            B=Integer.parseInt(b.getText());
+        }
+        if(!c.getText().equals("")){
+            C=Integer.parseInt(c.getText());
+        }
+        boolean P1=false,P2=false,P3=false;
+        if(A!=0 || B!=0 || C!=0){
+            P1=p1.isSelected();
+            P2=p2.isSelected();
+            P3=p3.isSelected();
+        }
+            String member = null;
+            if(v1.isSelected() == true){
+                member = "VIP";
+            }else if(v2.isSelected() == true){
+                member = "金卡";
+            }else if(v3.isSelected()==true){
+                member = "銀卡";
+            }else if(v4.isSelected()==true){
+                member = "普通";
+            }
+           order=new foodorder(A,B,C,P1,P2,P3,member);
+            ans1.setText(order.show1());
+    }                     
+===================================================================
+private void ok2MouseClicked(java.awt.event.MouseEvent evt) {                                 
+        if(order != null){
+            int  paymoney=Integer.parseInt(pay.getText());
+            order.setChargesum(paymoney);//把paymoney放至class裡
+            
+            ans2.setText(order.show2());
+        } 
+    }                                

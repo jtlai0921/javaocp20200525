@@ -1,0 +1,38 @@
+﻿class add1
+{
+	public static void main(String[] args) {
+		student s1=new student("a",45,78);
+		student s2=new student("b",55,78);
+		/*
+		this.name=name;
+		this.chi=chi;
+		this.eng=eng;
+
+		sum=chi+eng;
+
+		*/
+		s1.show();
+		s2.show();
+		System.out.println("=========================");
+
+		System.out.println("總分合計:"+(s1.change2(85,74)+s2.change2(88,65)));
+
+
+
+
+		///s1.change1(65,75);
+		/*
+	this.chi=chi;
+		this.eng=eng;
+		sum=chi+eng;
+		*/
+		//s1.show();
+		//s2.show();
+		/*System.out.println("名:"+s1.name+
+			"\t國文:"+s1.chi+
+			"\t英文:"+s1.eng);
+		System.out.println("名:"+s2.name+
+			"\t國文:"+s2.chi+
+			"\t英文:"+s2.eng);*/
+	}
+}

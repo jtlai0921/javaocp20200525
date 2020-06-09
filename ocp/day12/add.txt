@@ -1,0 +1,29 @@
+﻿class add
+{
+	public static void main(String[] args) {
+		
+		A_1 a_1=new A_1();
+		a_1.word=65;
+		a_1.math=60;
+		a_1.show();
+		a_1.name="ooo";
+		a_1.chi=77;
+
+		/*A a=new A();
+		B b=new B();
+
+
+		a.show();
+		b.show();
+
+		System.out.println("==========================");
+		a.name="abc";
+		a.chi=65;
+		a.math=98;
+		//a.eng=78;
+		a.show();
+		b.show();*/
+
+
+	}
+}

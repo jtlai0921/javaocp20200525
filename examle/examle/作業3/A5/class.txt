@@ -1,0 +1,108 @@
+public class NewOrder {
+
+   
+    protected int sum;
+    protected int pay;
+    protected int change;
+    protected String name;
+
+    public void setPay(int pay) {
+        this.pay = pay;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getSum() {
+        return sum;
+    }
+
+    public int getPay() {
+        return pay;
+    }
+
+    public int getChange() {
+        return change;
+    }
+
+    public String getName() {
+        return name;
+    }
+    
+public class ccc extends NewOrder {
+    protected int lcd;
+    protected int ram;
+    
+    ccc(String name,Object lcd,Object ram){
+        this.name=name;
+        this.lcd=(Integer)lcd;
+        this.ram=(Integer)ram;
+        this.sum=(Integer)lcd*4999+(Integer)ram*1280;
+    }
+
+    public void setLcd(int lcd) {
+        this.lcd = lcd;
+    }
+
+    public void setRam(int ram) {
+        this.ram = ram;
+    }
+
+    public int getLcd() {
+        return lcd;
+    }
+
+    public int getRam() {
+        return ram;
+    }
+
+public class Stationary extends NewOrder{
+    protected int ruler;
+    protected int pen;
+    
+    Stationary(String name,Object ruler,Object pen){
+        this.name=name;
+        this.ruler=(Integer)ruler;
+        this.pen=(Integer)pen;
+        this.sum=(Integer)ruler*30+(Integer)pen*20;
+    }
+
+    public void setRuler(int ruler) {
+        this.ruler = ruler;
+    }
+
+    public void setPen(int pen) {
+        this.pen = pen;
+    }
+
+    public int getRuler() {
+        return ruler;
+    }
+
+    public int getPen() {
+        return pen;
+    }
+    
+
+ int sum;
+    private void cccorderMouseClicked(java.awt.event.MouseEvent evt) {                                      
+        ccc c1= new ccc(name.getText(),lcd.getValue(),ram.getValue());
+        String msg="name:"+c1.getName()+"\nsum:"+c1.getSum();
+        this.sum=c1.getSum();
+        ans1.setText(msg);
+    }                                     
+
+    private void storderMouseClicked(java.awt.event.MouseEvent evt) {                                     
+       Stationary s1=new Stationary(name.getText(),ruler.getValue(),pen.getValue());
+       String msg="name:"+s1.getName()+"\nsum:"+s1.getSum();
+       ans1.setText(msg);
+       this.sum=s1.getSum();
+    }                                    
+
+    private void cal1MouseClicked(java.awt.event.MouseEvent evt) {                                  
+        int cal=Integer.parseInt(pay.getText())-sum;
+        ans2.setText("Change:"+cal);
+    }                                 
+
+

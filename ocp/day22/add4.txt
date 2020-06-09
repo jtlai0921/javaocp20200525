@@ -1,0 +1,35 @@
+﻿package collectionEx;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Set;
+import java.util.TreeMap;
+
+public class add4 {
+
+	public static void main(String[] args) {
+		//HashMap<String,Integer> x=new HashMap<String,Integer>();
+		TreeMap<String,Integer> x=new TreeMap<String,Integer>();
+		x.put("java", 600);
+		x.put("java8", 600);
+		x.put("aavaWeb", 700);
+		
+		
+		System.out.println(x);
+		
+		Set<String> k=x.keySet();
+		for(String o:k)
+		{
+			System.out.print(o+" ");
+		}
+		
+		Collection<Integer> v=x.values();
+		System.out.println();
+		for(Integer o:v)
+		{
+			System.out.print(o+" ");
+		}
+
+	}
+
+}

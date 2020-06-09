@@ -1,0 +1,234 @@
+package order1;
+import check.check;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+public class order {
+    private String name;
+    private String address;
+    private String tel;
+    private String date;
+    private int sum;
+    private int paymentMethod;
+    private int creditCardType;
+    private String creditCardNumber;
+    LocalDateTime ldt = LocalDateTime.now();
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy年MM月dd日 HH:mm:ss");
+
+    public order(String name, String address, String tel, int paymentMethod, int creditCardType, String creditCardNumber) throws check {
+        if (name.isEmpty()) {
+            throw new check(0, 1);
+        }
+        if (address.isEmpty()) {
+            throw new check(0, 2);
+        }
+        if (tel.isEmpty()) {
+            throw new check(0, 3);
+        }
+        checkTextIsNumber(tel, 3, 0, 9);
+        if (tel.length() < 9) {
+            throw new check(3, 14);
+        }
+        if (paymentMethod == 1) {
+            if (creditCardNumber.isEmpty()) {
+                throw new check(0, 8);
+            }
+            if (creditCardNumber.length() != 8) {
+                throw new check(8, 13);
+            }
+        }
+        this.name = name;
+        this.address = address;
+        this.tel = tel;
+        this.date = dtf.format(ldt);;
+        this.paymentMethod = paymentMethod;
+        this.creditCardType = creditCardType;
+        this.creditCardNumber = creditCardNumber;
+    }
+
+    public void setSum(int sum) {
+        this.sum = sum;
+    }
+
+    public int getSum() {
+        return sum;
+    }
+
+    public void checkTextIsNumber(String sa, int a, int b, int c) throws check {
+        char[] sb = sa.toCharArray();
+        for (int i = 0; i < sb.length; i++) {
+            if (sb[i] >= 48 && sb[i] <= 57) {
+            } else {
+                throw new check(a, b, c);
+            }
+        }
+    }
+
+    public void checkNumberMax(String sa, int a, int b, int c, int d) throws check {
+        if (Integer.parseInt(sa) > 100) {
+            throw new check(a, b, c, d);
+        }
+    }
+
+    public String show() {
+        String creditTp =
+                creditCardType==1?"A卡"
+                :creditCardType==2?"B卡"
+                :creditCardType==3?"C卡"
+                :"";
+        String payS =
+                paymentMethod==0?"ATM轉帳"+"\n"+ui.ui.AtmT1.getText()+"\n"+ui.ui.AtmT2.getText()
+                :paymentMethod==2?"貨到付款"+"\n"+ui.ui.PayT31.getText()+"\n"+ui.ui.PayT32.getText()
+                :"信用卡付款-"+creditTp+"\n卡號:"+creditCardNumber;
+        return "名稱:" + name + "\n地址:" + address + "\n電話:" + tel + "\n訂單日期:" + date + "\n" + "\n付款方式:" + payS + "\n";
+    }
+}
+=============================================================================================================================================
+package order2;
+import check.check;
+import order1.order;
+import ui.ui;
+
+public class ccc extends order{
+    private int lcd;
+    private int ram;
+    
+    public ccc(String name,String address,String tel,int paymentMethod,int creditCardType,String creditCardNumber,String lcd,String ram) throws check
+    {
+        super(name,address,tel,paymentMethod,creditCardType,creditCardNumber);
+        setLcd(lcd);
+        setRam(ram);
+        if(this.lcd==0 && this.ram==0) throw new check(0,10,11);
+        super.setSum(this.lcd*Integer.parseInt(ui.LcdPrice.getText())+this.ram*Integer.parseInt(ui.RamPrice.getText()));
+    }
+    
+    public void setLcd(String lcd) throws check
+    {
+        checkTextIsNumber(lcd,4,0,9);
+        checkNumberMax(lcd,4,10,11,12);
+        this.lcd=Integer.parseInt(lcd);
+    }
+    
+    public void setRam(String ram)throws check
+    {
+        checkTextIsNumber(ram,5,0,9);
+        checkNumberMax(ram,5,10,11,12);        
+        this.ram=Integer.parseInt(ram);
+    }
+    
+    public String show()
+    {
+        String rr="";
+        if(lcd>0) rr += "\nLcd數量:"+lcd;
+        if(ram>0) rr += "\nRam數量:"+ram;
+        return super.show()+rr+"\n總金額:"+super.getSum();
+    }
+}
+=============================================================================================================================================
+package order2;
+import check.check;
+import order1.order;
+import ui.ui;
+
+public class write extends order{
+    private int ruler;
+    private int pen;
+    
+    public write(String name,String address,String tel,int paymentMethod,int creditCardType,String creditCardNumber,String ruler,String pen) throws check
+    {
+        super(name,address,tel,paymentMethod,creditCardType,creditCardNumber);
+        setRuler(ruler);
+        setPen(pen);
+        if(this.ruler==0 && this.pen==0) throw new check(0,10,11);
+        super.setSum(this.ruler*Integer.parseInt(ui.RulerPrice.getText())+this.pen*Integer.parseInt(ui.PenPrice.getText()));
+    }
+    
+    public void setRuler(String ruler) throws check
+    {
+        checkTextIsNumber(ruler,6,0,9);
+        checkNumberMax(ruler,7,10,11,12);
+        this.ruler=Integer.parseInt(ruler);
+    }
+    
+    public void setPen(String pen)throws check
+    {
+        checkTextIsNumber(pen,7,0,9);
+        checkNumberMax(pen,7,10,11,12);        
+        this.pen=Integer.parseInt(pen);
+    }
+    public String show()
+    {
+        String rr="";
+        if(ruler>0) rr += "\nRuler數量:"+ruler;
+        if(pen>0) rr += "\nPen數量:"+pen;
+        return super.show()+rr+"\n總金額:"+super.getSum();
+    }
+}
+=============================================================================================================================================
+package ui;
+import check.check;
+import order1.order;
+import order2.ccc;
+import order2.write;    
+	final private msg jf = new msg();
+    private void SendMouseClicked(java.awt.event.MouseEvent evt) {                                  
+        order a;
+        jf.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        jf.setLocation(450, 0);
+        int creditCardType = CardA.isSelected() ? 1 : CardB.isSelected() ? 2 : CardC.isSelected() ? 3 : 0;
+        try {
+            if (LcdAndWrite.getSelectedIndex() == 0) {
+                a = new ccc(Name.getText(), Address.getText(), Tel.getText(), PayMethod.getSelectedIndex(), creditCardType, CreditCardNumber.getText(), LcdNumber.getText(), RamNumber.getText());
+            } else {
+                a = new write(Name.getText(), Address.getText(), Tel.getText(), PayMethod.getSelectedIndex(), creditCardType, CreditCardNumber.getText(), RulerNumber.getText(), PenNumber.getText());
+            }
+            jf.setMsg(a.show());
+            jf.setMsgTitle("訂單已完成");
+        } catch (check e) {
+            jf.setMsg(e.getMsg());
+            jf.setMsgTitle("請修正訂單");
+        }
+        if (!jf.isVisible()) {
+            jf.setVisible(true);
+        }
+    }
+=============================================================================================================================================
+package check;
+
+enum msgText {
+    請輸入, 名稱, 地址, 電話, Lcd, Ram,
+    Ruler, Pen, 信用卡號, 數字, 商品,
+    數量, 太大, 需8位, 需9碼
+}
+
+public class check extends Exception {
+    private String rr;
+    msgText[] tx = msgText.values();
+
+    public check(int a, int b) {
+        this.rr = tx[a].toString() + tx[b].toString();
+    }
+
+    public check(int a, int b, int c) {
+        this.rr = tx[a].toString() + tx[b].toString() + tx[c].toString();
+    }
+
+    public check(int a, int b, int c, int d) {
+        this.rr = tx[a].toString() + tx[b].toString() + tx[c].toString() + tx[d].toString();
+    }
+
+    public String getMsg() {
+        return rr;
+    }
+}
+=============================================================================================================================================
+    public void setMsgTitle(String title)
+    {
+        MsgTitle.setText(title);
+    }
+    
+    public void setMsg(String msg)
+    {
+        OutputMsg.setText(msg);
+    }
+=============================================================================================================================================

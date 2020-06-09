@@ -1,0 +1,22 @@
+﻿
+
+public class add {
+
+	public static void main(String[] args) {
+		book<String> b1=new book<>("java","1萬元");
+		book<Integer> b2=new book<Integer>("java",100);
+		book<Double> b3=new book<>("java",10.2);
+		book<Double> b4=new book<>("java",10.);
+		
+		book b5=new book<Integer>("aa",45);
+		
+		b1.show();
+		b4.show();
+
+
+		book2<Integer,Double> b6=new book2<Integer,Double>(10,10.2);
+		book2<Integer,Double> b7=new book2<>(10,10.2);
+		book2 b8=new book2<Integer,Double>(10,10.2);
+	}
+
+}

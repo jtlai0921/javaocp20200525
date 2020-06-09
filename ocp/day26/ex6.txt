@@ -1,0 +1,50 @@
+﻿package lambDaEx;
+
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
+
+public class ex6 {
+
+	public static void main(String[] args) {
+		Predicate<Integer> p=(Integer t)->t>10;
+		System.out.println(p.test(1));
+		
+		
+		Consumer<String> c=(String x)->System.out.println("x="+x);
+		c.accept("java");
+		
+		
+		Function<String,Integer> f=(String t)->Integer.parseInt(t);		
+		String x="123";		
+		System.out.println(f.apply(x)+100);
+		
+		
+		Supplier<member> s=()->new member();		
+		//System.out.println(s.get());		
+		member m=s.get();		
+		m.setName("f");		
+		System.out.println(m.getName());
+		
+
+	}
+
+}
+
+class member
+{
+	private String name;
+	member()
+	{
+		System.out.println("新會員");
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	
+}

@@ -1,0 +1,6 @@
+﻿class school
+{
+	String name;
+	int chi;
+	int eng;
+}

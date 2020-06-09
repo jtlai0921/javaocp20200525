@@ -1,0 +1,35 @@
+@charset "BIG5";
+.header
+{
+	background-color:#CC5A71;
+	background-image:linear-gradient(#420E17,#FAC6D0);
+	background-position: center top;
+	width:800px;
+	height:60px;
+	margin-left:20%;
+}
+.content
+{
+	background-color:#FDECEF;
+	width:800px;
+	height:700px;
+	margin-left:20%;
+	
+}
+.mainpage
+{
+	background-color:#FFEFEF;
+	background: url("picture/res.png");
+	width:800px;
+	height:500px;
+	margin-left:20%;
+	
+}
+.footer
+{
+	background-color:#CC5A71;
+	background-image:linear-gradient(#420E17,#FAC6D0);
+	width:800px;
+	height:60px;
+	margin-left:20%;
+}@charset "BIG5";

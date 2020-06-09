@@ -1,0 +1,171 @@
+public class order {
+    
+    private int maela;
+    private int maelb;
+    private int maelc;
+    
+    private boolean sidedish1;
+    private boolean sidedish2;
+    private boolean sidedish3;
+    private boolean sidedish4;
+    
+    private String member ;
+   
+    
+    protected int sum;
+    protected int pay;
+    
+    order(int maela,int maelb,int maelc,boolean sidedish1,boolean sidedish2,
+            boolean sidedish3,boolean sidedish4,
+            String member)
+    {
+        this.maela = maela;
+        this.maelb = maelb;
+        this.maelc = maelc;
+        this.sidedish1 = sidedish1;
+        this.sidedish2 = sidedish2;
+        this.sidedish3 = sidedish3;
+        this.sidedish4 = sidedish4;
+        this.member=member;
+        
+        sum=maela*120+maelb*130+maelc*140;
+        
+        if(sidedish1 == true ) sum=sum+30;
+        if(sidedish2 == true ) sum=sum+40;
+        if(sidedish3 == true ) sum=sum+50;
+        if(sidedish4 == true ) sum=sum+60;
+        
+        if(member=="VIP"){
+        sum=(int)(sum*0.85);
+        }
+        else if(member=="GOLD"){
+        sum=(int)(sum*0.9);
+        }
+        else if(member=="SILVER"){
+        sum=(int)(sum*0.95);
+        }
+        else{sum=sum;}
+            
+       
+        
+    }
+
+    public void setMaela(int maela) {
+        this.maela = maela;
+    }
+
+    public void setMaelb(int maelb) {
+        this.maelb = maelb;
+    }
+
+    public void setMaelc(int maelc) {
+        this.maelc = maelc;
+    }
+
+    public int getMaela() {
+        return maela;
+    }
+
+    public int getMaelb() {
+        return maelb;
+    }
+
+    public int getMaelc() {
+        return maelc;
+    }
+
+    public int getSum() {
+        return sum;
+    }
+
+    public int getPay() {
+        return pay;
+    }
+
+    public boolean isSidedish1() {
+        return sidedish1;
+    }
+
+    public boolean isSidedish2() {
+        return sidedish2;
+    }
+
+    public boolean isSidedish3() {
+        return sidedish3;
+    }
+
+    public boolean isSidedish4() {
+        return sidedish4;
+    }
+
+    public String getMember() {
+        return member;
+    }
+
+    public void setSidedish1(boolean sidedish1) {
+        this.sidedish1 = sidedish1;
+    }
+
+    public void setSidedish2(boolean sidedish2) {
+        this.sidedish2 = sidedish2;
+    }
+
+    public void setSidedish3(boolean sidedish3) {
+        this.sidedish3 = sidedish3;
+    }
+
+    public void setSidedish4(boolean sidedish4) {
+        this.sidedish4 = sidedish4;
+    }
+
+    public void setMember(String member) {
+        this.member = member;
+    }
+    
+    public String show()
+    {
+        return "會員等級="+member+"\n總金額="+sum;
+    }
+   }
+
+
+
+
+
+=====================================================================
+
+private  String M;
+   private int pay;
+   order o1=null;
+            
+    private void calculateActionPerformed(java.awt.event.ActionEvent evt) {                                          
+       
+        order o1=new order(Integer.parseInt(meala.getText()),
+               Integer.parseInt(mealb.getText()),Integer.parseInt(mealc.getText()),
+               sidedish1.isSelected(),sidedish2.isSelected(),sidedish3.isSelected(),
+               sidedish4.isSelected(),M);
+        
+     this.pay=o1.getSum();
+               
+       
+        if(VIP.isSelected()) this.M="VIP";
+        if(GOLD.isSelected()) this.M="GOLD";
+        if(SILVER.isSelected()) this.M="SILVER";
+        if(NORMAL.isSelected()) this.M="NORMAL";
+        
+        
+               
+               
+       ans.setText(o1.show());
+       
+    }                                         
+
+    private void changeActionPerformed(java.awt.event.ActionEvent evt) {                                       
+            
+        int paymoney=Integer.parseInt(pp.getText())-pay;
+        
+        ans2.setText("找零"+paymoney);
+    }                                      
+
+
+

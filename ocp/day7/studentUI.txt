@@ -1,0 +1,18 @@
+﻿private void okMouseClicked(java.awt.event.MouseEvent evt) {                                
+      String Name=name.getText();
+      String Chi=chi.getText();
+      String Eng=eng.getText();
+      
+      Integer CHI=new Integer(Chi);
+      Integer ENG=new Integer(Eng);
+      
+      student s=new student(Name,CHI,ENG);
+      
+      
+      ans.setText("名:"+s.getName()+
+              "\n國文:"+s.getChi()+
+              "\n英文:"+s.getEng()+
+              "\n總分:"+s.getSum()+
+              "\n平均:"+s.getAve());
+      
+    }                               

@@ -1,0 +1,5 @@
+﻿class A extends school
+{
+	
+	int chi;
+}

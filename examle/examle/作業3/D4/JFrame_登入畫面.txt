@@ -1,0 +1,49 @@
+package homework3;
+
+import java.awt.Toolkit;
+
+/**
+ * 登入畫面JFrame
+ */
+public class Login extends javax.swing.JFrame {
+
+    /*註冊會員按鈕*/
+    private void registerMouseClicked(java.awt.event.MouseEvent evt) {                                      
+        Member member = new Member();
+        member.setVisible(true);
+        /*為了讓跳出的畫面能置中於螢幕上 */
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        int x = (int) (toolkit.getScreenSize().getWidth() - member.getWidth()) / 2;
+        int y = (int) (toolkit.getScreenSize().getHeight() - member.getHeight()) / 2;
+        member.setLocation(x, y);
+        setVisible(false);
+    }                                     
+
+    /* 登入按鈕*/
+    private void loginMouseClicked(java.awt.event.MouseEvent evt) {                                   
+        int show;
+        userNameError.setText(" ");
+        passWordError.setText(" ");
+        if (userName.getText().equals("")) {
+            userNameError.setText("請輸入帳號");
+        } else {
+            /*搜尋帳號是否有在使用者陣列中，密碼是否正確*/
+            show = UserArray.search(userName.getText(), passWord.getText());
+
+            if (show == 1) {
+                OrderSystem os = new OrderSystem();
+                Toolkit toolkit = Toolkit.getDefaultToolkit();
+                int x = (int) (toolkit.getScreenSize().getWidth() - os.getWidth()) / 2;
+                int y = (int) (toolkit.getScreenSize().getHeight() - os.getHeight()) / 2;
+                os.setLocation(x, y);
+                os.setVisible(true);
+                os.setUserName(userName.getText());
+                setVisible(false);
+            } else if (show == -1) {
+                passWordError.setText("密碼錯誤");
+            } else {
+                userNameError.setText("查無此帳號");
+            }
+        }
+    }
+}

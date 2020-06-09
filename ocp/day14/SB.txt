@@ -1,0 +1,21 @@
+﻿class SB extends school
+{
+	private int eng;
+
+	SB(String name,int eng)
+	{
+		super(name);
+		this.eng=eng;
+	}
+
+
+	void setEng(int eng)
+	{
+		this.eng=eng;
+	}
+
+	String show()
+	{
+		return super.show()+"\t英文:"+eng;
+	}
+}

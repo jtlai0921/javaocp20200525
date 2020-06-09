@@ -1,0 +1,29 @@
+@charset "BIG5";
+.header{
+	background-color:#e096a2;
+	font-family:微軟正黑體;
+	width:67%;
+	height:80px;
+	padding:20px;
+	
+	margin-top:20px;
+	
+	
+}
+.content{
+	background-color:#F4D2CE;
+	font-family:微軟正黑體;
+	width:67%;
+	height:500px;
+	padding:20px;
+	
+	
+}
+.footer{
+	background-color:#DCB6B3;
+	font-family:微軟正黑體;
+	width:67%;
+	height:40px;
+	padding:20px;
+	margin-bottom:20px;
+}

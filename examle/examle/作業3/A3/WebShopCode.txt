@@ -1,0 +1,129 @@
+import java.util.Date;
+public class shop {
+    private int LcdNum,RamNum,MouseNum,TotalOri ;
+    private static int Total;
+    private boolean Lcd,Ram,Mouse,Member;
+    private Date date = new Date();
+    private String LcdStr = "",RamStr = "",MouseStr = "",MemberStr = "";
+    private int TotalDisC , MemDisC,Pay,Change ;
+     
+    shop(boolean Lcd,boolean Ram,boolean Mouse,boolean Member,int LcdNum, int RamNum , int MouseNum){
+        this.Lcd = Lcd;
+        this.Ram = Ram;
+        this.Mouse = Mouse;
+        this.Member = Member;
+        this.LcdNum = LcdNum;
+        this.RamNum = RamNum;
+        this.MouseNum = MouseNum;
+        
+    }
+    shop(int Pay){
+        this.Pay = Pay;
+    }
+
+    public int getLcdNum() {
+        return LcdNum;
+    }
+
+    public int getRamNum() {
+        return RamNum;
+    }
+
+    public int getMouseNum() {
+        return MouseNum;
+    }
+
+    public int getTotal() {
+        return Total;
+    }
+
+    public boolean isLcd() {
+        return Lcd;
+    }
+
+    public boolean isRam() {
+        return Ram;
+    }
+
+    public boolean isMouse() {
+        return Mouse;
+    }
+
+    public boolean isMember() {
+        return Member;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+    
+    
+    String show(){
+     
+     if(Lcd){
+         LcdStr = "\nLcd(4990元) x "+ this.LcdNum + "=" + (LcdNum * 4999);
+      }
+       if(Ram){
+            RamStr = "\nRam(1280元) x "+ this.RamNum + "=" + (RamNum * 1280);
+        }
+        if(Mouse){
+            MouseStr = "\nMouse(680元) x "+ this.MouseNum + "=" + (MouseNum * 680);
+        }
+        
+        this.Total = LcdNum * 4999 + RamNum * 1280 + MouseNum * 680;
+        this.TotalOri = this.Total ;
+        
+        if(this.Total > 10000){
+            TotalDisC = (int) (this.Total * 0.05);
+            this.Total = (int) (this.Total * 0.95);
+        }
+        if(Member){
+            this.MemDisC = (int) (this.Total * 0.05);
+            this.Total = (int) (this.Total* 0.95);
+          
+        }   
+        
+        return date+LcdStr+RamStr+MouseStr+"\n合計總額 : "+this.TotalOri+"\n\n\n金額超過10000元(折扣) : "
+              + TotalDisC +"\n會員(折扣) : "+this.MemDisC+"\n總計金額 : "+this.Total;
+    }
+
+    public void setPay(int Pay) {
+        this.Pay = Pay;
+    }
+
+    public void setChange(int Change) {
+        this.Change = Change;
+    }
+    String showChange(){
+        String err = "";
+       
+        if(this.Pay>this.Total){
+        Change = this.Pay - this.Total;
+        }
+        else{
+            err = "輸入金額不足";
+        }
+        return Integer.toString(Change)+err;
+    }
+}
+
+=============================================================
+ private void OrderMouseClicked(java.awt.event.MouseEvent evt) {                                   
+        boolean lcd = Lcd.isSelected();
+        boolean ram = Ram.isSelected();
+        boolean mouse = Mouse.isSelected();
+        boolean member = Member.isSelected();
+        int lcdNum = (int)(LcdNum.getValue());
+        int ramNum = (int)RamNum.getValue();
+        int mouseNum = (int)MouseNum.getValue();
+        
+        
+        shop Order = new shop(lcd , ram , mouse , member , lcdNum, ramNum , mouseNum);
+        Detial.setText(Order.show());
+    }                                  
+
+    private void DoneMouseClicked(java.awt.event.MouseEvent evt) {                                  
+        int pay = Integer.parseInt(Pay.getText());
+        shop InPay = new shop(pay);
+        Change.setText(InPay.showChange());
+    }                                 

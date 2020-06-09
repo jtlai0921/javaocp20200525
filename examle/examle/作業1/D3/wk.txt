@@ -1,0 +1,216 @@
+import java.util.Date;
+
+
+public class wk1 {
+     private String name;
+     private int lcd;
+     private int ram;
+     private int mouse;
+     private int sum;
+     private int give_sum;
+     private int charge_sum;
+     private boolean member;
+     private Date date;
+      wk1(String name, int lcd,int ram,int mouse,boolean member)       
+      {
+           if (lcd>=0 && ram>=0 && mouse>=0)
+           {
+             
+             this.name=name;
+             this.lcd=lcd;
+             this.ram=ram;
+             this.mouse=mouse;
+             this.member=member;
+             this.date=new Date();
+             sum=lcd*4999+ram*1280+mouse*680;
+           }
+      }
+      
+      wk1(int lcd,int ram,int mouse,boolean member,int give_sum)       
+      {
+
+        if(give_sum>0)
+        {
+          this.lcd=lcd;
+          this.ram=ram;
+          this.mouse=mouse;
+          this.member=member;
+          this.give_sum=give_sum;
+          sum=lcd*4999+ram*1280+mouse*680;
+        }
+      }
+      
+    public String getName() {
+        return name;
+    }
+
+    public int getLcd() {
+        return lcd;
+    }
+
+    public int getRam() {
+        return ram;
+    }
+
+    public int getMouse() {
+        return mouse;
+    }
+
+    public int getSum(boolean member) {
+      int  r_sum=lcd*4999+ram*1280+mouse*680;
+      
+      if(r_sum>9999 && member==true )
+       {
+       r_sum=(int)((r_sum*0.95)*0.95);
+       }
+      else if(r_sum<9999 && member==true)
+      {
+         r_sum=(int)(r_sum*0.95);
+      }
+        else if(r_sum>9999 && member==false) 
+        {
+            r_sum=(int)(r_sum*0.95); 
+        }
+        
+        return r_sum;
+    }
+
+    public int getCharge_sum(boolean member) {
+        int c_sum=
+       charge_sum=getGive_sum()-getSum(member);
+        
+        return charge_sum;
+    }
+
+    public int getGive_sum() {
+       
+        return give_sum;
+    }
+
+    public boolean isMember() {
+        return member;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setLcd(int lcd) {
+        this.lcd = lcd;
+    }
+
+    public void setRam(int ram) {
+        this.ram = ram;
+    }
+
+    public void setMouse(int mouse) {
+        this.mouse = mouse;
+    }
+
+    public void setGive_sum(int give_sum) {
+        this.give_sum = give_sum;
+    }
+
+    public void setMember(boolean member) {
+        this.member = member;
+    }
+    String get_Msg(boolean member)
+    {
+     String g_msg="";
+     System.out.println(member);
+    System.out.println("get Msg member"+member);
+     int g_sum=this.lcd*4999+this.ram*1280+this.mouse*680;
+     
+    if(g_sum>9999 && this.member==true )
+     {
+       g_msg="滿萬95折會員再95折\n";
+      }
+     else if(g_sum<9999 && this.member==true)
+       {
+        g_msg="會員95折\n";
+       }
+     else if(g_sum>9999 && this.member==false)
+        {
+              g_msg="滿萬95折\n";
+        }
+      else
+      {
+           g_msg="不打折\n";
+      }
+     
+   
+     return g_msg;
+    }
+    
+    
+    String show(boolean member)
+    {
+        //String msg="";
+         
+      String  msg= get_Msg(member)+
+        "\n姓名："+getName()+
+        "\n螢幕："+getLcd()+"\t共"+getLcd()*4999+
+        "\n記憶體："+getRam()+"\t共"+getRam()*1280+
+         "\n滑鼠："+getMouse()+"\t共"+getMouse()*680+
+         "\n是否為會員："+isMember()+
+         "\n總金額："+getSum(member)+
+         "\n訂單日期："+ getDate();
+        
+        return msg;
+    }
+ 
+  
+    String show1(boolean member)
+    {
+        String msg1="";
+          if(getCharge_sum(member)>1)
+          {
+           msg1="找零："+getCharge_sum(member)+"元";
+          }
+          else
+          {
+            msg1="尾款："+getCharge_sum(member)+"元";
+          }
+          System.out.println("show1"+msg1);
+        return msg1;
+    }
+    
+}
+
+
+===========================================================================
+
+
+    private void okMouseClicked(java.awt.event.MouseEvent evt) {                                
+        String NAME=name.getText();
+        int LCD=Integer.parseInt(lcd.getText());
+        int RAM=Integer.parseInt(ram.getText());
+        int MOUSE=Integer.parseInt(mouse.getText());
+        boolean MEMBER=member.isSelected();
+        wk1 wko=new wk1(NAME,LCD,RAM,MOUSE,MEMBER);
+         
+         ans.setText(wko.show(MEMBER));
+                
+        
+    }                               
+
+    private void ok1MouseClicked(java.awt.event.MouseEvent evt) {                                 
+        int LCD=Integer.parseInt(lcd.getText());
+        int RAM=Integer.parseInt(ram.getText());
+        int MOUSE=Integer.parseInt(mouse.getText());
+      
+        boolean MEMBER=member.isSelected();
+        int GIVE_SUM=Integer.parseInt(give_sum.getText());
+        boolean MEMBERS=member.isSelected();
+        wk1 wko1=new wk1(LCD,RAM,MOUSE,MEMBER,GIVE_SUM)  ;
+         System.out.println("give_sum："+wko1.getGive_sum());
+         System.out.println("MEMBERS："+MEMBERS);
+         System.out.println("+++"+wko1.getSum(MEMBERS));
+         System.out.println("Charge_sum："+wko1.getCharge_sum(MEMBERS));
+          
+          charge_sum.setText( Integer.toString(wko1.getCharge_sum(MEMBERS)));
+          ans1.setText(wko1.show1(MEMBERS));

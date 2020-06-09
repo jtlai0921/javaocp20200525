@@ -1,0 +1,78 @@
+package Model;
+
+import java.util.Date;
+
+public class Porder {
+    
+    private String name; //顧客名字
+    private int ruler; //商品
+    private int pen; //商品
+    private int sum; //總價
+    private String pay = "尚未付款"; //付款方式
+    private String date = "無付款時間"; //付款時間
+    
+    public Porder(String name , int ruler , int pen){
+        
+        this.name = name;
+        this.ruler = ruler;
+        this.pen = pen;
+        sum = ruler*30+pen*20;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+    
+    public Porder(int ruler , int pen){
+        
+        this.ruler = ruler;
+        this.pen = pen;
+        sum = ruler*30+pen*20;
+        Date dt = new Date();
+        date = ""+dt;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getRuler() {
+        return ruler;
+    }
+
+    public int getPen() {
+        return pen;
+    }
+
+    public int getSum() {
+        return sum;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setRuler(int ruler) {
+        this.ruler = ruler;
+    }
+
+    public void setPen(int pen) {
+        this.pen = pen;
+    }
+
+    public String getPay() {
+        return pay;
+    }
+
+    public void setSum(int sum) {
+        this.sum = sum;
+    }
+
+    public void setPay(String pay) {
+        this.pay = pay;
+    }
+
+    public String getDate() {
+        return date;
+    }
+}

@@ -1,0 +1,201 @@
+public class Order 
+{
+    //class
+    private String name;
+    private int lcd;
+    private int ram;
+    private int mouse;
+    private int sum;
+    private Date date;
+    private boolean member;
+    private int pay;
+    
+     //construcors
+    Order (String name,int lcd,int ram,int mouse,boolean member)
+    {
+        this.name=name;
+        this.lcd=lcd;
+        this.ram=ram;
+        this.mouse=mouse;
+        this.sum=lcd*4999+ram*1280+mouse*680;
+        this.date=new Date();
+        this.member=member;
+       
+    }
+    
+    Order (String name,int lcd,int ram,int mouse,boolean member,int pay)
+    {
+        this.name=name;
+        this.lcd=lcd;
+        this.ram=ram;
+        this.mouse=mouse;
+        this.sum=lcd*4999+ram*1280+mouse*680;
+        this.date=new Date();
+        this.member=member;
+        this.pay=pay;
+    }
+    
+     //methods
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setLcd(int lcd) {
+        this.lcd = lcd;
+    }
+
+    public void setMouse(int mouse) {
+        this.mouse = mouse;
+    }
+
+    public void setMember(boolean member) {
+        this.member = member;
+    }
+
+    public void setPay(int pay) {
+        this.pay = pay;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getLcd() {
+        return lcd;
+    }
+
+    public int getRam() {
+        return ram;
+    }
+
+    public int getMouse() {
+        return mouse;
+    }
+
+    public int getSum() {
+        return sum;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public boolean isMember() {
+        return member;
+    }
+
+    public int getPay() {
+        return pay;
+    }
+    String show()
+    {   
+        if(lcd>=0&&ram>=0&&mouse>=0&&sum>=10000&&member==true&&pay>=0)
+        {
+        sum=(int)((lcd*4999+ram*1280+mouse*680)*0.95*0.95);
+        
+        return "Name:"+getName()
+                +"\nLcd:"+getLcd()
+                +"\nRam:"+getRam()
+                +"\nmouse:"+getMouse()
+                
+                +"\n10000discount\t5%off\tmember\t5%off\nAmount:"+getSum();
+                 
+        }
+        else if(lcd>=0&&ram>=0&&mouse>=0&&sum>=10000&&member==false&&pay>=0)
+        {
+            sum=(int)((lcd*4999+ram*1280+mouse*680)*0.95);
+        return "Name:"+getName()
+                +"\nLcd:"+getLcd()
+                +"\nRam:"+getRam()
+                +"\nmouse:"+getMouse()
+                
+                +"\n10000discount\t5%off\nAmount:"+getSum();
+                
+        }
+        else if(lcd>=0&&ram>=0&&mouse>=0&&sum<10000&&member==true&&pay>=0)
+        {
+             sum=(int)((lcd*4999+ram*1280+mouse*680)*0.95);
+        return "Name:"+getName()
+                +"\nLcd:"+getLcd()
+                +"\nRam:"+getRam()
+                +"\nmouse:"+getMouse()
+                
+                +"\nmember\t5%off\nAmount:"+getSum();
+                
+        }
+        else if(lcd>=0&&ram>=0&&mouse>=0&&sum<10000&&member==false&&pay>=0)
+        {
+            return "Name:"+getName()
+                +"\nLcd:"+getLcd()
+                +"\nRam:"+getRam()
+                +"\nmouse:"+getMouse()
+                
+                +"\nAmount:"+getSum();
+                 
+        }
+        else
+            return "Please input correct number";
+    }
+    String show1()
+    {   
+        if(lcd>=0&&ram>=0&&mouse>=0&&sum>=10000&&member==true&&pay>=0)
+        {
+        sum=(int)((lcd*4999+ram*1280+mouse*680)*0.95*0.95);
+        
+        return"\nChange:"+(getPay()-getSum());
+                 
+        }
+        else if(lcd>=0&&ram>=0&&mouse>=0&&sum>=10000&&member==false&&pay>=0)
+        {
+            sum=(int)((lcd*4999+ram*1280+mouse*680)*0.95);
+        return "\nChange:"+(getPay()-getSum());
+                
+        }
+        else if(lcd>=0&&ram>=0&&mouse>=0&&sum<10000&&member==true&&pay>=0)
+        {
+             sum=(int)((lcd*4999+ram*1280+mouse*680)*0.95);
+        return "\nChange:"+(getPay()-getSum());
+                
+        }
+        else if(lcd>=0&&ram>=0&&mouse>=0&&sum<10000&&member==false&&pay>=0)
+        {
+            return "\nChange:"+(getPay()-getSum());
+                 
+        }
+        else
+            return "Please input correct number";
+    }
+    
+==================================================================================================
+
+ //class
+         String NAME=name.getText();
+         int LCD=Integer.parseInt(lcd.getText()) ;
+         int RAM=Integer.parseInt(ram.getText()) ;
+         int MOUSE=Integer.parseInt(mouse.getText()) ;
+         boolean MEMBER=member.getState();
+         
+        
+         //constructor
+        
+         Order o2=new Order(NAME,LCD,RAM,MOUSE,MEMBER);
+         
+       
+         //methods
+         
+         ans.setText(o2.show());
+         // TODO add your handling code here:
+=====================================================================================================
+
+          String NAME=name.getText();
+         int LCD=Integer.parseInt(lcd.getText()) ;
+         int RAM=Integer.parseInt(ram.getText()) ;
+         int MOUSE=Integer.parseInt(mouse.getText()) ;
+         boolean MEMBER=member.getState();
+         int PAY=Integer.parseInt(pay.getText());
+        
+         //constructor
+         Order o3=new Order(NAME,LCD,RAM,MOUSE,MEMBER,PAY);
+        ans2.setText(o3.show1());
+                                    

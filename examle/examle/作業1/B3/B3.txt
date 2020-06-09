@@ -1,0 +1,142 @@
+
+package HW;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class order {
+
+    private String name;
+    private int lcd;
+    private int ram;
+    private int mouse;
+    private boolean isMember;
+    private int money;
+    private int lcdPrice = 1000;
+    private int ramPrice = 2000;
+    private int mousePrice = 500;
+    
+    public order(){
+        
+    }
+    
+    private int calTotal() {
+
+        int total = lcd * lcdPrice + ram * ramPrice + mouse * mousePrice;
+        if (isMember) {
+            total = (int) (total * 0.95);
+        }
+        if (total >= 10000) {
+            total = (int) (total * 0.95);
+        }
+        return total;
+    }
+
+    public String show(String where) {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        int total = calTotal();
+        String 找零 = where.equals("left") ? "" : "\n找你" + (money - total) + "元";
+        return "姓名:" + name
+                + "\nlcd:" + lcd
+                + "\nram:" + ram
+                + "\nmouse:" + mouse
+                + "\n是否為會員:" + (isMember ? "是" : "否")
+                + "\n價格為:" + total
+                + 找零
+                + "\n日期:" + sdf.format(new Date());
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getLcd() {
+        return lcd;
+    }
+
+    public int getRam() {
+        return ram;
+    }
+
+    public int getMouse() {
+        return mouse;
+    }
+
+    public boolean isIsMember() {
+        return isMember;
+    }
+
+    public int getMoney() {
+        return money;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setLcd(int lcd) {
+        this.lcd = lcd;
+    }
+
+    public void setRam(int ram) {
+        this.ram = ram;
+    }
+
+    public void setMouse(int mouse) {
+        this.mouse = mouse;
+    }
+
+    public void setIsMember(boolean isMember) {
+        this.isMember = isMember;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
+    }
+
+}
+
+
+====================================================================
+
+public class orderView extends javax.swing.JFrame {
+
+    order or = new order();                      
+
+    private void setValue(String name, String lcd, String ram, String mouse, Boolean isMember, String money) {
+        or.setName(name);
+        or.setLcd(Integer.parseInt(lcd));
+        or.setRam(Integer.parseInt(ram));
+        or.setMouse(Integer.parseInt(mouse));
+        or.setIsMember(isMember);
+        or.setMoney(Integer.parseInt(money.length() > 0 ? money : "0"));
+    }
+    private void detailMouseClicked(java.awt.event.MouseEvent evt) {                                    
+        // TODO add your handling code here:
+        
+        setValue(name.getText(),
+                lcd.getText(),
+                ram.getText(),
+                mouse.getText(),
+                isMember.isSelected(),
+                money.getText());
+
+        showDetail.setText(or.show("left"));
+        buyDetail.setText("");
+
+    }                                   
+
+    private void buyMouseClicked(java.awt.event.MouseEvent evt) {                                 
+        // TODO add your handling code here:
+        setValue(name.getText(),
+                lcd.getText(),
+                ram.getText(),
+                mouse.getText(),
+                isMember.isSelected(),
+                money.getText());
+
+        buyDetail.setText(or.show("right"));
+        showDetail.setText("");
+    }                                
+}

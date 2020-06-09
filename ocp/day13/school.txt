@@ -1,0 +1,57 @@
+﻿class school
+{
+	private String name;
+
+	school(String name)
+	{
+		this.name=name;
+	}
+
+
+	String getName()
+	{
+		return name;
+	}
+
+
+	void change(String name)
+	{
+		this.name=name;
+	}
+
+	String show()
+	{
+		return "名:"+getName();
+	}
+
+
+
+
+	protected String abc(int x)
+	{
+		return "x="+x;
+	}
+
+
+
+	/*void show()
+	{
+
+	}
+
+
+	void show(int x)
+	{
+
+	}
+
+	void show(String y){}
+	void show(int x,String y){}
+	void show(String y,int x){}
+	String show(String a,int b)
+	{
+		return "aa";
+	}*/
+
+
+}

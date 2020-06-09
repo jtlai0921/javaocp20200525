@@ -1,0 +1,345 @@
+
+package model;
+
+public class body {
+    
+    private int id;
+    private String name;
+    private int height;
+    private int weight;
+    private int bmi;
+   
+    public body()//試試看
+    {
+       
+    }
+    
+    public body(String name,int height,int weight)
+    {
+        this.name=name;
+        this.height=height;
+        this.weight=weight;
+        bmi=(int)(weight/((height*0.01)*(height*0.01)));
+    }
+    
+     public body(int id,String name,int height,int weight)
+    {
+        this.id=id;
+        this.name=name;
+        this.height=height;
+        this.weight=weight;
+        bmi=(int)(weight/((height*0.01)*(height*0.01)));
+    }
+     public body(int id)
+    {
+        this.id=id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public int getBmi() {
+        bmi=(int)(weight/((height*0.01)*(height*0.01)));
+ 
+        return bmi;
+    }
+    
+}
+==============================================================================================================================================================================
+
+
+package Dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+public interface implDao {
+    
+    void add(String name,int height,int weight);
+    
+    ResultSet query();
+    
+    void update(int id,String name,int height,int weight);
+    
+    void delete(int id);
+    
+    void create();//試試看
+    
+    //===========================================
+    
+    static Connection getconn()
+    {
+
+        String url="jdbc:mysql://localhost:3305/gjun";
+        String user="root";
+        String password="1234";
+        
+        Connection conn=null;
+        
+        try 
+        {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn=DriverManager.getConnection(url, user, password);
+        } 
+        catch (ClassNotFoundException ex) 
+        {
+            System.out.println("no Driver");
+            Logger.getLogger(implDao.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        catch (SQLException ex) 
+        {
+            System.out.println("no connection");
+            Logger.getLogger(implDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return conn;
+  
+    }
+ 
+}
+==============================================================================================================================================================================
+
+
+package Dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.body;
+
+
+public class bodyDao implements implDao {
+
+    public static void main(String[] args) {
+
+    }
+
+        @Override
+    public void create()//試試看
+    {
+        Connection conn=implDao.getconn();
+       /* String sql="create database hospital";   建立database一直失敗
+        try {
+            PreparedStatement ps=conn.prepareStatement(sql);
+            ps.executeUpdate();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(bodyDao.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
+
+        String sql2="create table body(id int auto_increment,name varchar(20),height int(11),weight int(11),bmi int(11),primary key(id))";
+        try {
+            PreparedStatement ps=conn.prepareStatement(sql2);
+            ps.executeUpdate();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(bodyDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    @Override
+    public void add(String name, int height, int weight)//新增
+    {
+        body B=new body(name,height,weight);
+        Connection conn=implDao.getconn();
+        String sql="insert into body(name,height,weight,bmi) values(?,?,?,?)";
+        
+        try 
+        {
+            PreparedStatement ps=conn.prepareStatement(sql);
+            ps.setString(1,B.getName());
+            ps.setInt(2, B.getHeight());
+            ps.setInt(3, B.getWeight());
+            ps.setInt(4, B.getBmi());
+            
+            ps.executeUpdate();
+            
+        } 
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(bodyDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
+//==========================================================
+    
+    @Override
+    public ResultSet query()//查詢
+    {
+        Connection conn=implDao.getconn();
+        ResultSet rs=null;
+        String sql="select * from body";
+        
+        try 
+        {
+            Statement st=conn.createStatement();
+            rs=st.executeQuery(sql);
+        }
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(bodyDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return rs;
+    }
+    
+//==========================================================
+    
+    @Override
+    public void update(int id,String name, int height, int weight)//修改
+    {
+        body B=new body(id,name,height,weight);
+        Connection conn=implDao.getconn();
+         String sql="update body set height=?,weight=?,bmi=? where id=?";
+        try
+        {
+            PreparedStatement ps=conn.prepareStatement(sql);
+
+            ps.setInt(1, B.getHeight());
+            ps.setInt(2, B.getWeight());
+            ps.setInt(3, B.getBmi());
+            ps.setInt(4, B.getId());
+            
+            ps.executeUpdate();
+            
+        } 
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(bodyDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     
+    }
+    
+//==========================================================
+    
+    @Override
+    public void delete(int id) //刪除
+    {
+         body B=new body(id);
+        Connection conn=implDao.getconn();
+         String sql="delete from body where id=?";
+       
+         try
+         {
+            PreparedStatement ps=conn.prepareStatement(sql);
+            ps.setInt(1, B.getId());
+            
+            ps.executeUpdate();
+        } 
+         catch (SQLException ex) 
+         {
+            Logger.getLogger(bodyDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+}
+==============================================================================================================================================================================
+
+ private void ok1MouseClicked(java.awt.event.MouseEvent evt) {                                 
+        
+        String N=name.getText();
+        int HE1=Integer.parseInt(height1.getText());
+        int WE1=Integer.parseInt(weight1.getText());
+        new bodyDao().add(N,HE1,WE1);
+        
+        ans1.setText("建檔成功");
+        
+    }                                
+//==========================================================
+
+ private void ok2MouseClicked(java.awt.event.MouseEvent evt) {                                 
+        
+        ResultSet rs=new bodyDao().query();
+        String msg="";
+
+            try 
+            {
+                while(rs.next())
+                {
+
+                    msg=msg+"\n編號 : "+rs.getInt("id")+"   ||   "+
+                                        "姓名 : "+rs.getString("name")+"   ||   "+
+                                        "身高 : "+rs.getInt("height")+"   ||   "+
+                                        "體重 : "+rs.getInt("weight")+"   ||   "+
+                                        "BMI : "+rs.getInt("bmi")+
+                            (rs.getInt("bmi")<=18?"  過輕":"" )+
+                            ((rs.getInt("bmi")>=18) && (rs.getInt("bmi")<=24)?"  正常":"")+
+                            (rs.getInt("bmi")>=24?"  過重":"" )+
+                            "\n------------------------------------------------------------------------------";
+                }
+            } 
+             catch (SQLException ex) 
+            {
+                Logger.getLogger(bodyUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
+            ans2.setText(msg);
+        
+    }
+
+//==========================================================
+
+
+    private void ok3MouseClicked(java.awt.event.MouseEvent evt) {                                 
+       int ID=Integer.parseInt(id1.getText());
+       String N=name.getText();
+        int HE2=Integer.parseInt(height2.getText());
+        int WE2=Integer.parseInt(weight2.getText());
+        new bodyDao().update(ID,N,HE2,WE2);
+        
+        ans3.setText("修改成功");
+    } 
+//==========================================================
+
+    private void ok4MouseClicked(java.awt.event.MouseEvent evt) {                                 
+        int ID2=Integer.parseInt(id2.getText());
+        new bodyDao().delete(ID2);
+        
+        ans4.setText("刪除成功");
+    } 
+//==========================================================
+
+   private void createMouseClicked(java.awt.event.MouseEvent evt) {                                    
+        new bodyDao().create();
+        CreateOk.setText("表單已建立");
+    }   
+

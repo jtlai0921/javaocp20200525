@@ -1,0 +1,11 @@
+﻿class add
+{
+	public static void main(String[] args) {
+		member m=new member("abc","uuu");
+
+		System.out.println("name="+m.name+"\tuser:"+m.user);
+		m.name="aaa";
+		m.user="iii";
+		System.out.println("name="+m.name+"\tuser:"+m.user);
+	}
+}

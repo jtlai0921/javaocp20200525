@@ -1,0 +1,21 @@
+﻿interface book extends book3
+{
+	/*public static final*/ double pi=3.14;
+
+	//book(){};
+
+	/*public abstract*/ void bookName(String name);
+	int bookPrice(int price);
+
+
+	/*public*/ default String Title(String titlename)
+	{
+		return "titlename="+titlename;
+	}
+
+
+	static String CompanyName()
+	{
+		return "巨匠電腦";
+	}
+}

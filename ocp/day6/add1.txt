@@ -1,0 +1,27 @@
+﻿class add1
+{
+	public static void main(String[] args) {
+			
+			student s=new student("a",78,89);
+
+
+			System.out.println("name:"+s.getName()+
+				"\tchi:"+s.getChi()+
+				"\teng:"+s.getEng()+
+				"\tsum:"+s.getSum());
+
+
+			System.out.println("============================");
+
+			//s.chi=-500;
+			s.setChi(100);
+			System.out.println("name:"+s.getName()+
+				"\tchi:"+s.getChi()+
+				"\teng:"+s.getEng()+
+				"\tsum:"+s.getSum());
+
+	
+
+
+	}
+}

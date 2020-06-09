@@ -1,0 +1,38 @@
+@charset "BIG5";
+.header
+{
+	background-color:#6B54BF;
+	width:650px;
+	height:140px;
+	margin-left:20%;
+	
+}
+
+.title
+{
+	padding:8% 17%  ;
+	font-size:20pt;
+	color:white;
+	font-family:"Verdana";
+	font-weight: bold
+	
+}
+.content
+{
+	background-color:#C9C0E7;
+	width:630px;
+	height:550px;
+	margin-left:20%;
+	padding-left:20px;
+	padding-top:5px;
+
+}
+
+.footer
+{
+	background-color:#1E1735;
+	width:650px;
+	height:50px;
+	margin-left:20%;
+	text-align:center;
+}

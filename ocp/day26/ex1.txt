@@ -1,0 +1,48 @@
+﻿package lambDaEx;
+interface book1
+{
+	double pi=3.14;
+	double bookPrice(double price);
+	default String bookName1(String name)
+	{
+		return "書名:"+name;
+	}
+	
+	static String bookName2(String name)
+	{
+		return "java 書名:"+name;
+	}
+	
+}
+class bookStore1 implements book1
+{
+
+	@Override
+	public double bookPrice(double price) {
+		// TODO Auto-generated method stub
+		return price*0.95;
+	}
+	
+	public void skill()
+	{
+		System.out.println("hello skill");
+	}
+	
+}
+
+public class ex1 {
+
+	public static void main(String[] args) {
+		System.out.println(book1.pi);
+		System.out.println(bookStore1.pi);
+		
+		bookStore1 b1=new bookStore1();
+		//book1 b1=new bookStore1();
+		System.out.println(b1.bookName1("abc"));//default
+		System.out.println(book1.bookName2("hh"));//static
+		System.out.println(b1.bookPrice(750));
+		b1.skill();
+		
+	}
+
+}

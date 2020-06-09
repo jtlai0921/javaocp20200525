@@ -1,0 +1,33 @@
+﻿package lambDaEx;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class ex3 {
+
+	public static void main(String[] args) {
+		//ArrayList<Integer> x=new ArrayList<>();
+		List<Integer> x=new ArrayList<>();
+		
+		x.add(40);
+		x.add(30);
+		x.add(50);
+		x.add(20);
+		
+		for(Integer o:x)
+		{
+			System.out.print(o+" ");
+		}
+		System.out.println("\n=================");
+		Collections.sort(x);
+		
+		for(Integer o:x)
+		{
+			System.out.print(o+" ");
+		}
+		
+
+	}
+
+}

@@ -1,0 +1,167 @@
+public interface implDao {
+    void add(String name,int ruler,int pen);
+    ResultSet query();
+=====================================================================================================
+public class PorderDao implements implDao{
+
+   static private String port="3305";
+    static private String user="root";
+   static  private String password="1234";
+
+ public void setPort(String port) {
+        PorderDao.port = port;
+    }
+
+    public void setUser(String user) {
+        PorderDao.user = user;
+    }
+
+    public void setPassword(String password) {
+        PorderDao.password = password;
+    }
+    
+ public void add(String name, int ruler, int pen) {
+        String sql="insert into gjun.porder(name,ruler,pen,sum) values(?,?,?,?)";
+        Porder p1=new Porder( name, ruler, pen);
+        Connection conn=PorderDao.getConn(port, user, password);
+        
+        try {
+            PreparedStatement ps=conn.prepareStatement(sql);
+            ps.setString(1, p1.getName());
+            ps.setInt(2, p1.getRuler());
+            ps.setInt(3, p1.getPen());
+            ps.setInt(4, p1.getSum());
+            
+            ps.executeUpdate();
+            
+        } catch (SQLException ex) {
+            System.out.println("no Connection");
+            Logger.getLogger(PorderDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         
+        
+        
+    }
+
+    @Override
+    public ResultSet query() {
+         ResultSet rs=null;
+        try {
+            Connection conn=PorderDao.getConn(port, user, password);
+            String sql="select * from porder";
+           
+            rs=(conn.createStatement()).executeQuery(sql);
+            
+            return rs;
+        } catch (SQLException ex) {
+            Logger.getLogger(PorderDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    return rs;
+    }
+public void update(int id,String name,int ruler,int pen){
+          int sum=ruler*30+pen*29;
+        String sql="update porder set  name='"+name+"',ruler="+ruler+",pen="+pen+",sum="+sum+ "  where id="+id;
+       
+      
+        try { Statement st=PorderDao.getConn(port, user, password).createStatement();
+            st.executeUpdate(sql);
+            
+        } catch (SQLException ex) {
+            
+            Logger.getLogger(PorderDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+       }
+public void delete(){
+       
+        String sql="delete from porder where id=2";
+        try {
+	Statement st=PorderDao.getConn(port, user, password).createStatement();
+            st.executeUpdate(sql);
+            
+        } catch (SQLException ex) {
+            
+            Logger.getLogger(PorderDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+       }
+public void delete(int id){
+       
+        String sql="delete from porder where id="+id;
+        try {
+	Statement st=PorderDao.getConn(port, user, password).createStatement();
+            st.executeUpdate(sql);
+            
+        } catch (SQLException ex) {
+            
+            Logger.getLogger(PorderDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+       }
+      
+static public Connection getConn(String port,String user,String password){
+     String url="jdbc:mysql://localhost:"+port+"/gjun";
+    
+   
+    Connection conn=null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn= DriverManager.getConnection(url, user, password);
+            
+        } catch (ClassNotFoundException ex) {
+            System.out.println("No Driver");
+            Logger.getLogger(implDao.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+             System.out.println("No Connection");
+            Logger.getLogger(implDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return conn;
+    }
+    
+    
+    
+    }
+==================================================================================================
+private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {                                      
+       new PorderDao().add(name.getText(),Integer.parseInt(ruler.getText()),Integer.parseInt(pen.getText()));
+	ans1.setText("建檔成功");
+       
+    }         
+ private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {                                      
+       ResultSet rs=  new PorderDao().query();
+       String msg="";
+        try {
+          while(rs.next()){
+                msg=msg+"\nid:"+rs.getInt("id")+"\tname:"+rs.getString("name")+
+                        "\truler:"+rs.getString("ruler")+
+                        "\tpen"+rs.getString("pen")+
+                        "\tsum:"+rs.getString("sum");
+                        
+                        }} catch (SQLException ex) {
+            Logger.getLogger(PorderUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ans1.setText(msg);
+       
+    }                                     
+
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {                                      
+      new PorderDao().update(Integer.parseInt(id.getText()),uN.getText(),Integer.parseInt(uR.getText()),Integer.parseInt(uP.getText()));
+        ans1.setText("更新成功");
+    }                                     
+
+    private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {                                      
+       new PorderDao().delete(Integer.parseInt(dId.getText()));
+        ans1.setText("刪除成功");
+    }                                     
+ private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {                                      
+         PorderDao.getConn(port.getText(), user.getText(), password.getText());
+         new PorderDao().setPort(port.getText());
+         new PorderDao().setUser(user.getText());
+         new PorderDao().setPassword(password.getText());
+         
+         ans1.setText("連線成功");
+         
+         
+    }                                     
+
+

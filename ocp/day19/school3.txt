@@ -1,0 +1,23 @@
+﻿class school3
+{
+	static void show()
+	{
+		System.out.println("hello school3");
+	}
+
+
+	static class A3
+	{
+
+		void show1()
+		{
+			System.out.println("hello A3");
+		}
+
+		static void show2(String msg)
+		{
+			System.out.println("hello"+msg);
+		}
+
+	}
+}

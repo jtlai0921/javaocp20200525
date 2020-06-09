@@ -1,0 +1,76 @@
+﻿class student
+{
+	private String name;
+	private int chi;
+	private int eng;
+	private int sum;
+
+	student(String name,int chi,int eng)
+	{
+		if(chi>=0 && chi<=100 && eng>=0 && eng<=100)
+		{
+			this.name=name;
+			this.chi=chi;
+			this.eng=eng;
+
+			sum=chi+eng;
+		}
+		else
+		{
+			System.out.println("分數需0~100");
+		}
+	}
+
+	void setName(String name)
+	{
+		this.name=name;
+	}
+
+	String getName()
+	{
+		return name;
+	}
+
+	void setChi(int chi)
+	{
+		if(chi>=0 && chi<=100 )
+		{
+			this.chi=chi;
+			sum=chi+eng;
+
+		}		
+
+	}
+
+	int getChi()
+	{
+		return chi;
+	}
+
+
+	void setEng(int eng)
+	{
+		if(eng>=0 && eng<=100 )
+		{
+			this.eng=eng;
+			sum=chi+eng;
+
+		}		
+
+	}
+
+	int getEng()
+	{
+		return eng;
+	}
+
+
+
+	int getSum()
+	{
+		return sum;
+	}
+
+
+
+}

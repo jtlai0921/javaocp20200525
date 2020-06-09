@@ -1,0 +1,180 @@
+
+package company;
+
+import java.util.Date;
+
+public class order {
+    
+    private String name;
+    private int lcd;
+    private int ram;
+    private int mouse;
+    private int sum;
+    private Date date;
+    private boolean member;
+    private String msg="";
+     private String msg2="";
+    private int pay;
+    private int change;
+    
+    
+    
+    order(String name,int lcd,int ram,int mouse,boolean member)
+    {        
+        this.name=name;
+        this.lcd=lcd;
+        this.ram=ram;
+        this.mouse=mouse;
+        this.member=member;
+        this.date=new Date();
+        sum=lcd*4999+ram*1280+mouse*680;
+    }
+
+    order(String name,int lcd,int ram,int mouse,boolean member,int pay)
+    { 
+        this.name=name;
+        this.lcd=lcd;
+        this.ram=ram;
+        this.mouse=mouse;
+        this.member=member;
+        this.pay=pay;
+        sum=lcd*4999+ram*1280+mouse*680;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setLcd(int lcd) {
+        this.lcd = lcd;
+    }
+
+    public void setRam(int ram) {
+        this.ram = ram;
+    }
+
+    public void setMouse(int mouse) {
+        this.mouse = mouse;
+    }
+
+    public void setMember(boolean member) {
+        this.member = member;
+    }
+
+    public void setPay(int pay) {
+        this.pay = pay;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getLcd() {
+        return lcd;
+    }
+
+    public int getRam() {
+        return ram;
+    }
+
+    public int getMouse() {
+        return mouse;
+    }
+
+    public int getSum() {
+        
+        sum=lcd*4999+ram*1280+mouse*680;
+        
+        if(sum>=10000)
+        {
+            sum=(int)(sum*0.95);
+            msg="滿萬元優惠";
+        }
+        
+        if(member==true)
+        {
+             sum=(int)(sum*0.95);
+             msg2="+會員優惠";
+        }
+        
+        return sum;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public boolean isMember() {
+        return member;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public int getPay() {
+        return pay;
+    }
+
+    public int getChange() {
+        
+        change=pay-sum;
+        
+        return change;
+    }
+
+    
+    
+    String show()
+    {
+    return "名:"+getName()+
+                 "\nLCD數量:"+getLcd()+
+                  "\nRAM數量:"+getRam()+
+                  "\nMOUSE數量:"+getMouse()+
+                  "\n總價："+getSum()+"\t"+msg+msg2+
+                  "\n訂單日期："+getDate();
+    }
+   
+    
+    String show2()
+    {
+    return "找您:"+getChange();
+    }
+    
+     
+    
+    
+}
+
+======================================================================
+
+    private void okMouseClicked(java.awt.event.MouseEvent evt) {                                
+       
+        String N=name.getText();
+        int L=Integer.parseInt(lcd.getText());
+        int R=Integer.parseInt(ram.getText());
+        int MOU=Integer.parseInt(mouse.getText());  
+        boolean MEM=member.isSelected();
+        
+        order o1=new order(N,L,R,MOU,MEM);
+        ans.setText(o1.show());
+        
+        
+    }  
+
+=============================================================================
+
+
+    private void payokMouseClicked(java.awt.event.MouseEvent evt) {                                   
+        String N=name.getText();
+        int L=Integer.parseInt(lcd.getText());
+        int R=Integer.parseInt(ram.getText());
+        int MOU=Integer.parseInt(mouse.getText());  
+        boolean MEM=member.isSelected();
+        int P=Integer.parseInt(pay.getText());
+       
+       order o1=new order(N,L,R,MOU,MEM);
+       ans.setText(o1.show()); 
+        
+       order o2=new order(N,L,R,MOU,MEM,P);
+       changebox.setText(o2.show2());

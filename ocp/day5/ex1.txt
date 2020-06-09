@@ -1,0 +1,15 @@
+﻿import java.util.Scanner;
+class ex1
+{
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+
+
+		//int x=sc.nextInt();
+		//double x=sc.nextDouble();
+
+		String x=sc.next();
+
+		System.out.println("x="+x);
+	}
+}

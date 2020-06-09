@@ -1,0 +1,169 @@
+public class order {
+    private String name;
+    boolean atm;
+    boolean credit;
+    boolean cash;
+    order(String name,boolean atm,boolean credit,boolean cash)
+    {
+        this.name=name;
+        this.atm=atm;
+        this.credit=credit;
+        this.cash=cash;
+                
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    String show()
+    {
+        return "名字"+name;
+    };
+}
+=========================================================================
+public class stationary extends order{
+    private int ruler;
+    private int pen;
+    private int sum;
+    private String msg="";
+    
+    public stationary(String name,boolean atm,boolean credit,boolean cash,int ruler,int pen) {
+        super(name,atm,credit,cash);
+        this.ruler=ruler;
+        this.pen=pen;
+        sum=ruler*30+pen*20;
+    }
+
+    public void setRuler(int ruler) {
+        this.ruler = ruler;
+    }
+
+    public void setPen(int pen) {
+        this.pen = pen;
+    }
+
+    public int getRuler() {
+        return ruler;
+    }
+
+    public int getPen() {
+        return pen;
+    }
+
+    public int getSum() {
+        if (atm==true)
+            {
+                msg=("atm轉帳");
+            }
+        else if (credit==true)
+            {
+                msg=("信用卡付款");
+            }
+        else if(cash==true)
+        {
+            msg="貨到付款";
+        }
+        else
+        {
+            msg="尚未選擇付款方式";
+        }
+        return sum;
+    }
+    String show()
+    {
+        return"名字:"+super.getName()+
+                "\nruler:"+getRuler()+
+                "\npen:"+getPen()+
+                "\n總價:"+getSum()+
+                "\n付款方式:"+msg;
+    };
+}
+===============================================================
+public class order3c extends order{
+    private int lcd;
+    private int ram;
+    private int sum;
+    private String msg="";
+
+    public order3c(String name,boolean atm,boolean credit,boolean cash,int lcd,int ram) {
+        super(name,atm,credit,cash);
+        this.lcd=lcd;
+        this.ram=ram;
+        sum=lcd*4999+ram*1280;
+    }
+
+    public void setLcd(int lcd) {
+        this.lcd = lcd;
+    }
+
+    public void setRam(int ram) {
+        this.ram = ram;
+    }
+
+    public int getLcd() {
+        return lcd;
+    }
+
+    public int getRam() {
+        return ram;
+    }
+
+    public int getSum() {
+        if (atm==true)
+            {
+                msg=("atm轉帳");
+            }
+        else if (credit==true)
+            {
+                msg=("信用卡付款");
+            }
+        else if(cash==true)
+        {
+            msg="貨到付款";
+        }
+         else
+        {
+            msg="尚未選擇付款方式";
+        }
+        return sum;
+    }
+    
+    String show()
+    {
+        return "名字:"+super.getName()+
+                "\nlcd:"+getLcd()+
+                "\nram:"+getRam()+
+                "\n總價:"+getSum()+
+                "\n付款方式:"+msg;
+        
+    };
+}
+===============================================================
+private void okMouseClicked(java.awt.event.MouseEvent evt) {                                
+       String name=Name.getText();
+       int lcd=(int)LCD.getValue();
+       int ram=(int)RAM.getValue();
+       int ruler=(int)Ruler.getValue();
+       int pen=(int)Pen.getValue();
+       boolean atm=Atm.isSelected();
+       boolean credit=Credit.isSelected();
+       boolean cash=Cash.isSelected();
+       
+       
+       if (order3C.isSelected())
+       {
+           order3c o=new order3c(name,atm,credit,cash,lcd,ram);
+           Ans.setText(o.show());          
+       }
+       
+       else if(stationary.isSelected())
+       {
+           stationary s=new stationary(name,atm,credit,cash,ruler,pen);
+           Ans.setText(s.show());          
+       }
+    }                          

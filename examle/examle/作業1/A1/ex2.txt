@@ -1,0 +1,156 @@
+/*
+ *@Jimmy 26
+ *
+ */
+import java.util.Date;
+public class order{
+    private String name;
+    private int lcd;
+    private int ram;
+    private int mouse;
+    private boolean member;
+    private Date date;
+    private int sum_money;
+    private int pay_money;
+    private int change_money;    
+        
+    order(String name,int lcd,int ram,int mouse,boolean member)
+    {
+       if(lcd>=0 && ram>=0 && mouse>=0)
+       {
+        this.name=name;
+        this.lcd=lcd;
+        this.ram=ram;
+        this.mouse=mouse;
+        this.date=new Date();
+        sum_money=lcd*4999+ram*1280+mouse*680;
+       }       
+    }
+    order(int lcd,int ram,int mouse,boolean member,int pay_money)       
+      {
+
+        if(pay_money>0)
+        {
+          this.lcd=lcd;
+          this.ram=ram;
+          this.mouse=mouse;
+          this.member=member;
+          this.pay_money=pay_money;
+          sum_money=lcd*4999+ram*1280+mouse*680;
+        }
+      }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getLcd() {
+        return lcd;
+    }
+
+    public int getRam() {
+        return ram;
+    }
+
+    public int getMouse() {
+        return mouse;
+    }
+
+    public boolean isMember() {
+        return member;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public int getSum_money(boolean member) {
+        int  sum_money=lcd*4999+ram*1280+mouse*680;      
+        if(sum_money>9999 && member==true )
+        {
+            sum_money=(int)((sum_money*0.95)*0.95);
+        }
+        else if(sum_money<9999 && member==true)
+        {
+            sum_money=(int)(sum_money*0.95);
+        }
+        else if(sum_money>9999 && member==false) 
+        {
+            sum_money=(int)(sum_money*0.95); 
+        }        
+        return sum_money;
+    }
+
+    public int getPay_money() {
+        return pay_money;
+    }
+
+    public int getChange_money(boolean member) {
+        int c_money=
+       change_money=getPay_money()-getSum_money(member);
+        return change_money;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setLcd(int lcd) {
+        this.lcd = lcd;
+    }
+
+    public void setRam(int ram) {
+        this.ram = ram;
+    }
+
+    public void setMouse(int mouse) {
+        this.mouse = mouse;
+    }
+
+    public void setMember(boolean member) {
+        this.member = member;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void setSum_money(int sum_money) {
+        this.sum_money = sum_money;
+    }
+
+    public void setPay_money(int pay_money) {
+        this.pay_money = pay_money;
+    }
+
+    public void setChange_money(int change_money) {
+        this.change_money = change_money;
+    }
+
+
+
+
+
+}
+---
+//ans1
+        String NAME=name.getText();
+        int LCD=Integer.parseInt(lcd.getText());
+        int RAM=Integer.parseInt(ram.getText());
+        int MOUSE=Integer.parseInt(mouse.getText());
+        boolean MEMBER=member.isSelected();
+        //int GIVE_SUM=Integer.parseInt(give_sum.getText());
+        wk1 wko=new wk1(NAME,LCD,RAM,MOUSE,MEMBER);
+         
+         ans1.setText(wko.show(MEMBER));
+---
+//ans2
+        int LCD=Integer.parseInt(lcd.getText());
+        int RAM=Integer.parseInt(ram.getText());
+        int MOUSE=Integer.parseInt(mouse.getText());      
+        boolean MEMBER=member.isSelected();
+        int PAY_MONEY=Integer.parseInt(pay_money.getText());
+        boolean MEMBERS=member.isSelected();
+        
+        wk1 wko1=new wk1(LCD,RAM,MOUSE,MEMBER,PAY_MONEY)  ;
+        ans2.setText(wko1.show1(MEMBERS));        

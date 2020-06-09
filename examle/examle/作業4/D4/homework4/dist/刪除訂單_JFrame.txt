@@ -1,0 +1,82 @@
+package Controller;
+
+import DAO.DB;
+import DAO.PorderDAO;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
+public class PorderDelete extends javax.swing.JFrame {
+
+    String msg;
+    String ID;
+
+    /*設定ID的下拉選單(未付款的訂單才顯示)*/
+    public void setID() {
+        try {
+            String Table = DB.getTable();
+            String SQL = "select * from " + Table;
+            Connection conn = DB.ConnectionDB();
+
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(SQL);
+            while (rs.next()) {
+                if (rs.getString("pay").equals("尚未付款")) {
+                    ID = String.valueOf(rs.getInt("id"));
+                    id.addItem(ID);
+                }
+            }
+            setShow();
+        } catch (SQLException ex) {
+            Logger.getLogger(PorderUpdate.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    /*設定show顯示訂單資訊*/
+    public void setShow() {
+        try {
+            String Table = DB.getTable();
+            ID = (String) id.getSelectedItem();
+            String SQL2 = "select * from " + Table + " where id=" + ID;
+            Connection conn = DB.ConnectionDB();
+
+            Statement st = conn.createStatement();
+            ResultSet rs2 = st.executeQuery(SQL2);
+            while (rs2.next()) {
+                msg = "ID：" + rs2.getInt("id")
+                        + "\n姓名：" + rs2.getString("name")
+                        + "\nRuler：" + rs2.getInt("ruler")
+                        + "\nPen：" + rs2.getInt("pen")
+                        + "\n總價：" + rs2.getInt("sum");
+            }
+            show.setText(msg);
+        } catch (SQLException ex) {
+            Logger.getLogger(PorderUpdate.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    /*確認刪除按鈕*/
+    private void okMouseClicked(java.awt.event.MouseEvent evt) {                                
+        int ID2 = Integer.parseInt(ID);
+        String msg = PorderDAO.PorderDelete(ID2);
+        if(msg != null){
+            show.setText(msg);
+        }else{
+            show.setText("欲刪除的檔案不存在！");
+        }
+    }                               
+
+    /*關閉按鈕*/
+    private void exitMouseClicked(java.awt.event.MouseEvent evt) {                                  
+        setVisible(false);
+    }          
+                       
+    /*設定show跟著ID下拉選單來顯示個別的訂單資訊*/
+    private void idItemStateChanged(java.awt.event.ItemEvent evt) {                                    
+        ID = (String)id.getSelectedItem();
+        setShow();
+    }

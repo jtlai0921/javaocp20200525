@@ -1,0 +1,35 @@
+﻿class add
+{
+	public static void main(String[] args) {
+		
+		money.companyName();
+		money.title();
+		//money.pv=300000;
+		//m3.r=0.011;
+		money.setPv(200000);
+		money m1=new money(0.012,5);
+		money m2=new money(0.013,4);
+		money m3=new money(0.014,3);
+		money m4=new money(0.015,2);
+		
+		
+
+		m1.show();
+		m2.show();
+		m3.show();
+		m4.show();
+
+
+		System.out.println("===================================");
+
+		//money.pv=300000;
+		//m3.r=-0.011;
+		money.setPv(150000);
+		m3.setR(0.011);
+		m1.show();
+		m2.show();
+		m3.show();
+		m4.show();
+	
+	}
+}

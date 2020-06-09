@@ -1,0 +1,17 @@
+﻿class add
+{
+	public static void main(String[] args) {
+		//SA a=new SA("abc",65);//is-a SA , is-a school--->has-a ?
+
+		school a=new SA("abc",65);//is-a school-->compile  ; has-a--->run---> new 
+		
+		System.out.println(a);
+		System.out.println(a.show());
+		((SA)a).skill1();
+
+		/*school s=new school("s");
+		SA a=new SA("a",65);
+		SB b=new SB("b",77);
+		SC c=new SC("c",88);*/
+	}
+}

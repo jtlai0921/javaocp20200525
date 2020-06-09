@@ -1,0 +1,10 @@
+﻿private void okMouseClicked(java.awt.event.MouseEvent evt) {                                
+     // System.out.println("hello java");
+    // ans.setText("hello java");
+    
+    String x=name.getText();
+    
+    
+    ans.setText("你的名字為 ="+x);
+     
+    }                               

@@ -1,0 +1,26 @@
+package homework3;
+
+import java.awt.Toolkit;
+
+/**
+ * 顯示付款成功畫面的JFrame
+ */
+public class success extends javax.swing.JFrame {
+
+    /*確認按鈕*/
+    private void okMouseClicked(java.awt.event.MouseEvent evt) {                                
+        Login login = new Login();
+        login.setVisible(true);
+        /*為了讓跳出的畫面能置中於螢幕上 */
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        int x = (int) (toolkit.getScreenSize().getWidth() - login.getWidth()) / 2;
+        int y = (int) (toolkit.getScreenSize().getHeight() - login.getHeight()) / 2;
+        login.setLocation(x, y);
+        setVisible(false);
+    }                               
+
+    /*傳入付款方式，並在畫面上秀出*/
+    public void setpayShow(String payShow) {
+        payshow.setText(payShow);
+    }
+}

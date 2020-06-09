@@ -1,0 +1,24 @@
+@charset "BIG5";
+
+.header
+{
+	
+
+	
+}
+
+.content
+{
+    background-color:#FFD2FC;
+	width:600px;
+	height:400px;
+	margin-left:20%;
+	padding-left:20px;
+	padding-top:5px;
+	
+}
+
+.footer
+{
+	
+}

@@ -1,0 +1,120 @@
+package Controller;
+
+import DAO.DB;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+public class PorderCar extends javax.swing.JFrame {
+
+    private int Sum;
+    private String ID;
+    private String msg;
+
+    /*關閉按鈕*/
+    private void exitMouseClicked(java.awt.event.MouseEvent evt) {                                  
+        setVisible(false);
+    }                                 
+
+    /*付款按鈕*/
+    private void okMouseClicked(java.awt.event.MouseEvent evt) {                                
+
+        Date dt = new Date();
+        String date = "" + dt;
+        String Pay = (String) pay.getSelectedItem();
+        int Money = 0;
+        if (!money.getText().equals("")) {
+            String Table = DB.getTable();
+            String SQL = "select * from " + Table+" where id="+porderchange.getSelectedItem();
+            Connection conn = DB.ConnectionDB();
+            try {
+                Statement st = conn.createStatement();
+                ResultSet rs = st.executeQuery(SQL);
+                if (rs.next()) {
+                    if (rs.getString("pay").equals("尚未付款")) {
+                        Money = Integer.parseInt(money.getText());
+                        ans2.setText(msg + "\n付款方式：" + Pay
+                                + "\n付款金額：" + Money
+                                + "\n找您：" + (Money - Sum)
+                                + "\n交易日期：" + date
+                        );
+                        String sql = "update " + DB.getTable() + " set pay=? , date=?  where id=" + ID;
+                        Connection conn2 = DB.ConnectionDB();
+                        try {
+                            PreparedStatement ps = conn2.prepareStatement(sql);
+                            ps.setNString(1, Pay);
+                            ps.setNString(2, date);
+                            ps.executeUpdate();
+                        } catch (SQLException ex) {
+                            Logger.getLogger(PorderCar.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }else{
+                        ans2.setText("此訂單已付過款！");
+                    }
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(PorderCar.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            ans2.setText("付款金額未輸入！");
+        }
+    }                               
+
+    /*選擇訂單按鈕*/
+    private void porderchangeItemStateChanged(java.awt.event.ItemEvent evt) {                                              
+        ID = (String) porderchange.getSelectedItem();
+        setans1();
+        ans2.setText("");
+    }                                             
+
+    /*設定ans1的顯示畫面跟著訂單選單跑*/
+    public void setans1() {
+        String Table = DB.getTable();
+        ID = (String) porderchange.getSelectedItem();
+        String SQL2 = "select * from " + Table + " where id=" + ID;
+        Connection conn = DB.ConnectionDB();
+        try {
+            Statement st = conn.createStatement();
+            ResultSet rs2 = st.executeQuery(SQL2);
+            while (rs2.next()) {
+                msg = "ID：" + rs2.getInt("id")
+                        + "\n姓名：" + rs2.getString("name")
+                        + "\nRuler：" + rs2.getInt("ruler")
+                        + "\nPen：" + rs2.getInt("pen")
+                        + "\n總價：" + rs2.getInt("sum");
+                Sum = rs2.getInt("sum");
+            }
+            ans1.setText(msg);
+        } catch (SQLException ex) {
+            Logger.getLogger(PorderCar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /*設定ID跟付款方式的下拉選單*/
+    public void setList() {
+        String Table = DB.getTable();
+        String SQL = "select * from " + Table;
+        Connection conn = DB.ConnectionDB();
+        try {
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(SQL);
+            while (rs.next()) {
+                if (rs.getString("pay").equals("尚未付款")) {
+                    String ID = String.valueOf(rs.getInt("id"));
+                    porderchange.addItem(ID);
+                }
+            }
+            setans1();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(PorderCar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        pay.addItem("ATM付款");
+        pay.addItem("VISA刷卡");
+        pay.addItem("貨到付款");
+    }

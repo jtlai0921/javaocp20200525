@@ -1,0 +1,37 @@
+﻿package com.sb;
+
+import com.sa.student;
+import com.sa.student2;
+
+public class A extends student implements student2{
+	
+
+	private int chi;
+	
+	public A(String name,int chi) {
+		super(name);
+		this.chi=chi;
+	}
+
+	public int getChi() {
+		return chi;
+	}
+
+	public void setChi(int chi) {
+		this.chi = chi;
+	}
+	
+	
+	public String show()
+	{
+		return super.show()+"\t國文:"+getChi();
+	}
+
+	@Override
+	public void set(int o) {
+		setChi(o);
+		
+	}
+	
+	
+}

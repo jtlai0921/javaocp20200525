@@ -1,0 +1,21 @@
+﻿package exceptionEX;
+
+import java.io.File;
+import java.io.IOException;
+
+public class ex2 {
+
+	public static void main(String[] args) {
+		File f=new File("c:/ABC/a.txt");
+		
+		try {
+			f.createNewFile();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("無新增權限");
+		}
+
+	}
+
+}

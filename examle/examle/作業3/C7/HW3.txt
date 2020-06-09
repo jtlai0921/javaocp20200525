@@ -1,0 +1,274 @@
+
+import java.util.Date;
+
+
+public class store {
+    private String name;
+    private int lcd;
+    private int ram;
+    private int pen;
+    private int ruler;
+    private int sum;
+    private int payment;
+    private int change;
+    private boolean store3C;
+    private boolean storeOffice;
+    private boolean ATM;
+    private boolean VISA;
+    private boolean HOME;
+    private String msg;
+    private Date date;
+    
+    /*
+    store(String name,int lcd,int ram,boolean ATM,boolean VISA,boolean HOME)
+    {
+        this.name=name;
+        this.lcd=lcd;
+        this.ram=ram;        
+        this.ATM=ATM;
+        this.VISA=VISA;
+        this.HOME=HOME;
+        
+        date=new Date();
+        sum=lcd*4999+ram*1280;
+        
+            if(ATM==true)
+            {                
+                msg="LCD:"+lcd+"\nRAM:"+ram+"\n您選擇ATM付款";
+            }
+            if(VISA==true)
+            {
+                
+                msg="LCD:"+lcd+"\nRAM:"+ram+"\n您選擇信用卡付款";
+            }
+            if(HOME==true)
+            {
+                
+                msg="LCD:"+lcd+"\nRAM:"+ram+"\n您選擇貨到付款";
+            }
+    }
+    */
+    
+    store(String name,boolean store3C,boolean storeOffice,boolean ATM,boolean VISA,boolean HOME,
+            int lcd,int ram,int pen,int ruler)
+    {
+        this.name=name;
+        this.lcd=lcd;
+        this.ram=ram;
+        this.pen=pen;
+        this.ruler=ruler;
+        this.store3C=store3C;
+        this.storeOffice=storeOffice;
+        this.ATM=ATM;
+        this.VISA=VISA;
+        this.HOME=HOME;
+        
+        date=new Date();
+        if(store3C==true)
+        {
+            sum=lcd*4999+ram*1280;
+            if(ATM==true)
+            {                
+                msg="LCD:"+lcd+"\nRAM:"+ram+"\n您選擇ATM付款";
+            }
+            if(VISA==true)
+            {
+                
+                msg="LCD:"+lcd+"\nRAM:"+ram+"\n您選擇信用卡付款";
+            }
+            if(HOME==true)
+            {
+                
+                msg="LCD:"+lcd+"\nRAM:"+ram+"\n您選擇貨到付款";
+            }
+        }
+        
+        if(storeOffice==true)
+        {
+            sum=pen*20+ruler*30;
+            if(ATM==true)
+            {                
+                msg="PEN:"+pen+"\nRULER:"+ruler+"\n您選擇ATM付款";
+            }
+            if(VISA==true)
+            {                
+                msg="PEN:"+pen+"\nRULER:"+ruler+"\n您選擇信用卡付款";
+            }
+            if(HOME==true)
+            {                
+                msg="PEN:"+pen+"\nRULER:"+ruler+"\n您選擇貨到付款";
+            }
+        }
+        
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setLcd(int lcd) {
+        this.lcd = lcd;
+    }
+
+    public void setRam(int ram) {
+        this.ram = ram;
+    }
+
+    public void setPen(int pen) {
+        this.pen = pen;
+    }
+
+    public void setRuler(int ruler) {
+        this.ruler = ruler;
+    }
+
+    public void setPayment(int payment) {
+        this.payment = payment;
+    }
+
+    public void setStore3C(boolean store3C) {
+        this.store3C = store3C;
+    }
+
+    public void setStoreOffice(boolean storeOffice) {
+        this.storeOffice = storeOffice;
+    }
+
+    public void setATM(boolean ATM) {
+        this.ATM = ATM;
+    }
+
+    public void setVISA(boolean VISA) {
+        this.VISA = VISA;
+    }
+
+    public void setHOME(boolean HOME) {
+        this.HOME = HOME;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getLcd() {
+        return lcd;
+    }
+
+    public int getRam() {
+        return ram;
+    }
+
+    public int getPen() {
+        return pen;
+    }
+
+    public int getRuler() {
+        return ruler;
+    }
+
+    public int getSum() {
+        return sum;
+    }
+
+    public int getPayment() {
+        return payment;
+    }
+
+    public int getChange() {
+        if(payment>sum)
+        {
+            change=payment-sum;
+        }
+        return change;
+    }
+
+    public boolean isStore3C() {
+        return store3C;
+    }
+
+    public boolean isStoreOffice() {
+        return storeOffice;
+    }
+
+    public boolean isATM() {
+        return ATM;
+    }
+
+    public boolean isVISA() {
+        return VISA;
+    }
+
+    public boolean isHOME() {
+        return HOME;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+    
+    
+    String show()
+    {
+        return "姓名:"+name+"\n"+getMsg()+
+                "\n總金額:"+getSum()+
+                "\n時間:"+getDate();
+    }
+    
+}
+============================================================
+
+store s;
+    private void submitMouseClicked(java.awt.event.MouseEvent evt) {                                    
+        
+        try
+        {
+        String Name=name.getText();       
+        boolean Store3C=rbtn3C.isSelected();
+        boolean StoreOffice=rbtnOffice.isSelected();
+        boolean ATM=rbtnATM.isSelected();
+        boolean VISA=rbtnVISA.isSelected();
+        boolean HOME=rbtnHOME.isSelected();
+        
+        
+        if(Store3C==true)
+        {
+            int Pen=0;
+            int Ruler=0;
+            int Lcd=Integer.parseInt(lcd.getText());
+            int Ram=Integer.parseInt(ram.getText());
+            s=new store(Name,Store3C,StoreOffice,ATM,VISA,HOME,Lcd,Ram,Pen,Ruler);
+        }
+        if(StoreOffice==true)
+        {
+            int Lcd=0;
+            int Ram=0;
+            int Pen=Integer.parseInt(pen.getText());
+            int Ruler=Integer.parseInt(ruler.getText());
+            s=new store(Name,Store3C,StoreOffice,ATM,VISA,HOME,Lcd,Ram,Pen,Ruler);
+        }
+        }
+        
+        catch(Exception e)
+        {
+            msg1.setText("欄位不可空白");
+        }
+        
+        msg1.setText(s.show());
+    }                                   
+
+    private void payMouseClicked(java.awt.event.MouseEvent evt) {                                 
+        try
+        {
+            int Payment=Integer.parseInt(money.getText());
+            s.setPayment(Payment);
+            msg2.setText("找零："+s.getChange());
+        }
+        catch(Exception e)
+        {
+            msg2.setText("請輸入付款金額");
+        }
+    }                                

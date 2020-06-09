@@ -1,0 +1,53 @@
+﻿package com.sa;
+/**
+ * 
+ * @author teacher
+ * @version 1.0<br>
+ * <h1>學員管理系統</h1>
+ * 
+ *
+ */
+
+public class student {
+	private String name;
+
+	/**
+	 * 
+	 * @param name 輸入姓名<br>
+	 * ex:<br>
+	 * 
+	 * student s=new student("aa");
+	 * 
+	 */
+	public student(String name) {
+		
+		this.name = name;
+	}
+
+	/**
+	 * 
+	 * @return 回傳姓名
+	 */
+	public String getName() {
+		return name;
+	}
+
+	
+	/**
+	 * 
+	 * @param name 修改姓名
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * 
+	 * @return 顯示姓名
+	 */
+	public String show()
+	{
+		return "名:"+name;
+	}
+
+}

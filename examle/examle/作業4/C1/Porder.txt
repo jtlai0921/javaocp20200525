@@ -1,0 +1,257 @@
+
+package Dao;
+
+import Model.Porder;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
+public class porderDao implements implDao{
+    public static void main(String[] args){
+        //new porderDao().add("aa", 1, 1);
+    } 
+
+    @Override
+    public void add(String name, int ruler, int pen,String po,String t,String rt,String u,String pw) {
+        Porder p=new Porder(name,ruler,pen);
+        
+        String sql="insert into "+rt+" (name,ruler,pen,sum) values (?,?,?,?)";
+        try {
+            Connection conn=implDao.getConn(po,t,u,pw);
+            PreparedStatement ps=conn.prepareStatement(sql);
+            ps.setString(1,name);
+            ps.setInt(2, ruler);
+            ps.setInt(3, pen);
+            ps.setInt(4, p.getSum());
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(porderDao.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception e){
+            
+        }
+        
+        
+    }
+
+    @Override
+    public ResultSet query(String p,String t,String rt,String u,String pw) {
+        
+        String sql="select * from "+rt;
+        ResultSet rs=null;
+        try {
+            Connection conn=implDao.getConn(p,t,u,pw);
+            Statement sd=conn.createStatement();
+            rs=sd.executeQuery(sql);
+                       
+        } catch (SQLException ex) {
+            Logger.getLogger(porderDao.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception e){
+            
+        }
+        return rs;
+    }
+
+    @Override
+    public void update(int id, String name, int ruler, int pen, String po,String t,String rt, String u, String pw) {
+        Porder p=new Porder(name,ruler,pen);
+        String sql="update "+rt+" set name=?,ruler=?,pen=? where id="+id;
+        try {
+            Connection conn=implDao.getConn(po,t,u,pw);
+            PreparedStatement ps=conn.prepareStatement(sql);
+            //ps.setString(1,rt);
+            ps.setString(1,name);
+            ps.setInt(2, ruler);
+            ps.setInt(3, pen);
+            //ps.setInt(5, id);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(porderDao.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception e){
+            
+        }
+        }
+
+    @Override
+    public void delete(int id, String po, String t,String rt, String u, String pw) {
+        String sql="delete from "+rt+" where id="+id;
+        try {
+            Connection conn=implDao.getConn(po,t,u,pw);
+            PreparedStatement ps=conn.prepareStatement(sql);
+            
+            /*ps.setString(1,rt);
+            ps.setInt(2,id);*/
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(porderDao.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception e){
+            
+        }
+    }
+    }
+------------------------------------------------------------------------------
+package Dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+public interface implDao {
+    static Connection getConn(String p,String d,String u,String pw) throws Exception{
+        String url="jdbc:mysql://localhost:"+p+"/"+d;
+        String user=u;
+        String password=pw;
+        Connection conn=null;
+       // try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn=DriverManager.getConnection(url, user, password);
+            
+        /*} catch (ClassNotFoundException ex) {
+            System.out.println("no driver");
+            Logger.getLogger(porderDao.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            System.out.println("no connection");
+            Logger.getLogger(porderDao.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
+        return conn;
+    };
+    void add(String name,int ruler,int pen,String p,String t,String rt,String u,String pw);
+    ResultSet query(String p,String t,String rt,String u,String pw);
+    void update(int id,String name,int ruler,int pen,String p,String t,String rt,String u,String pw);
+    void delete(int id,String p,String t,String rt,String u,String pw);
+}
+-------------------------------------------------------------------------
+String po="";
+    String t="";
+    String u="";
+    String pw="";
+    String rt="";
+    private void okCreateMouseClicked(java.awt.event.MouseEvent evt) {                                      
+        rt=realtable.getText();
+        String name=nameKey.getText();
+        int ruler=Integer.parseInt(rulerKey.getText());
+        int pen=Integer.parseInt(penKey.getText());
+        new porderDao().add(name,ruler,pen,po,t,rt,u,pw);
+        yn.setText("建檔成功");
+    }                                     
+
+    private void okSelectMouseClicked(java.awt.event.MouseEvent evt) {                                      
+        rt=realtable.getText();
+        ResultSet rs=new porderDao().query(po,t,rt,u,pw);
+        String msg="";
+        try {
+            while(rs.next()){
+                    msg=msg+"Id:"+rs.getString("Id")+
+                        "\t名字:"+rs.getString("name")+
+                        "\t尺:"+rs.getInt("ruler")+
+                        "\t筆:"+rs.getInt("pen")+
+                        "\t合計金額:"+rs.getInt("sum")+"\n";
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ANS.setText(msg);
+        yn.setText("");
+    }                                     
+
+    private void connOkMouseClicked(java.awt.event.MouseEvent evt) {                                    
+        if(connOk.isEnabled()==true){
+            po=portKey.getText();
+            t=tableKey.getText();
+            u=userKey.getText();
+            pw=passwordKey.getText();
+            
+            try{
+                
+                implDao.getConn(po,t,u,pw);
+                connMsg.setText("連線成功");
+                portKey.setEnabled(false);
+                userKey.setEnabled(false);
+                passwordKey.setEnabled(false);
+                tableKey.setEnabled(false);
+                stopconnOk.setEnabled(true);
+                connOk.setEnabled(false);
+            }
+            catch(Exception e){
+                connMsg.setText("連線失敗");
+            }
+        }
+        
+    }                                   
+
+    private void stopconnOkMouseClicked(java.awt.event.MouseEvent evt) {                                        
+        if(stopconnOk.isEnabled()==true){
+            connMsg.setText("中斷連線");
+            portKey.setEnabled(true);
+            userKey.setEnabled(true);
+            passwordKey.setEnabled(true);
+            portKey.setText("");
+            userKey.setText("");
+            passwordKey.setText("");
+            tableKey.setText("");
+            stopconnOk.setEnabled(false);
+            connOk.setEnabled(true);
+            tableKey.setEnabled(true);
+        }
+       
+    }                                       
+
+    private void updateOkMouseClicked(java.awt.event.MouseEvent evt) {                                      
+        po=portKey.getText();
+        t=tableKey.getText();
+        u=userKey.getText();
+        pw=passwordKey.getText();
+        String name=updateName.getText();
+        int ruler=Integer.parseInt(updateRuler.getText());
+        int pen=Integer.parseInt(updatePen.getText());
+        int id=Integer.parseInt(updateId.getText());
+        rt=realtable.getText();
+       new porderDao().update(id, name, ruler, pen, po, t, rt,u, pw);
+       yn.setText("修改成功");
+       ResultSet rs=new porderDao().query(po,t,rt,u,pw);
+        String msg="";
+        try {
+            while(rs.next()){
+                    msg=msg+"Id:"+rs.getString("Id")+
+                        "\t名字:"+rs.getString("name")+
+                        "\t尺:"+rs.getInt("ruler")+
+                        "\t筆:"+rs.getInt("pen")+
+                        "\t合計金額:"+rs.getInt("sum")+"\n";
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ANS2.setText(msg);
+    }                                     
+
+    private void deleteOkMouseClicked(java.awt.event.MouseEvent evt) {                                      
+        po=portKey.getText();
+        t=tableKey.getText();
+        u=userKey.getText();
+        pw=passwordKey.getText();
+        rt=realtable.getText();
+        int id=Integer.parseInt(deleteId.getText());
+       new porderDao().delete(id, po, t, rt,u, pw);
+       yn.setText("刪除成功");
+       ResultSet rs=new porderDao().query(po,t,rt,u,pw);
+        String msg="";
+        try {
+            while(rs.next()){
+                    msg=msg+"Id:"+rs.getString("Id")+
+                        "\t名字:"+rs.getString("name")+
+                        "\t尺:"+rs.getInt("ruler")+
+                        "\t筆:"+rs.getInt("pen")+
+                        "\t合計金額:"+rs.getInt("sum")+"\n";
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ANS3.setText(msg);
+    }                      

@@ -1,0 +1,172 @@
+public class a2
+{
+    private int menu1;
+    private int menu2;
+    private int menu3;
+    
+    private boolean dish1;
+    private boolean dish2;
+    private boolean dish3;
+    
+    private String member;
+    private int sum;
+    private int pay;
+    private int cha;
+    
+    public a2(int menu1,int menu2,int menu3,boolean dish1,boolean dish2,boolean dish3,int m)
+    {
+        sum=menu1*120+menu2*130+menu3*140;
+        
+        this.dish1=dish1;
+        this.dish2=dish2;
+        this.dish3=dish3;
+        
+        if(this.dish1==true) sum=sum+10;
+        if(this.dish2==true) sum=sum+20;
+        if(this.dish3==true) sum=sum+30;
+        
+        switch(m)
+        {
+            case  1:
+                sum=(int)(sum*0.85);
+                member="VIP";
+                break;  
+                
+            case 2:
+                sum=(int)(sum*0.9);
+                member="金卡";
+                break;
+                
+            case 3:
+                sum=(int)(sum*0.95);
+                member="銀卡";
+                break;
+                
+            case 4:
+                sum=(int)(sum*1);
+                member="普通會員";
+                break;   
+        }       
+    }
+
+    public void setMenu1(int menu1)
+    {
+        this.menu1 = menu1;
+    }
+
+    public void setMenu2(int menu2) 
+    {
+        this.menu2 = menu2;
+    }
+
+    public void setMenu3(int menu3)
+    {
+        this.menu3 = menu3;
+    }
+
+    public void setDish1(boolean dish1)
+    {
+        this.dish1 = dish1;
+    }
+
+    public void setDish2(boolean dish2) 
+    {
+        this.dish2 = dish2;
+    }
+
+    public void setDish3(boolean dish3)
+    {
+        this.dish3 = dish3;
+    }
+
+    public void setMember(String member)
+    {
+        this.member = member;
+    }
+    public void setPay(int pay) 
+    {
+        this.pay = pay;
+    }
+
+    public int getMenu1()
+    {
+        return menu1;
+    }
+
+    public int getMenu2()
+    {
+        return menu2;
+    }
+
+    public int getMenu3() 
+    {
+        return menu3;
+    }
+
+    public boolean isDish1()
+    {
+        return dish1;
+    }
+
+    public boolean isDish2() 
+    {
+        return dish2;
+    }
+
+    public boolean isDish3() 
+    {
+        return dish3;
+    }
+
+    public String getMember() 
+    {
+        return member;
+    }
+
+    public int getSum() 
+    {
+        return sum;
+    }
+    public int getPay() 
+    {
+        return pay;
+    }
+    
+    public int getCha()
+    {
+        cha=pay-sum;
+        return cha;
+    }
+    
+    
+    
+    String show()
+    {
+        return "\n會員等級："+member+
+                    "\n共:"+getSum()+"元";
+    }
+    
+    String show2()
+    {
+        return "找您:"+getCha()+"元";
+    }  
+}
+==============================================================================
+ int MA=Integer.parseInt(menu1.getText());
+        int MB=Integer.parseInt(menu2.getText());
+        int MC=Integer.parseInt(menu3.getText());
+        boolean D1=dish1.isSelected();
+        boolean D2=dish2.isSelected();
+        boolean D3=dish3.isSelected();
+        int M=0;
+        if(member_A.isSelected()) M=1;
+        if(member_B.isSelected()) M=2;
+        if(member_C.isSelected()) M=3;
+        if(member_D.isSelected()) M=4;
+        t1=new a2(MA,MB,MC,D1,D2,D3,M);
+        ans1.setText(t1.show());
+                                  
+==============================================================================
+int P=Integer.parseInt(pay.getText());
+        int C=P-t1.getSum();
+        ans2.setText("找您"+C+"元");

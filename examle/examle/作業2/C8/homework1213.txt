@@ -1,0 +1,149 @@
+
+public class order {
+    
+    private int id;
+    private int a;
+    private int b;
+    private int c;
+    int sum;
+    int sides;
+    boolean side1;
+    boolean side2;
+    boolean side3;
+    boolean vip;
+    boolean gold;
+    boolean silver;
+    boolean member;
+    String msg1="";
+    int pay;
+    
+    order(int id,int a,int b, int c,boolean side1,boolean side2,boolean side3,boolean vip, boolean gold, boolean silver,boolean member)
+    {
+        if(a>=0 && b>=0 && c>=0){
+        this.id=id;
+        this.a=a;
+        this.b=b;
+        this.c=c;
+        this.vip=vip;
+        this.gold=gold;
+        this.silver=silver;
+        this.member=member;
+        int s1= side1==true? 30:0;
+        int s2= side2==true? 40:0;
+        int s3= side3==true? 50:0;
+        
+        sides=s1+s2+s3;
+        sum=a*120+b*130+c*140+sides;  
+         }
+                
+    }
+    order(int pay)
+    {
+        this.pay=pay;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setA(int a) {
+        this.a = a;
+    }
+
+    public void setB(int b) {
+        this.b = b;
+    }
+
+    public void setC(int c) {
+        this.c = c;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getA() {
+        return a;
+    }
+
+    public int getB() {
+        return b;
+    }
+
+    public int getC() {
+        return c;
+    }
+
+    public int getSum() {
+        if (vip==true)
+            {
+                msg1=("(VIP會員另享85折優惠)");
+                sum=(int)(sum*0.85);
+            }
+        else if (gold==true)
+            {
+                msg1=("(金卡會員另享9折優惠)");
+                sum=(int)(sum*0.9);
+            }
+        else if (silver==true)
+            {
+                msg1=("(銀卡會員另享95折優惠)");
+                sum=(int)(sum*0.95);
+            }
+            return sum;
+    }
+
+    public int getSides() {
+        return sides;
+    }
+
+    public boolean isSide1() {
+        return side1;
+    }
+
+    public boolean isSide2() {
+        return side2;
+    }
+
+    public boolean isSide3() {
+        return side3;
+    }
+
+    String show()
+    {
+
+        return "訂單電話"+id+
+               "\n小計"+sum+
+               "\n總價"+getSum()+msg1;
+    }
+}
+=====================================================================
+order o;
+    private void okMouseClicked(java.awt.event.MouseEvent evt) {                                
+        int id=Integer.parseInt(ID.getText());
+        int a=Integer.parseInt(A.getText());
+        int b=Integer.parseInt(B.getText());
+        int c=Integer.parseInt(C.getText());
+        boolean side1=Side1.isSelected();
+        boolean side2=Side2.isSelected();
+        boolean side3=Side3.isSelected();
+        boolean vip=VIP.isSelected();
+        boolean gold=Gold.isSelected();
+        boolean silver=Silver.isSelected();
+        boolean member=Member.isSelected();
+        
+        
+        order o=new order(id,a,b,c,side1,side2,side3,vip,gold,silver,member);
+        Ans.setText(o.show());
+        this.o=o;
+        
+        
+        
+    }                               
+
+    private void ok2MouseClicked(java.awt.event.MouseEvent evt) {                                 
+        
+        int pay=Integer.parseInt(Pay.getText());
+        
+        Change.setText("找您"+(pay-o.sum)+"元");
+    }                                

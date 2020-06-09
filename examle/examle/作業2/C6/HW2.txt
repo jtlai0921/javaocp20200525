@@ -1,0 +1,118 @@
+import java.util.Date;
+
+
+public class menu {
+    private int MenuSet;
+    private int MenuSum;
+     
+    private boolean dish1;
+    private boolean dish2;
+    private boolean dish3;
+    
+    private int dishNum1;
+    private int dishNum2;
+    private int dishNum3;
+    private int dishSum;
+    
+    private int memberclass;
+    private double ratio;
+    private int totalSum;
+    
+    private int InputMoney;
+    private int returnMoney;
+    private Date date;
+    
+   menu()
+   {
+       this.date=new Date(); 
+   }
+    
+    public int placeOrder(int memberclass,int MenuSet,boolean dish1, boolean dish2,boolean dish3,
+            int dishNum1,int dishNum2,int dishNum3)
+    {
+        this.MenuSet=MenuSet;
+        this.dish1=dish1;
+        this.dish2=dish2;
+        this.dish3=dish3;
+        this.dishNum1=dishNum1;
+        this.dishNum2=dishNum2;
+        this.dishNum3=dishNum3;
+        
+        if(MenuSet==0) MenuSum=0;
+        if(MenuSet==1) MenuSum=120;
+        if(MenuSet==2) MenuSum=130;
+        if(MenuSet==3) MenuSum=140;
+        
+        dishSum=0;
+        if(dish1==true) dishSum+=dishNum1*30;
+        if(dish2==true) dishSum+=dishNum2*40;
+        if(dish3==true) dishSum+=dishNum3*50;
+        
+        if(memberclass==0) ratio=1;
+        if(memberclass==1) ratio=0.95;
+        if(memberclass==2) ratio=0.9;
+        if(memberclass==3) ratio=0.85;
+        
+        totalSum=(int)((MenuSum+dishSum)*ratio);
+        
+        return totalSum;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+    
+}
+========================================================================
+   private void seldish1ItemStateChanged(java.awt.event.ItemEvent evt) {                                          
+
+        numOfdish1.setEnabled(seldish1.isSelected()?true:false); 
+    }                                         
+
+    private void seldish2ItemStateChanged(java.awt.event.ItemEvent evt) {                                          
+
+        numOfdish2.setEnabled(seldish2.isSelected()?true:false); 
+    }                                         
+
+    private void seldish3ItemStateChanged(java.awt.event.ItemEvent evt) {                                          
+
+        numOfdish3.setEnabled(seldish3.isSelected()?true:false); 
+    }                                         
+
+    int totalsum;
+    private void orderMouseClicked(java.awt.event.MouseEvent evt) {                                   
+      
+        menulist.setText("會員等級: "+memberclass.getSelectedItem());
+        int mbcls= memberclass.getSelectedIndex();
+        int MenuSet;
+        String MenuName;
+        if (set1.isSelected()) {MenuSet=1; MenuName="套餐A";}
+        else if (set2.isSelected()) {MenuSet=2;MenuName="套餐B";}
+        else if (set3.isSelected()) {MenuSet=3;MenuName="套餐C";}
+        else {MenuSet=0; MenuName=null;}
+        
+        int d1n=(seldish1.isSelected()&&(int)numOfdish1.getValue()>0)?(int)numOfdish1.getValue():0;   
+        int d2n=(seldish2.isSelected()&&(int)numOfdish2.getValue()>0)?(int)numOfdish2.getValue():0;
+        int d3n=(seldish3.isSelected()&&(int)numOfdish3.getValue()>0)?(int)numOfdish3.getValue():0;
+        
+        menu m=new menu(); 
+      int total=m.placeOrder(mbcls,MenuSet,seldish1.isSelected(), seldish2.isSelected(),seldish3.isSelected(),
+            d1n,d2n,d3n);   
+        String dishName="";
+            //if(seldish1.isSelected()&& (int)numOfdish1.getValue()>0) dishName+="燙青菜";
+            if(seldish1.isSelected()&& d1n >0) dishName+="燙青菜"+d1n+"盤";
+            if(seldish2.isSelected()&& d2n >0) dishName+="\n皮蛋豆腐"+d2n+"盤";
+            if(seldish3.isSelected()&& d3n >0) dishName+="\n豬頭皮"+d3n+"盤";
+            if(d1n+d2n+d3n==0) dishName="無小菜";
+      
+      menulist.setText("會員等級:" +memberclass.getSelectedItem()
+              +"\n點取套餐: "+MenuName+ "\n小菜:\n"+ dishName
+              +"\n總計"+total+"元"+"\n訂單日期:"+m.getDate());
+      totalsum=total;
+    }                                  
+
+    private void ButtonChangeMouseClicked(java.awt.event.MouseEvent evt) {                                          
+        // TODO add your handling code here:
+        int ReturnMom = Integer.parseInt(pay.getText()) - totalsum;
+        change.setText("找零"+ReturnMom );
+    }                                         

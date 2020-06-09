@@ -1,0 +1,62 @@
+﻿package exceptionEX;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class ex1 {
+
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		int[] x=new int[3];
+		System.out.println("請輸入索引");
+		try
+		{
+			int n=sc.nextInt();
+		
+			x[n]=100;//new ArrayIndexOutOfBoundsException();
+		
+			System.out.println("輸入分母");
+			
+			int m=sc.nextInt();
+			
+			
+			System.out.println(x[n]+"/"+m+"="+x[n]/m);
+			
+			
+			
+		}
+		catch(ArrayIndexOutOfBoundsException|InputMismatchException|ArithmeticException e )
+		{
+			System.out.println("範圍 0~2 or 輸入整數 or 分母不可為0");
+		}
+		/*catch(ArrayIndexOutOfBoundsException e)//ArrayIndexOutOfBoundsException e)=?
+		{
+			System.out.println("範圍 0~2");
+		}
+		catch(InputMismatchException e)
+		{
+			System.out.println("輸入整數");
+		}
+		catch(ArithmeticException e)
+		{
+			System.out.println("分母不可為0");
+		}
+		*/
+		catch(RuntimeException e)
+		{
+			System.out.println("重填");
+		}
+		/*finally
+		{
+			for(int i=1;i<=10;i++)
+			{
+				System.out.println("hello");
+			}
+		}*/
+		for(int i=1;i<=10;i++)
+		{
+			System.out.println("hello");
+		}
+	}
+
+}

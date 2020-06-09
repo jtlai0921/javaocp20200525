@@ -1,0 +1,266 @@
+<Porder>
+package Model;
+
+
+public class Porder {
+  
+    
+    private String name;
+    private int ruler;
+    private int pen;
+    private int sum;
+
+    
+    public Porder(String name,int ruler,int pen)
+    {
+        this.name=name;
+        this.ruler=ruler;
+        this.pen=pen;
+        sum=ruler*30+pen*29;
+    }
+
+    public Porder(String name, int ruler, int pen, int id) { }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setRuler(int ruler) {
+        this.ruler = ruler;
+    }
+
+    public void setPen(int pen) {
+        this.pen = pen;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getRuler() {
+        return ruler;
+    }
+
+    public int getPen() {
+        return pen;
+    }
+
+    public int getSum() {
+        sum=ruler+pen;
+        return sum;
+    }
+    
+ 
+}
+============================================================================================================
+<implDao>
+package Dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
+public interface implDao {
+    
+    static Connection getConn() {
+       
+            String url="jdbc:mysql://localhost:3305/gjun";
+            String user="root";
+            String password="1234";
+            Connection conn=null;
+          try {
+            Class.forName("com.mysql.jdbc.Driver");     
+           conn=DriverManager.getConnection(url, user, password);
+                
+            } catch (ClassNotFoundException ex) {
+                System.out.println("no Driver");
+            Logger.getLogger(implDao.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                System.out.println("no connection");
+                    Logger.getLogger(implDao.class.getName()).log(Level.SEVERE, null, ex);
+             }
+        return conn;
+                 
+    }
+    
+    //新增
+    void add(String name,int ruler,int pen);
+    //讀取
+    ResultSet query();
+    //修改
+     void update(int id,int ruler,int pen);
+     //刪除
+     void delete(int id); 
+    
+}
+=============================================================================================================
+<PorderDao>
+package Dao;
+
+import Model.Porder;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
+public class PorderDao implements implDao{
+
+    
+    public static void main(String[] args) {
+        //new PorderDao().add("AAA", 50, 30);
+        new PorderDao().delete(21);
+        //System.out.println(new PorderDao().query());   
+        
+    }
+
+    @Override
+    public void add(String name, int ruler, int pen) {
+       
+            Porder p=new Porder(name,ruler,pen);
+            Connection conn=implDao.getConn();
+            String sql="insert into porder(name,ruler,pen,sum) values(?,?,?,?)";
+         try {   
+            PreparedStatement ps=conn.prepareStatement(sql);
+            ps.setString(1, p.getName());
+            ps.setInt(2, p.getRuler());
+            ps.setInt(3, p.getPen());
+            ps.setInt(4, p.getSum());
+            
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("no connection");
+            Logger.getLogger(PorderDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public ResultSet query() {
+        Connection conn=implDao.getConn();
+        ResultSet rs=null;
+       
+        String sql="select*from porder";
+        try {
+        Statement st=conn.createStatement();
+        rs=st.executeQuery(sql);
+       } catch (SQLException ex) {
+            Logger.getLogger(PorderDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            return rs;
+    }
+
+    @Override
+    public void update(int id, int ruler, int pen) {
+             Connection conn = implDao.getConn();
+             int sum = pen+ruler;
+             String sql = "UPDATE porder set ruler = "+ruler+",  pen = "+pen+",  sum = "+sum+" where Id ="+id;
+            try {
+                PreparedStatement  ps = conn.prepareStatement(sql);
+                 ps.executeUpdate();
+             } catch (SQLException ex) {
+                 Logger.getLogger(PorderDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
+        }
+
+    @Override
+    public void delete(int id) {
+        Connection conn = implDao.getConn();
+        String sql = "DELETE FROM porder WHERE id = "+id;
+        try {
+            Statement st = conn.createStatement();   
+            st.executeUpdate(sql);   
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(PorderDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+ }
+===================================================================================================================
+<porderUI>
+ private void okMouseClicked(java.awt.event.MouseEvent evt) {                                
+       String NAME=name1.getText();
+        int RULER=Integer.parseInt(ruler1.getText());
+        int PEN=Integer.parseInt(pen1.getText());
+        new PorderDao().add(NAME, RULER, PEN);
+        ans1.setText("訂單建立成功");
+------------------------------------------------------------------------------------------------------------------
+ private void ok2MouseClicked(java.awt.event.MouseEvent evt) {                                 
+                ResultSet rs=new PorderDao().query();
+                String show="";
+
+                try {
+                    while(rs.next())
+                    {
+
+                        show=show+
+                        "id:"+rs.getInt("id")+
+                         "\t 姓名:"+rs.getString("name")+
+                        "\t 尺:"+rs.getInt("ruler")+
+                        "\t 筆:"+rs.getInt("pen")+
+                        "\t 成交金額:"+rs.getInt("sum")+"\n";
+
+                         }} catch (SQLException ex) {
+                        Logger.getLogger(porderUI.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+
+                    ans2.setText(show); 
+    }                                
+-------------------------------------------------------------------------------------------------------------------
+private void ok1MouseClicked(java.awt.event.MouseEvent evt) {                                 
+        int Ruler = Integer.parseInt(rulerchange.getText());
+       int Pen = Integer.parseInt(penchange.getText());
+       int Id = Integer.parseInt(idchange.getText());
+       new PorderDao().update(Id,Ruler,Pen);
+       
+       ResultSet rs = new PorderDao().query();      
+       String msg = ""; 
+            try
+            {
+                while(rs.next()){  
+                    msg = msg + "\nid : "+rs.getInt("id")+  
+                            "\t姓名 : "+rs.getString("name")+
+                            "\t尺 : "+rs.getInt("ruler")+
+                            "\t筆 : "+rs.getInt("pen")+
+                            "\t金額 : "+rs.getInt("sum");
+                }
+                
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+            ans2.setText(msg); 
+    }                                
+----------------------------------------------------------------------------------------------------------------------
+ private void ok4MouseClicked(java.awt.event.MouseEvent evt) {                                 
+       int Id = Integer.parseInt(iddelete.getText());
+       new PorderDao().delete(Id);
+       
+       ResultSet rs = new PorderDao().query();      
+       String msg = ""; 
+            try
+            {
+                while(rs.next()){ 
+                    msg = msg + "\nid : "+rs.getInt("id")+  
+                           "\t姓名 : "+rs.getString("name")+
+                           "\t尺 : "+rs.getInt("ruler")+
+                          "\t筆 : "+rs.getInt("pen")+
+                          "\t金額 : "+rs.getInt("sum");
+                            
+                   
+                }
+                
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+                       
+            ans2.setText(msg);  
+    }                                
+   

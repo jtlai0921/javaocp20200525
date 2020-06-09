@@ -1,0 +1,11 @@
+﻿class add3
+{
+	public static void main(String[] args) {
+		
+		//book b=new book();
+
+		//book.pi=56.3;
+		System.out.println(book.pi);
+
+	}
+}

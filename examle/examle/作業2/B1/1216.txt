@@ -1,0 +1,230 @@
+public class order {
+    
+    private int A;
+    private int B;
+    private int C;
+    private boolean D1;
+    private boolean D2;
+    private boolean D3;
+    private boolean vip;
+    private boolean gold;
+    private boolean silver;
+    private boolean normal;   
+    private int sum;
+    private int pay;
+    
+    
+    public order(int A,int B,int C,boolean D1,boolean D2,boolean D3,boolean vip,boolean gold,boolean silver,boolean normal)
+    {
+        this.A=A;
+        this.B=B;
+        this.C=C;
+        this.D1=D1;
+        this.D2=D2;
+        this.D3=D3;
+        this.vip=vip;
+        this.gold=gold;
+        this.silver=silver;
+        this.normal=normal;
+        
+        sum=A*120+B*130+C*140;
+            
+            if(D1==true)sum=sum+30;
+            if(D2==true)sum=sum+40;
+            if(D3==true)sum=sum+50;
+            if(vip==true)
+        {
+            sum=(int)(sum*0.85);
+        }
+         if(gold==true)
+        {
+            sum=(int)(sum*0.9);
+        }
+          if(silver==true)
+        {
+            sum=(int)(sum*0.95);
+        }
+           if(normal==true)
+        {
+            sum=(int)(sum*1);
+        }
+            
+           
+    }
+    
+    public order(int A,int B,int C,boolean D1,boolean D2,boolean D3,boolean vip,boolean gold,boolean silver,boolean normal,int pay)
+    {
+        if(pay>0)
+        {
+            this.pay=pay;
+            this.A=A;
+            this.B=B;
+            this.C=C;
+            this.D1=D1;
+            this.D2=D2;
+            this.D3=D3;
+            this.vip=vip;
+            this.gold=gold;
+            this.silver=silver;
+            this.normal=normal;
+    
+        }
+    }
+
+    
+
+    public int getA() {
+        return A;
+    }
+
+    public int getB() {
+        return B;
+    }
+
+    public int getC() {
+        return C;
+    }
+
+    public boolean isD1() {
+        return D1;
+    }
+
+    public boolean isD2() {
+        return D2;
+    }
+
+    public boolean isD3() {
+        return D3;
+    }
+
+    public boolean isVip() {
+        return vip;
+    }
+
+    public boolean isGold() {
+        return gold;
+    }
+
+    public boolean isSilver() {
+        return silver;
+    }
+
+    public boolean isNormal() {
+        return normal;
+    }
+
+    public int getPay() {
+        return pay;
+    }
+
+    public int getSum() {
+       
+        return sum;
+    }
+
+    public void setA(int A) {
+        this.A = A;
+    }
+
+    public void setB(int B) {
+        this.B = B;
+    }
+
+    public void setC(int C) {
+        this.C = C;
+    }
+
+    public void setD1(boolean D1) {
+        this.D1 = D1;
+    }
+
+    public void setD2(boolean D2) {
+        this.D2 = D2;
+    }
+
+    public void setD3(boolean D3) {
+        this.D3 = D3;
+    }
+
+    public void setVip(boolean vip) {
+        this.vip = vip;
+    }
+
+    public void setGold(boolean gold) {
+        this.gold = gold;
+    }
+
+    public void setSilver(boolean silver) {
+        this.silver = silver;
+    }
+
+    public void setNormal(boolean normal) {
+        this.normal = normal;
+    }
+
+   
+
+    public void setPay(int pay) {
+        this.pay = pay;
+    }
+
+   
+
+   
+    public String show()
+    {
+        return  "\nＡ餐："+getA()+"*120元="+getA()*120+
+                "元\nＢ餐："+getB()+"*130元="+getB()*130+
+                "元\nＣ餐："+getC()+"*140元="+getC()*140+
+                "元\n合計："+getSum();
+    }
+    
+    public String change()
+    {
+       
+        return "找您："+(getPay()-getSum())+"元";
+    }
+
+    
+        
+}
+
+
+====================================================================================
+   order o1=null;
+    order o2=null;
+    private void okMouseClicked(java.awt.event.MouseEvent evt) {                                
+        int a=Integer.parseInt(A.getText());
+        int b=Integer.parseInt(B.getText());
+        int c=Integer.parseInt(C.getText());
+        boolean d1=D1.isSelected();
+        boolean d2=D2.isSelected();
+        boolean d3=D3.isSelected();
+        boolean n=normal.isSelected();
+        boolean vip3=VIP3.isSelected();
+        boolean vip2=VIP2.isSelected();
+        boolean vip=VIP.isSelected();
+        
+       
+        
+        o1=new order(a,b,c,d1,d2,d3,n,vip3,vip2,vip);
+        ans.setText(o1.show());
+    }                               
+
+    private void ok2MouseClicked(java.awt.event.MouseEvent evt) {                                 
+        int a=Integer.parseInt(A.getText());
+        int b=Integer.parseInt(B.getText());
+        int c=Integer.parseInt(C.getText());
+        boolean d1=D1.isSelected();
+        boolean d2=D2.isSelected();
+        boolean d3=D3.isSelected();
+        boolean n=normal.isSelected();
+        boolean vip3=VIP3.isSelected();
+        boolean vip2=VIP2.isSelected();
+        boolean vip=VIP.isSelected();
+        int p=Integer.parseInt(pay.getText())-o1.getSum();
+
+        
+        o2=new order(a,b,c,d1,d2,d3,n,vip3,vip2,vip,p);
+        ans2.setText(o2.change());
+    }                                

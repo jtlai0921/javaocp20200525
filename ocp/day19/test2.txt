@@ -1,0 +1,96 @@
+﻿package innerEX;
+
+interface book {
+	int bookPrice(int price);
+
+	String bookName(String name);
+}
+
+/*
+ * class bookStore implements book {
+ * 
+ * @Override public int bookPrice(int price) { // TODO Auto-generated method
+ * stub return price; }
+ * 
+ * @Override public String bookName(String name) { // TODO Auto-generated method
+ * stub return name; }
+ * 
+ * }
+ */
+
+class company
+{
+	String show()
+	{
+		return "巨匠電腦";
+	}
+}
+
+public class test2 {
+
+	public static void main(String[] args) {
+
+		/*
+		 * book b=new bookStore();
+		 * 
+		 * System.out.println("書價:"+b.bookPrice(100));
+		 * System.out.println("書名:"+b.bookName("java"));
+		 */
+
+		book b = new book() {
+
+			@Override
+			public int bookPrice(int price) {
+				// TODO Auto-generated method stub
+				return price * 100;
+			}
+
+			@Override
+			public String bookName(String name) {
+				// TODO Auto-generated method stub
+				return name;
+			}
+
+		};
+		System.out.println("書價:" + b.bookPrice(100));
+		System.out.println("書名:" + b.bookName("java"));
+		
+		System.out.println("=======================================");
+		
+		
+		
+		System.out.println("書價="+new book() 
+		{
+
+			@Override
+			public int bookPrice(int price) {
+				// TODO Auto-generated method stub
+				return price*50;
+			}
+
+			@Override
+			public String bookName(String name) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+			
+		}.bookPrice(100)+"元");
+		
+		System.out.println("=======================================");
+		
+		
+		company c=new company() 
+		{
+			String show()
+			{
+				return super.show()+"教育中心";
+			}
+		};
+		
+		
+		System.out.println(c.show());
+		
+		
+	}
+
+}

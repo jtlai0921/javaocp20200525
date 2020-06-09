@@ -1,0 +1,15 @@
+﻿class ex1
+{
+	public static void main(String[] args) {
+		System.out.println("hello java");
+	}
+}
+
+
+/*
+
+javac -encoding uft8 ex1.java--->編譯
+java ex1---＞測試執行
+
+
+*/

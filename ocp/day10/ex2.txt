@@ -1,0 +1,57 @@
+﻿class ex2
+{
+	public static void main(String[] args) {
+		//int[][][]  X=new int[2][3][2];
+		int[][][] X=
+		{
+			{
+				{10,20},
+				{30,40},
+				{50,60},
+
+			},
+			{
+				{40,50},
+				{60,50},
+				{75,50},
+
+			},
+		};
+
+		System.out.println(X);
+		System.out.println(X.length);
+		System.out.println(X[0]);
+		System.out.println(X[0].length);
+		System.out.println(X[0][0]);
+		System.out.println(X[0][0].length);
+		System.out.println(X[0][0][0]);
+		//System.out.println(X[0][0][0].length);
+
+
+		for(int i=0;i<X.length;i++)
+		{
+			for(int j=0;j<X[i].length;j++)
+			{
+				for(int k=0;k<X[i][j].length;k++)
+				{
+					System.out.println("X["+i+"]["+j+"]["+k+"]="+X[i][j][k]);
+				}
+			}
+		}
+
+		System.out.println("==========================");
+
+		for(int[][] o:X)
+		{
+			for(int[] u:o)
+			{
+				System.out.println("--");
+				for(int v:u)
+				{
+					System.out.println(v);
+				}
+
+			}
+		}
+	}
+}

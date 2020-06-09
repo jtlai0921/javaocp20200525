@@ -1,0 +1,182 @@
+
+import java.util.Date;
+/*
+
+
+*/
+public class Order {
+    private static String name;
+    private static int lcd;
+    private static int ram;
+    private static int mouse;
+    private static int sum;
+    private static Date date;
+    private static int m95;  
+    private static int w8;  
+    
+        
+        
+    static void Order0(String name,int lcd,int ram,int mouse){
+        Order.name=name;
+        Order.lcd=lcd;
+        Order.ram=ram;
+        Order.mouse=mouse;
+        Order.date=new Date();
+        sum=lcd*4999+ram*1280+mouse*680;
+        
+    }
+
+    public static String getName() {
+        return name;
+    }
+
+    public static int getLcd() {
+        return lcd;
+    }
+
+    public static int getRam() {
+        return ram;
+    }
+
+    public static int getMouse() {
+        return mouse;
+    }
+
+    public static Date getDate() {
+        return date;
+    }
+    
+    public static int getSum(){
+        return sum;
+    } 
+
+    public static int getM95(boolean a) {
+        if(a==true){
+            m95=(int)(sum*0.05);
+            return m95;
+        }
+        else
+        {
+            m95=0;
+            return m95;
+        }
+        
+    }
+    
+    public static int getW8(boolean b){
+        if(b==true){
+            w8=(int)(sum*0.2);
+            return w8;
+        }
+        else{
+            w8=0;
+            return w8;
+        }
+        
+    }
+    
+    
+    
+    static String show(boolean yn){
+        boolean a=yn==true ? (true):(false);
+        boolean b=sum>=10000 ? (true):(false);
+        getM95(a);
+        getW8(b);
+        return "姓名:"+getName()+
+               "\nLcd價錢:4999 x "+getLcd()+" = "+4999*getLcd()+
+               "\nRam價錢:1280 x "+getRam()+" = "+1280*getRam()+
+               "\nMouse價錢:680 x "+getMouse()+" = "+680*getMouse()+
+               "\n合計:"+getSum()+"元"+
+               "\n會員優惠(九五折):-"+m95+
+               "\n滿萬促銷(八折):-"+w8+
+               "\n折扣價:"+(sum-m95-w8)+"元"+
+               "\n\n訂單時間:"+getDate()
+                
+               
+                ;
+    }
+    
+    static String paymoney(boolean yn,int p){
+        if(p>=(sum-m95-w8)){
+            
+            if(yn==true && sum>=10000){
+                return "總價:"+sum+
+                        "\n會員優惠(九五折):-"+m95+
+                        "\n滿萬促銷(八折):-"+w8+
+                        "\n消費金額:"+(sum-m95-w8)+"元"+
+                        "\n付款金額:"+p+"元"+
+                        "\n\n"+
+                        "\n找零:"+(p-(sum-m95-w8))+"元"
+                        ;
+                        
+                        
+            }            
+            else if(yn==true){
+                return "總價:"+sum+
+                        "\n會員優惠(九五折):-"+m95+
+                        "\n消費金額:"+(sum-m95)+"元"+
+                        "\n付款金額:"+p+"元"+
+                        "\n\n"+
+                        "\n找零:"+(p-(sum-m95))+"元"
+                        ;
+            }
+            else if(sum>=10000){
+                return "總價:"+sum+
+                        "\n滿萬促銷(八折):-"+w8+
+                        "\n消費金額:"+(sum-w8)+"元"+
+                        "\n付款金額:"+p+"元"+
+                        "\n\n"+
+                        "\n找零:"+(p-(sum-w8))+"元"
+                        ;
+            }
+            else{
+                return "消費金額:"+sum+"元"+
+                        "\n付款金額:"+p+"元"+
+                        "\n\n"+
+                        "\n找零:"+(p-sum)+"元"
+                        ;
+            }
+        }
+        else
+        {
+            return "\n\n\n\t付款金額不足";
+        }
+        
+                     
+            
+        
+        
+    }
+}
+
+===================================================
+
+ private void oklistMouseClicked(java.awt.event.MouseEvent evt) {                                    
+        String Name=NAME.getText();
+        int Lcd=Integer.parseInt(LCD.getText());
+        int Ram=Integer.parseInt(RAM.getText());
+        int Mouse=Integer.parseInt(MOUSE.getText());
+        Order.Order0(Name,Lcd,Ram,Mouse);
+        checklist.setText(Order.show(MemberCheck.isSelected()));
+        paytext.setEnabled(true);
+        PAY.setEnabled(true);
+        paylist.setText("");
+    }                       
+
+====================================================
+
+   private void PAYMouseClicked(java.awt.event.MouseEvent evt) {                                 
+        int paydollar=Integer.parseInt(paytext.getText());
+        paylist.setText(
+                Order.paymoney(MemberCheck.isSelected(),paydollar)
+                
+        );
+        if(Order.paymoney(MemberCheck.isSelected(),paydollar)!="\n\n\n\t付款金額不足"){
+            paytext.setEnabled(false);
+            paytext.setText("");
+            PAY.setEnabled(false);
+            
+        }
+        
+        
+    }             

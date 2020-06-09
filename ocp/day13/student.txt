@@ -1,0 +1,7 @@
+﻿class student
+{
+	void skill()
+	{
+		System.out.println("student");
+	}
+}

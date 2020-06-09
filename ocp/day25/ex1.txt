@@ -1,0 +1,120 @@
+﻿package lambDaEx;
+interface book
+{
+	String bookName(String name);
+	double bookPrice(double price);
+}
+
+interface book2
+{
+	String bookName(String name);
+}
+
+public class ex1 {
+
+	public static void main(String[] args) {
+		book b1=new book() 
+		{
+
+			@Override
+			public String bookName(String name) {
+				// TODO Auto-generated method stub
+				return "name="+name;
+			}
+
+			@Override
+			public double bookPrice(double price) {
+				// TODO Auto-generated method stub
+				return price*0.95;
+			}
+			
+		};
+		
+		book2 b2=(String name)->"書名="+name;
+		
+		
+		System.out.println(b1.bookName("java"));
+		System.out.println(b1.bookPrice(70.5));
+		
+		System.out.println(b2.bookName("java"));
+		
+		
+		//book3 b3=price->price*0.95;
+		
+		book3 b3=price -> {
+			try {
+				return bookPrice.price1(price);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return 0;
+			}
+			
+		};
+		
+		book3 b4=bookPrice::price4;
+		
+		System.out.println(b4.bookPrice(1000));
+
+	}
+
+}
+
+
+interface book3
+{
+	double bookPrice(double price);
+}
+
+
+class bookPrice
+{
+	static double price1(double price) throws Exception
+	{
+		if(price>=0)
+		{
+			return price*0.95;
+		}
+		else
+		{
+			throw new Exception();
+		}
+	}
+	
+	static double price2(double price) throws Exception
+	{
+		if(price>=0)
+		{
+			return price*0.9;
+		}
+		else
+		{
+			throw new Exception();
+		}
+	}
+	static double price3(double price) 
+	{
+		if(price>=0)
+		{
+			return price*0.95;
+		}
+		else
+		{
+			return 0;
+		}
+	}
+	
+	static double price4(double price) 
+	{
+		if(price>=0)
+		{
+			return price*0.9;
+		}
+		else
+		{
+			return 0;
+		}
+	}
+}
+
+

@@ -1,0 +1,95 @@
+package homework3;
+
+import java.awt.Toolkit;
+
+/**
+ * 修改會員資料JFrame
+ */
+public class Medify extends javax.swing.JFrame {
+
+    /*創造屬性方便存取訂單系統傳過來的資訊*/
+    private String UserName;
+    private User[] u;
+    private int index;
+
+    /*在各欄位上先秀出當時註冊的會員資料*/
+    public void setUserName(String x) {
+        this.UserName = x;
+        u = UserArray.getArray();
+        index = UserArray.getIndex(this.UserName);
+        userName.setText(UserName);
+        passWord.setText(u[index].getPassWord());
+        name.setText(u[index].getName());
+        phone.setText(u[index].getPhone());
+        address.setText(u[index].getAddress());
+        String vip = u[index].getVip();
+        if (vip.equals("白金會員")) {
+            vip1.setSelected(true);
+        } else if (vip.equals("黃金會員")) {
+            vip2.setSelected(true);
+        } else {
+            vip3.setSelected(true);
+        }
+    }
+
+    /*確認修改按鈕*/
+    private void memberokMouseClicked(java.awt.event.MouseEvent evt) {                                      
+        boolean show = true; //判斷填寫的資料格式是否正確
+        if (passWord.getText().equals("")) {
+            passWordError.setText("請輸入密碼");
+            show = false;
+        } else {
+            u[index].setPassWord(passWord.getText());
+            passWordError.setText(" ");
+            if (name.getText().equals("")) {
+                nameError.setText("請輸入姓名");
+                show = false;
+            } else {
+                u[index].setName(name.getText());
+                nameError.setText(" ");
+                if (phone.getText().equals("")) {
+                    phoneError.setText("請輸入電話");
+                    show = false;
+                } else {
+                    u[index].setPhone(phone.getText());
+                    phoneError.setText(" ");
+                    if (address.getText().equals("")) {
+                        addressError.setText("請輸入地址");
+                        show = false;
+                    } else {
+                        u[index].setAddress(address.getText());
+                        addressError.setText(" ");
+                        if (vip1.isSelected() == true) {
+                            u[index].setVip("白金會員");
+                        } else if (vip2.isSelected() == true) {
+                            u[index].setVip("黃金會員");
+                        } else {
+                            u[index].setVip("一般會員");
+                        }
+                    }
+                }
+            }
+        }
+        if (show == true) {
+            Login login = new Login();
+            login.setVisible(true);
+            /*為了讓跳出的畫面能置中於螢幕上 */
+            Toolkit toolkit = Toolkit.getDefaultToolkit();
+            int x = (int) (toolkit.getScreenSize().getWidth() - login.getWidth()) / 2;
+            int y = (int) (toolkit.getScreenSize().getHeight() - login.getHeight()) / 2;
+            login.setLocation(x, y);
+            setVisible(false);
+        }
+    }                                     
+
+    /*取消按鈕*/
+    private void exitMouseClicked(java.awt.event.MouseEvent evt) {                                  
+        Login login = new Login();
+        login.setVisible(true);
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        int x = (int) (toolkit.getScreenSize().getWidth() - login.getWidth()) / 2;
+        int y = (int) (toolkit.getScreenSize().getHeight() - login.getHeight()) / 2;
+        login.setLocation(x, y);
+        setVisible(false);
+    }
+}

@@ -1,0 +1,19 @@
+﻿class add1
+{
+	public static void main(String[] args) {
+		/*student s1=new student("abc",65,75);//沒有設計任何建構式才有預設student(){}
+		student s2=new student();
+
+
+		System.out.println("name="+s1.name+"\tchi:"+s1.chi+"\teng:"+s1.eng);*/
+
+
+		Order o1=new Order("abc",1,1,1);
+
+		System.out.println("name:"+o1.name+
+			"\tlcd:"+o1.lcd+
+			"\tram:"+o1.ram+
+			"\tmouse:"+o1.mouse+
+			"\tsum:"+o1.sum);
+	}
+}

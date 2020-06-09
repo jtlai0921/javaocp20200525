@@ -1,0 +1,23 @@
+﻿class CB extends Company
+{
+	private int ram;
+
+	CB(String name,int ram)
+	{
+		super(name);
+		this.ram=ram;
+	}
+
+	String show()
+	{
+		return super.show()+"\tRAM:"+ram;
+	}
+
+
+	void setLcd(int lcd)
+	{
+		
+	}
+
+
+}

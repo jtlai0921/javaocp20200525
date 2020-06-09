@@ -1,0 +1,23 @@
+﻿package ioEX;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+
+public class ObjectOutputStreamEx {
+
+	public static void main(String[] args) throws IOException {
+		FileOutputStream fos=new FileOutputStream("c:/ABC/student.txt");
+		ObjectOutputStream oos=new ObjectOutputStream(fos);
+		
+		
+		oos.writeObject(new student("a1",56,75));
+		oos.writeObject(new student("a2",56,75));
+		oos.writeObject(new student("a3",56,75));
+		oos.writeObject(new student("a4",56,75));
+		
+
+	}
+
+}

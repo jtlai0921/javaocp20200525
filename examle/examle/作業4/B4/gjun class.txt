@@ -1,0 +1,557 @@
+=====implDao==================================================
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ *
+ * @author peter
+ */
+public interface implDao {
+    static Connection   get_conn(String url, String user, String password)
+    {
+        Connection conn=null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn=DriverManager.getConnection(url, user, password);
+          
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(implDao.class.getName()).log(Level.SEVERE, null, ex);
+          
+        } catch (SQLException ex) {
+            Logger.getLogger(implDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return conn;
+    }
+   
+     void add(String name,int ruler, int pen,String url,String user,String password);
+     void update(int id,String name,int ruler, int pen,String url,String user,String password);
+     void delet(int id,String url,String user,String password);
+     int g_sum(int ruler, int pen);
+      ResultSet query(String url,String user,String password);
+      ResultSet query(String url,String user,String password,String name,int qsum,int qsum1);
+      ResultSet query(String url,String user,String password,int id);
+    
+}
+=================porderDao==================================================================
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.porder;
+
+/**
+ *
+ * @author peter
+ */
+public class porderDao implements implDao {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+      // String url="jdbc:mysql://localhost:3306/gjun";
+      // String user="root";
+      // String password="1234";
+       /*
+      // System.out.println(implDao.get_conn(url, user, password) );
+       if (implDao.get_conn(url, user, password)==null)
+       { System.out.println("no connection") ;  }
+      */
+      // new porderDao().update(1,"sss", 1, 1, url, user, password);
+        //new porderDao().add("aa", 2, 2, url, user, password);
+       // new porderDao().delet(1,url, user, password);
+        //new porderDao().query(url, user, password)
+                //(1,url, user, password);
+        //S System.out.println( new porderDao().g_sum(2, 3));
+               // System.out.println( new porderDao().query(url, user, password));
+    }
+
+    @Override
+    public void add(String name, int ruler, int pen, String url, String user, String password) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+     porder p=new porder(name,ruler,pen,url,user,password);
+     Connection conn=implDao.get_conn(url, user, password);
+     String sql="insert into gjun.porder (name,ruler,pen,sum) values(?,?,?,?)";
+        try {
+            PreparedStatement ps=conn.prepareStatement(sql);
+            ps.setString(1,p.getName());
+            ps.setInt(2, p.getRuler());
+            ps.setInt(3, p.getPen());
+            ps.setInt(4, p.getSum());
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(porderDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     
+    }
+
+    @Override
+    public void update(int id, String name, int ruler, int pen, String url, String user, String password) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        porder p=new porder(name,ruler,pen,url,user,password);
+        Connection conn=implDao.get_conn(url, user, password);
+         String sql="update gjun.porder set name=? ,ruler=? ,pen=?,sum=? where id=?";
+        try {
+            PreparedStatement ps=conn.prepareStatement(sql);
+            ps.setString(1, p.getName());
+            ps.setInt(2, p.getRuler());
+            ps.setInt(3,p.getPen() );
+            ps.setInt(4,p.getSum());
+             ps.setInt(5,id);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(porderDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         
+    }
+
+    @Override
+    public void delet(int id, String url, String user, String password) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection conn=implDao.get_conn(url, user, password);
+        String sql="DELETE FROM gjun.porder where id=?";
+         PreparedStatement ps;
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1,id);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(porderDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }
+
+    @Override
+    public ResultSet query(String url, String user, String password) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       Connection conn=implDao.get_conn(url, user, password);
+       ResultSet rs=null;
+       String sql="SELECT * FROM gjun.porder";   
+        try {
+            Statement st=conn.createStatement();
+            rs=st.executeQuery(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(porderDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       return rs;
+    }
+
+    @Override
+    public int g_sum(int ruler, int pen) {
+       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+     int sum=0;
+      porder p=new porder(ruler,pen);
+      sum=p.getG_sum();
+     return sum;
+    }
+
+    @Override
+    public ResultSet query(String url, String user, String password, String name, int qsum, int qsum1) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    Connection conn=implDao.get_conn(url, user, password);
+       ResultSet rs=null;
+       String sql="SELECT * FROM gjun.porder where  name like"+ "'"+"%"+name+"%"+"'"+
+       " and sum between "+ qsum +" and "+qsum1 ;
+   
+      //String sql="SELECT * FROM gjun.porder where  name like ?  and  sum between ? and ?" ;
+       System.out.println(sql);
+       //PreparedStatement ps;
+        try {
+            Statement st=conn.createStatement();
+            rs=st.executeQuery(sql);
+             
+              /*ps = conn.prepareStatement(sql);
+              ps.setString(1,"%"+name+"%");
+              ps.setInt(2,qsum);
+              ps.setInt(3,qsum1);
+              ps.execute();
+             */
+        } catch (SQLException ex) {
+            Logger.getLogger(porderDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      return rs;
+    }
+
+    @Override
+    public ResultSet query(String url, String user, String password, int id) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      ResultSet rs=null;
+      Connection conn=implDao.get_conn(url, user, password);
+       String sql="SELECT * FROM gjun.porder where id="+id; 
+             try {
+           Statement st=conn.createStatement();
+            rs=st.executeQuery(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(porderDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+      
+      return rs;
+    }
+
+   
+}
+
+
+    
+
+==============porder===============================================================
+
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package model;
+
+/**
+ *
+ * @author peter
+ */
+public class porder   {
+    private String name;
+    private  int ruler;
+    private  int pen;
+    private  int sum;
+    private  int g_sum;
+    public  porder(String name,int ruler,int pen,String url,String user,String password)
+   {  
+     this.name=name;
+     this.ruler=ruler;
+     this.pen=pen;
+     sum=ruler*30+pen*29;
+     
+   }
+    public porder(int ruler,int pen)
+    {
+            g_sum=ruler*30+pen*29;
+    }
+
+    public int getG_sum() {
+        return g_sum;
+    }
+
+    public void setG_sum(int g_sum) {
+        this.g_sum = g_sum;
+    }
+    public String getName() {
+        return name;
+    }
+
+    public int getRuler() {
+        return ruler;
+    }
+
+    public int getPen() {
+        return pen;
+    }
+
+    public int getSum() {
+        sum=ruler*30+pen*29;
+        return sum;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setRuler(int ruler) {
+        this.ruler = ruler;
+    }
+
+    public void setPen(int pen) {
+        this.pen = pen;
+    }
+
+  
+        
+}
+============orderUI================================
+
+public class orderUI extends javax.swing.JFrame {
+
+    /**
+     * Creates new form orderUI
+     */
+    String OURL="";
+    String OUSER="";
+    String OPASSWORD="";
+     DefaultTableModel model=null;
+    public orderUI() {
+        initComponents();
+           model = (DefaultTableModel) jTable1.getModel();
+           OURL=ourl.getText();
+          OUSER=ouser.getText();
+          OPASSWORD=opassword.getText();
+          //  id.setEnabled(false);
+            id.setVisible(false);
+            jLabel12.setEnabled(false);
+            jLabel12.setVisible(false);  
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+	 
+	  private void penStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_penStateChanged
+        // TODO add your handling code here:
+        int penqyt=Math.abs((int)(pen.getValue()));
+         String p_sum="";
+          if ((int)(pen.getValue())<=0)
+          {
+             ruler.setValue(penqyt);
+          }
+         p_sum = Integer.toString(new porderDao().g_sum(Math.abs((int)(ruler.getValue())), 
+                         Math.abs((int)(pen.getValue())))
+                 );
+                 g_sum.setText(p_sum);
+    }//GEN-LAST:event_penStateChanged
+   
+   
+   private void okMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_okMouseClicked
+        // TODO add your handling code here:
+        String NAME=name.getText();
+        int RULER=(int)(ruler.getValue());
+        int PEN=(int)(pen.getValue());
+          OURL=ourl.getText();
+          OUSER=ouser.getText();
+          OPASSWORD=opassword.getText();
+		    model.setRowCount(0);
+        String show="";
+      // DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+     
+        
+        if (name.equals("") || Integer.parseInt(g_sum.getText())<=0 || NAME.length()==0)
+        {
+         vmsg.setText("姓名未填或是總計為零,請再確認");
+        }
+        else
+        {
+            System.out.println(OURL);
+             System.out.println(OUSER);
+              System.out.println(OPASSWORD);
+            System.out.println(NAME);
+             System.out.println(RULER);
+              System.out.println(PEN);
+          new porderDao().add(NAME, RULER, PEN, OURL,  OUSER, OPASSWORD);
+            vmsg.setText("存檔成功");
+            
+        System.out.println( new  porderDao().query(OURL, OUSER, OPASSWORD));
+         ResultSet rs=new  porderDao().query(OURL, OUSER, OPASSWORD);
+         int i=0;
+        try {
+             while(rs.next())
+          {
+                     i=i+1;
+                     show=show+"\n第"+i+"筆"+
+                  
+                        model.addRow(new Object[] {rs.getInt("id"),rs.getString("name"),
+                        rs.getInt("ruler"),rs.getInt("pen"),rs.getInt("sum")
+                        });
+              }  
+                    
+        } catch (SQLException ex) {
+            Logger.getLogger(orderUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        rsum.setText(String.valueOf(i) );
+       // ans.setText(show);
+           
+        }
+           
+    }//GEN-LAST:event_okMouseClicked
+	
+	 private void ok1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ok1MouseClicked
+        // TODO add your handling code here:
+          OURL=ourl.getText();
+          OUSER=ouser.getText();
+          OPASSWORD=opassword.getText();
+           String QNAME=qname.getText();
+           int QSUM=Integer.parseInt( qsum.getText());
+           int QSUM1=Integer.parseInt( qsum1.getText());
+           System.out.println(QNAME);
+           model.setRowCount(0);
+		    ResultSet rs=new  porderDao().query(OURL, OUSER, OPASSWORD,QNAME, QSUM, QSUM1);
+         vmsg.setText("");
+        // int get_count=
+        int i=0;
+        try {
+          while(rs.next())
+          {
+                     i=i+1;
+                    
+                       model.addRow(new Object[] {rs.getInt("id"),rs.getString("name"),
+                        rs.getInt("ruler"),rs.getInt("pen"),rs.getInt("sum")
+                        });
+          }  
+        } catch (SQLException ex) {
+            Logger.getLogger(orderUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        rsum.setText(String.valueOf(i) );
+     
+    }//GEN-LAST:event_ok1MouseClicked
+	
+	private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+      
+       
+         OURL=ourl.getText();
+         OUSER=ouser.getText();
+         OPASSWORD=opassword.getText();
+         String NAME=name.getText();
+         int RULER=(int)(ruler.getValue());
+         int PEN=(int)(pen.getValue());
+         int jid=0;
+         String  r_smg="";
+         String  show="";
+         int k=0;
+           int[] rows=jTable1.getSelectedRows(); 
+           int[] columns=jTable1.getSelectedColumns(); 
+           StringBuilder msg=new StringBuilder("Selected : ");
+           
+           System.out.println("isColumnSelected(int columnIndex)  "+jTable1.isColumnSelected(0));
+          if   (jTable1.isColumnSelected(0) ==true)
+          {
+           for (int i=0; i<rows.length; i++) {
+                    
+                  jid=Integer.parseInt( jTable1.getValueAt(rows[i],columns[0]).toString());
+                    ResultSet rs1=new  porderDao().query(OURL, OUSER, OPASSWORD,jid);
+             try {
+                 while(rs1.next())
+                 {
+                 id.setText(jTable1.getValueAt(rows[i],columns[0]).toString());
+                 name.setText(rs1.getString("name"));
+                 ruler.setValue(rs1.getInt("ruler"));
+                 pen.setValue(rs1.getInt("pen"));
+                 g_sum.setText(String.valueOf(rs1.getInt("sum")));
+                 
+                 }
+                     
+                    
+                   
+             } catch (SQLException ex) {
+                 Logger.getLogger(orderUI.class.getName()).log(Level.SEVERE, null, ex);
+             }
+           }  
+            vmsg.setText("");
+          }
+          else
+          {
+          vmsg.setText("請點表格ＩＤ欄位");
+           id.setText("");
+           name.setText("");
+           ruler.setValue(0);
+           pen.setValue(0);;
+           g_sum.setText("0");
+          }
+    }//GEN-LAST:event_jTable1MouseClicked
+private void editMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseClicked
+         
+            id.setVisible(true);
+            jLabel12.setEnabled(true);
+            jLabel12.setVisible(true);  
+        
+          int ID=Integer.parseInt(id.getText());
+          OURL=ourl.getText();
+          OUSER=ouser.getText();
+          OPASSWORD=opassword.getText();
+          model.setRowCount(0);
+          String NAME=name.getText();
+          int RULER=(int)(ruler.getValue());
+          int PEN=(int)(pen.getValue());
+          String  r_smg="";
+          String  show="";
+           int i=0;
+          if (name.equals("") || Integer.parseInt(g_sum.getText())<=0 || NAME.length() <=0)
+          { vmsg.setText("姓名未填或是總計為零,請再確認");}  
+          else
+          {
+               new  porderDao().update(ID, NAME, RULER,PEN, OURL, OUSER, OPASSWORD);
+               ResultSet rs=new  porderDao().query(OURL, OUSER, OPASSWORD);
+              try {
+                      while(rs.next())
+                      {
+                        i=i+1;
+                       model.addRow(new Object[] {rs.getInt("id"),rs.getString("name"),
+                        rs.getInt("ruler"),rs.getInt("pen"),rs.getInt("sum")
+                        });
+                       vmsg.setText("修改成功");
+                      }
+                       rsum.setText(String.valueOf(i) );
+                    } catch (SQLException ex) {
+                  Logger.getLogger(orderUI.class.getName()).log(Level.SEVERE, null, ex);
+              }
+          }
+ private void deleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteMouseClicked
+        // TODO add your handling code here:
+            id.setVisible(true);
+            jLabel12.setEnabled(true);
+            jLabel12.setVisible(true);
+             int ID=Integer.parseInt(id.getText());
+             OURL=ourl.getText();
+             OUSER=ouser.getText();
+             OPASSWORD=opassword.getText();
+             model.setRowCount(0);
+             String NAME=name.getText();
+             int RULER=(int)(ruler.getValue());
+             int PEN=(int)(pen.getValue());
+             String  r_smg="";
+             String  show="";
+             int i=0;
+              id.setVisible(true);
+            jLabel12.setEnabled(true);
+            jLabel12.setVisible(true); 
+              new  porderDao().delet(ID, OURL, OUSER, OPASSWORD);
+              ResultSet rs1=new  porderDao().query(OURL, OUSER, OPASSWORD);
+        try {   
+            while(rs1.next())
+              {
+                    i=i+1;
+                 model.addRow(new Object[] {rs1.getInt("id"),rs1.getString("name"),
+                        rs1.getInt("ruler"),rs1.getInt("pen"),rs1.getInt("sum")
+                        });
+                  vmsg.setText("刪除成功");
+               }
+               rsum.setText(String.valueOf(i) );
+                } catch (SQLException ex) {
+            Logger.getLogger(orderUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_deleteMouseClicked
+
+  private void cnewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cnewMouseClicked
+        // TODO add your handling code here:
+        id.setText("");
+        name.setText("");
+        ruler.setValue(0);
+        pen.setValue(0);;
+        g_sum.setText("0");
+        id.setVisible(false);
+        jLabel12.setEnabled(false);
+        jLabel12.setVisible(false);  
+    }//GEN-LAST:event_cnewMouseClicked	
+		  
+		  

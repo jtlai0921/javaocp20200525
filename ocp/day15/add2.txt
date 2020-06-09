@@ -1,0 +1,44 @@
+﻿class add2
+{
+	public static void main(String[] args) {
+		Company[][] c=new Company[3][];
+		c[0]=new Company[2];
+		c[1]=new Company[3];
+		c[2]=new Company[1];
+
+		c[0][0]=new CA("a1",10);
+		c[0][1]=new CA("a1",10);
+
+		c[1][0]=new CB("b1",10);
+		c[1][1]=new CB("b2",10);
+		c[1][2]=new CB("b3",10);
+
+		c[2][0]=new Company("aaa");
+
+		for(Company[] o:c)
+		{
+			System.out.println(o);
+			for(Company u:o)
+			{
+				System.out.println(u+"\t"+u.show());
+			}
+
+		}
+
+		System.out.println("====================");
+
+		((CA)c[0][0]).setLcd(30);
+		c[0][1].setLcd(50);
+
+
+		for(Company[] o:c)
+		{
+			System.out.println(o);
+			for(Company u:o)
+			{
+				System.out.println(u+"\t"+u.show());
+			}
+
+		}
+	}
+}

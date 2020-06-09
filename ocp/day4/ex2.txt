@@ -1,0 +1,28 @@
+﻿class ex2
+{
+	public static void main(String[] args) {
+		
+	double x1=10;
+
+	//Double y1=x1;//AutoBoxing
+
+	Double y1=new Double(x1);//Boxing
+	System.out.println(y1);
+
+	double x2=10;
+	Double y2=10.0;
+
+	double a1=10;
+	double a2=10;
+	System.out.println(a1==a2);
+
+
+	Double b1=10.0;
+	Double b2=10.0;
+
+	System.out.println(b1==b2);
+
+	System.out.println(b1.equals(b2));
+
+	}
+}

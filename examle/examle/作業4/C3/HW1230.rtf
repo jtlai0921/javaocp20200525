@@ -1,0 +1,312 @@
+{\rtf1\ansi\ansicpg950\cocoartf1671\cocoasubrtf200
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset136 PingFangTC-Regular;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \
+package Model;\
+\
+public class Porder \{\
+    String name;\
+    int ruler;\
+    int pen;\
+    int sum;\
+    String id;\
+\
+    public Porder(String name, int ruler, int pen) \{\
+        this.name = name;\
+        this.ruler = ruler;\
+        this.pen = pen;\
+        \
+        sum=ruler*30+pen*29;\
+    \}\
+    \
+    public Porder(String id, String name, int ruler, int pen) \{\
+        this.id=id;\
+        this.name = name;\
+        this.ruler = ruler;\
+        this.pen = pen;\
+        \
+        sum=ruler*30+pen*29;\
+    \}\
+    \
+    public Porder(String id)\
+    \{\
+        this.id=id;\
+    \}\
+\
+    public void setId(String id) \{\
+        this.id = id;\
+    \}\
+\
+    public String getId() \{\
+        return id;\
+    \}\
+\
+    \
+    public void setName(String name) \{\
+        this.name = name;\
+    \}\
+\
+    public void setRuler(int ruler) \{\
+        this.ruler = ruler;\
+    \}\
+\
+    public void setPen(int pen) \{\
+        this.pen = pen;\
+    \}\
+\
+    public String getName() \{\
+        return name;\
+    \}\
+\
+    public int getRuler() \{\
+        return ruler;\
+    \}\
+\
+    public int getPen() \{\
+        return pen;\
+    \}\
+\
+    public int getSum() \{\
+        sum=ruler*30+pen*29;\
+        return sum;\
+    \}\
+    \
+    \
+    \
+\}\
+
+\f1 \'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7
+\f0 \
+\
+package Dao;\
+\
+import java.sql.Connection;\
+import java.sql.DriverManager;\
+import java.sql.ResultSet;\
+import java.sql.SQLException;\
+import java.util.logging.Level;\
+import java.util.logging.Logger;\
+\
+public interface implDao \{\
+    static Connection getConn()\{\
+        String url="jdbc:mysql://localhost:3305/gjun";\
+        String user="root";\
+        String password="1234";\
+        Connection conn=null;\
+        \
+        try \{\
+            Class.forName("com.mysql.jdbc.Driver");\
+            conn=DriverManager.getConnection(url, user, password);\
+        \} catch (ClassNotFoundException ex) \{\
+            System.out.println("no driver");\
+            Logger.getLogger(PorderDao.class.getName()).log(Level.SEVERE, null, ex);\
+        \} catch (SQLException ex) \{\
+            System.out.println("no connection");\
+            Logger.getLogger(PorderDao.class.getName()).log(Level.SEVERE, null, ex);\
+        \}\
+        return conn;\
+    \}\
+    \
+    public void add(String name, int ruler, int pen);\
+    public ResultSet query();\
+    public void update(String id, String name, int ruler, int pen);\
+    public void delete(String id);\
+    \
+    \
+\}\
+\
+
+\f1 \'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7
+\f0 \
+\
+package Dao;\
+\
+import static Dao.implDao.getConn;\
+import Model.Porder;\
+import java.sql.Connection;\
+import java.sql.DriverManager;\
+import java.sql.PreparedStatement;\
+import java.sql.ResultSet;\
+import java.sql.SQLException;\
+import java.sql.Statement;\
+import java.util.logging.Level;\
+import java.util.logging.Logger;\
+\
+public class PorderDao implements implDao \{\
+    public static void main(String args[])\{\
+        new PorderDao().add("abc",56,44);\
+        //new PorderDao().update("22","bb",1,1);\
+        new PorderDao().delete("22");\
+    \}\
+\
+    @Override\
+    public void add(String name, int ruler, int pen) \{\
+        Porder p=new Porder(name, ruler, pen);\
+        Connection conn=implDao.getConn();\
+        String sql="insert into Porder(name,ruler,pen,sum) values(?,?,?,?)";\
+        \
+        try \{\
+            PreparedStatement ps=conn.prepareStatement(sql);\
+            ps.setString(1, p.getName());\
+            ps.setInt(2, p.getRuler());\
+            ps.setInt(3, p.getPen());\
+            ps.setInt(4, p.getSum());\
+            \
+            ps.executeUpdate();\
+        \} catch (SQLException ex) \{\
+            System.out.println("no driver");\
+            Logger.getLogger(PorderDao.class.getName()).log(Level.SEVERE, null, ex);\
+        \} \
+    \}\
+\
+    @Override\
+    public ResultSet query() \{\
+        ResultSet rs=null;\
+        \
+        String sql="select * from Porder";\
+        Connection conn=getConn();\
+        try \{\
+            Statement st=conn.createStatement();\
+            rs=st.executeQuery(sql);\
+        \} catch (SQLException ex) \{\
+            Logger.getLogger(PorderDao.class.getName()).log(Level.SEVERE, null, ex);\
+        \}\
+\
+        return rs;\
+\
+    \}\
+\
+    @Override\
+    public void update(String id, String name, int ruler, int pen) \{\
+        Porder p=new Porder(id, name, ruler, pen);\
+        Connection conn=implDao.getConn();\
+        String sql="UPDATE Porder SET name=?, ruler=?, pen=?, sum=? where id=?";\
+        \
+        try \{\
+            PreparedStatement ps=conn.prepareStatement(sql);\
+            ps.setString(1, p.getName());\
+            ps.setInt(2, p.getRuler());\
+            ps.setInt(3, p.getPen());\
+            ps.setInt(4, p.getSum());\
+            ps.setString(5, p.getId());\
+            \
+            ps.executeUpdate();\
+        \} \
+        catch (SQLException ex) \{\
+            System.out.println("no connection");\
+            Logger.getLogger(PorderDao.class.getName()).log(Level.SEVERE, null, ex);\
+        \}\
+        \
+    \}\
+\
+    @Override\
+    public void delete(String id) \{\
+        Porder p=new Porder(id);\
+        Connection conn=implDao.getConn();\
+        String sql="DELETE FROM Porder WHERE id=?";\
+        \
+        try \{\
+            PreparedStatement ps=conn.prepareStatement(sql);\
+            ps.setString(1, p.getId());\
+            \
+            ps.executeUpdate();\
+        \} \
+        catch (SQLException ex) \{\
+            System.out.println("no connection");\
+            Logger.getLogger(PorderDao.class.getName()).log(Level.SEVERE, null, ex);\
+        \}\
+    \}\
+    \
+            \
+    \
+\}\
+\
+
+\f1 \'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7\'a1\'d7
+\f0 \
+private void okMouseClicked(java.awt.event.MouseEvent evt) \{                                \
+        String NAME=name.getText();\
+        int RULER=Integer.parseInt(ruler.getText());\
+        int PEN=Integer.parseInt(pen.getText());\
+        \
+        new PorderDao().add(NAME,RULER,PEN);\
+        ans1.setText("Successful Order");\
+    \}                               \
+\
+    private void CheckOMouseClicked(java.awt.event.MouseEvent evt) \{                                    \
+        ResultSet rs=new PorderDao().query();\
+        String msg="";\
+        try\{\
+            while(rs.next())\
+            \{\
+               msg=msg+"\\nID:"+rs.getInt("id")+\
+                       "\\tNAME:"+rs.getNString("name")+\
+                       "\\tPEN:"+rs.getInt("pen")+\
+                       "\\tRULER:"+rs.getInt("ruler")+\
+                       "\\tSUM:"+rs.getInt("sum"); \
+            \}\
+            \
+        \}catch(Exception e)\{\
+            e.printStackTrace();\
+        \}\
+        \
+        ans2.setText(msg);\
+    \}                                   \
+\
+    private void Reprint1MouseClicked(java.awt.event.MouseEvent evt) \{                                      \
+        String ID=id.getText();\
+        String NAME2=name2.getText();\
+        int RULER2=Integer.parseInt(ruler2.getText());\
+        int PEN2=Integer.parseInt(pen2.getText());\
+        new PorderDao().update(ID, NAME2, RULER2, PEN2);\
+        \
+        String ID2=id2.getText();\
+        new PorderDao().delete(ID2);\
+        \
+        ResultSet rs=new PorderDao().query();\
+        String msg="";\
+        \
+        try\{\
+          while(rs.next())\
+        \{\
+            msg=msg+"\\nID:"+rs.getInt("id")+\
+                    "\\tNAME:"+rs.getString("name")+\
+                    "\\tRULER:"+rs.getInt("ruler")+\
+                    "\\tPEN:"+rs.getInt("pen")+\
+                    "\\tSUM:"+rs.getInt("sum");\
+        \}  \
+        \}catch(Exception e)\{\
+            e.printStackTrace();\
+        \}\
+        \
+        ans3.setText(msg);\
+        \
+        \
+    \}                                     \
+\
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) \{                                      \
+        String ID2=id2.getText();\
+        new PorderDao().delete(ID2);\
+        \
+        ResultSet rs=new PorderDao().query();\
+        String msg="";\
+        \
+        try\{\
+          while(rs.next())\
+        \{\
+            msg=msg+"\\nID:"+rs.getInt("id")+\
+                    "\\tNAME:"+rs.getString("name")+\
+                    "\\tRULER:"+rs.getInt("ruler")+\
+                    "\\tPEN:"+rs.getInt("pen")+\
+                    "\\tSUM:"+rs.getInt("sum");\
+        \}  \
+        \}catch(Exception e)\{\
+            e.printStackTrace();\
+        \}\
+        \
+        ans4.setText(msg);\
+    \}  }

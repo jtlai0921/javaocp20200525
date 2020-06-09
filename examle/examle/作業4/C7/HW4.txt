@@ -1,0 +1,172 @@
+package Model;
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ *
+ * @author Administrator
+ */
+public class porder {
+    private String name;
+    private int ruler;
+    private int pen;
+    private int sum;
+    
+    public porder(String name,int ruler,int pen)
+    {
+        this.name=name;
+        this.ruler=ruler;
+        this.pen=pen;
+        
+        sum=ruler*30+pen*29;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setRuler(int ruler) {
+        this.ruler = ruler;
+    }
+
+    public void setPen(int pen) {
+        this.pen = pen;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getRuler() {
+        return ruler;
+    }
+
+    public int getPen() {
+        return pen;
+    }
+
+    public int getSum() {
+        return sum;
+    }
+    
+    
+}
+===============
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package DAO;
+
+import static DAO.intfDAO.getConn;
+import Model.porder;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ *
+ * @author Administrator
+ */
+public class porderDAO implements intfDAO{
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        System.out.println(new porderDAO().query());
+        /*porderDAO p=new porderDAO();
+        System.out.println(p.query());
+        p.update();
+        System.out.println(p.query());*/
+        
+    }
+
+    @Override
+    public void add(String name, int ruler, int pen) {
+        porder p=new porder(name,ruler,pen);
+        Connection conn=getConn();
+        String sql="insert into porder(name,ruler,pen,sum) values(?,?,?,?)";
+        
+        try {
+            PreparedStatement ps=conn.prepareStatement(sql);
+            ps.setString(1, p.getName());
+            ps.setInt(2, p.getRuler());
+            ps.setInt(3, p.getPen());
+            ps.setInt(4, p.getSum());
+            
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("no connection");
+            
+        }
+    }
+
+    @Override
+    public ResultSet query() {
+        String sql="select * from porder";
+        
+        ResultSet rs=null;
+        
+        Connection conn=getConn();
+        try {
+            Statement st=conn.createStatement();
+            rs=st.executeQuery(sql);
+            
+        } catch (SQLException ex) {
+            System.out.println("no connection");
+        }
+        
+        return rs;
+    }
+
+    @Override
+    public void update(int id,int ruler,int pen) {
+        String sql="update porder set ruler="+ruler+", pen="+pen+" where id="+id;
+        Connection conn=getConn();
+        try {
+            Statement st=conn.createStatement();
+            st.executeUpdate(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(porderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public void delete(int id) {
+        String sql="delete from porder where id="+id;
+        Connection conn=getConn();
+        
+        try {
+            Statement st=conn.createStatement();
+            st.executeUpdate(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(porderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+}
+==========================================
+private void btnUpdateMouseClicked(java.awt.event.MouseEvent evt) {
+        int Id=Integer.parseInt(id1.getText());
+        int Ruler=Integer.parseInt(ruler2.getText());
+        int Pen=Integer.parseInt(pen2.getText());
+        
+        new porderDAO().update(Id, Ruler, Pen);
+                
+    }
+
+    private void btnDeleteMouseClicked(java.awt.event.MouseEvent evt) {
+        int Id=Integer.parseInt(id2.getText());
+        new porderDAO().delete(Id);
+        
+    }

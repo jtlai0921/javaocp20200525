@@ -1,0 +1,17 @@
+﻿class school
+{
+	
+}
+
+class A
+{
+	
+
+}
+
+class add
+{
+	public static void main(String[] args) {
+		
+	}
+}

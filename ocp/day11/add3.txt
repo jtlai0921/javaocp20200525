@@ -1,0 +1,17 @@
+﻿class add3
+{
+	public static void main(String[] args) {
+		A a =new A();
+		B b=new B();
+
+
+		System.out.println(a.name+"\t"+a.chi);
+		System.out.println(b.name+"\t"+b.eng);
+	}
+}
+
+
+
+
+
+

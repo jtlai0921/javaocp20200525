@@ -1,0 +1,143 @@
+import java.util.Date;
+
+public class computerorder {
+    private String name;
+    private int lcd;
+    private int ram;
+    private int mouse;
+    private int sum;
+    private int givesum;
+    private int chargesum;
+    private boolean member;
+    private Date date;
+    computerorder(String name,int lcd,int ram,int mouse,boolean member)
+    {
+        if(lcd>=0 && ram>=0 && mouse>=0)
+        {
+        this.name=name;
+        this.lcd=lcd;
+        this.ram=ram;
+        this.mouse=mouse;
+        this.member=member;
+        this.date=new Date();
+         sum=lcd*4999+ram*1280+mouse*680;
+            }
+        }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getLcd() {
+        return lcd;
+    }
+
+    public int getRam() {
+        return ram;
+    }
+
+    public int getMouse() {
+        return mouse;
+    }
+
+    public int getSum() {
+        
+      
+        return sum;
+    }
+
+    public int getGivesum() {
+        return givesum;
+    }
+
+    public int getChargesum() {
+        return chargesum;
+    }
+
+    public boolean isMember() {
+        return member;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setLcd(int lcd) {
+        this.lcd = lcd;
+    }
+
+    public void setRam(int ram) {
+        this.ram = ram;
+    }
+
+    public void setMouse(int mouse) {
+        this.mouse = mouse;
+    }
+
+    public void setGivesum(int givesum) {
+        this.givesum = givesum;
+    }
+
+    public void setChargesum(int chargesum) {
+        this.chargesum = chargesum;
+    }
+
+    public void setMember(boolean member) {
+        this.member = member;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+    String show(){
+         if(sum>=10000)
+        {
+        sum=(int)(sum*0.95);
+         }
+         if(member==true)
+        {
+        sum=(int)(sum*0.95);
+         }
+         return "姓名:"+getName()+
+                "\nLCD:"+getLcd()+
+                "\nRAM:"+getRam()+
+                "\nMOUSE:"+getMouse()+
+                "\n總金額:"+getSum()+
+                "\n日期:"+getDate();
+    }
+    String show2()
+    {
+    this.givesum=this.chargesum-sum;
+    return "姓名:"+getName()+
+                "\nLCD:"+getLcd()+
+                "\nRAM:"+getRam()+
+                "\nMOUSE:"+getMouse()+
+                "\n總金額:"+getSum()+
+                "\n付款"+getChargesum()+
+                "\n找零"+getGivesum()+
+                "\n日期:"+getDate();
+    }
+    
+}
+===============================================
+computerorder order=null;
+    private void okMouseClicked(java.awt.event.MouseEvent evt) {                                
+            String NAME=name.getText();
+            int LCD=Integer.parseInt(lcd.getText());
+            int RAM=Integer.parseInt(ram.getText());
+            int MOUSE=Integer.parseInt(mouse.getText());
+            boolean MEMBER=member.isSelected();         
+            order=new computerorder(NAME,LCD,RAM,MOUSE,MEMBER);
+            ans.setText(order.show());
+    }                               
+
+===============================================
+private void chargeMouseClicked(java.awt.event.MouseEvent evt) {                                    
+            int  paymoney=Integer.parseInt(chargesum.getText());
+            order.setChargesum(paymoney);//把paymoney放至class裡
+            
+            ans2.setText(order.show2());

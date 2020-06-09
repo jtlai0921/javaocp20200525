@@ -1,0 +1,50 @@
+﻿package lambDaEx;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Stream;
+
+public class ex7 {
+
+	public static void main(String[] args) {
+		
+		Integer[] x= {52,62,41,85};
+		List<Integer> l2=Arrays.asList(x);
+		
+		List<Integer> l1=Arrays.asList(20,30,78,5,56,74,100);
+		
+		Stream<Integer> s=l1.stream();
+		
+		
+		//s.forEach(System.out::println);//Consumer<Integer> c=System.out::println;
+		s
+		.sorted()
+		.filter(show::b1)
+		.forEach(show::print2);
+		
+	}
+
+}
+
+class show
+{
+	
+	static boolean b1(Integer x)
+	{
+		return x>=50;
+	}
+	static void print1(Integer x)
+	{
+		System.out.println(x);
+	}
+	
+	static void print2(Integer x)
+	{
+		System.out.print(x+" ");
+	}
+	
+	static void print3(Integer x)
+	{
+		System.out.println(x);
+	}
+}

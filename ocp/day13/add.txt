@@ -1,0 +1,28 @@
+﻿class add
+{
+	public static void main(String[] args) {
+		
+		A a=new A("a",78);
+		B b=new B("b",77);
+
+
+		System.out.println(a.show());
+
+		//System.out.println(a.name);
+		/*System.out.println(a.getName()+","+a.getChi());
+		System.out.println(b.getName()+","+b.getEng());
+
+
+		System.out.println("=========================");
+
+		a.change(100);
+		b.change(70);
+
+
+		System.out.println(a.getName()+","+a.getChi());
+		System.out.println(b.getName()+","+b.getEng());
+	*/
+
+
+	}
+}

@@ -1,0 +1,197 @@
+package homework3;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+
+/**
+ * 使用者的Class
+ */
+public class User {
+
+    private final String userName;
+    private String passWord;
+    private String name;
+    private String phone;
+    private String address;
+    private String vip;
+    private Order[] order = new Order[1]; //存放訂單資料的陣列
+    private int count = 0; //訂單資料陣列的存放數量
+
+    public User(String userName, String passWord, String name, String phone, String address, String vip) {
+        this.userName = userName;
+        this.passWord = passWord;
+        this.name = name;
+        this.phone = phone;
+        this.address = address;
+        this.vip = vip;
+    }
+
+    /*增加3C類的方法*/
+    public void addA_3C(A_3C x) throws FileNotFoundException, IOException {
+        if (count == order.length) {
+            doubleArray();
+        }
+        order[count] = x;
+        count++;
+        orderWrite(x); //儲存檔案方法
+    }
+
+    /*增加文具類的方法*/
+    public void addB_Write(B_Write x) throws IOException {
+        if (count == order.length) {
+            doubleArray();
+        }
+        order[count] = x;
+        count++;
+        orderWrite(x); //儲存檔案方法
+    }
+
+    /*寫入3C類檔案並儲存的方法*/
+    private void orderWrite(A_3C xx) throws FileNotFoundException, IOException {
+        File f = new File("memberFile/member" + (UserArray.getIndex(userName) + 1) + "/order" + count);
+        f.mkdir();
+
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f + "/LCD.txt")));
+        bw.write(String.valueOf(xx.getLcd()));
+        bw.close();
+
+        bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f + "/RAM.txt")));
+        bw.write(String.valueOf(xx.getRam()));
+        bw.close();
+
+        bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f + "/SUM.txt")));
+        bw.write(String.valueOf(xx.getSum()));
+        bw.close();
+
+        bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f + "/ListShow.txt")));
+        bw.write(xx.getListShow());
+        bw.close();
+
+        bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f + "/Date.txt")));
+        bw.write(xx.getDate());
+        bw.close();
+
+        bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("memberFile/member" + (UserArray.getIndex(userName) + 1) + "/orderCount.txt")));
+        bw.write(String.valueOf(count));
+        bw.close();
+
+        bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f + "/typeName.txt")));
+        bw.write(xx.getTypeName());
+        bw.close();
+    }
+    
+    /*寫入文具類檔案並儲存的方法*/
+    private void orderWrite(B_Write xy) throws FileNotFoundException, IOException {
+        File f = new File("memberFile/member" + (UserArray.getIndex(userName) + 1) + "/order" + count);
+        f.mkdir();
+
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f + "/Ruler.txt")));
+        bw.write(String.valueOf(xy.getRuler()));
+        bw.close();
+
+        bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f + "/Pen.txt")));
+        bw.write(String.valueOf(xy.getPen()));
+        bw.close();
+
+        bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f + "/SUM.txt")));
+        bw.write(String.valueOf(xy.getSum()));
+        bw.close();
+
+        bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f + "/ListShow.txt")));
+        bw.write(xy.getListShow());
+        bw.close();
+
+        bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f + "/Date.txt")));
+        bw.write(xy.getDate());
+        bw.close();
+
+        bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("memberFile/member" + (UserArray.getIndex(userName) + 1) + "/orderCount.txt")));
+        bw.write(String.valueOf(count));
+        bw.close();
+
+        bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f + "/typeName.txt")));
+        bw.write(xy.getTypeName());
+        bw.close();
+    }
+
+    /*當陣列裡的資料存滿時，創造新陣列為當前陣列的兩倍長度，
+    複製當前陣列資料去新陣列，並把當前陣列指向新陣列的記憶體位置*/
+    private void doubleArray() {
+        Order newArray[] = new Order[order.length * 2];
+        for (int i = 0; i < order.length; i++) {
+            newArray[i] = order[i];
+        }
+        order = newArray;
+    }
+
+    public void setPassWord(String passWord) throws IOException {
+        this.passWord = passWord;
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("memberFile/member" + (UserArray.getIndex(userName)+1)+ "/passWord.txt")));
+        bw.write(this.passWord);
+        bw.close();
+    }
+
+    public void setName(String name) throws IOException {
+        this.name = name;
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("memberFile/member" + (UserArray.getIndex(userName)+1)+ "/name.txt")));
+        bw.write(this.name);
+        bw.close();
+    }
+
+    public void setPhone(String phone) throws IOException {
+        this.phone = phone;
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("memberFile/member" + (UserArray.getIndex(userName)+1)+ "/phone.txt")));
+        bw.write(this.phone);
+        bw.close();
+    }
+
+    public String getVip() {
+        return vip;
+    }
+
+    public void setVip(String vip) throws IOException {
+        this.vip = vip;
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("memberFile/member" + (UserArray.getIndex(userName)+1)+ "/vip.txt")));
+        bw.write(this.vip);
+        bw.close();
+    }
+
+    public void setAddress(String address) throws IOException {
+        this.address = address;
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("memberFile/member" + (UserArray.getIndex(userName)+1)+ "/address.txt")));
+        bw.write(this.address);
+        bw.close();
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getPassWord() {
+        return passWord;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public Order[] getOrder() {
+        return order;
+    }
+
+    public int getCount() {
+        return count;
+    }
+}

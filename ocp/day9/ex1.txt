@@ -1,0 +1,55 @@
+﻿class ex1
+{
+	public static void main(String[] args) {
+		
+
+		
+
+
+		//int[] x={60,70,80,78,89};
+
+		//double[] x=new double[3];
+
+		//boolean[] x=new boolean[3];
+
+		//String[] x=new String[3];
+
+
+		//Double[] x=new Double[3];
+
+		int[] x=new int[6];//[0],[1],[2]
+		x[0]=60;
+		x[1]=70;
+		x[2]=80;
+		System.out.println(x);
+		System.out.println(x.length);
+		//System.out.println(x[0]);
+
+		for(int i=0;i<x.length;i++)
+		{
+			System.out.println("x["+i+"]="+x[i]);
+		}
+
+		System.out.println("==================");
+
+
+		for(int o:x)
+		{
+			System.out.println(o);
+		}
+
+
+		/*int x=10;
+		System.out.println(x);
+	*/
+		/*int abc=10;
+		int def=20;
+		int fff=30;
+
+
+		System.out.println(abc);
+		System.out.println(def);
+		System.out.println(fff);*/
+
+	}
+}

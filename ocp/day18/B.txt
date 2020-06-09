@@ -1,0 +1,36 @@
+﻿package com.sb;
+
+import com.sa.student;
+import com.sa.student2;
+
+public class B extends student implements student2{
+	private int eng;
+
+	public B(String name,int eng) {
+		super(name);
+		this.eng=eng;
+	}
+
+	public int getEng() {
+		return eng;
+	}
+
+	public void setEng(int eng) {
+		this.eng = eng;
+	}
+	
+	
+	public String show()
+	{
+		return super.show()+"\t英文:"+getEng();
+	}
+
+	@Override
+	public void set(int o) {
+		setEng(o);
+		
+	}
+	
+	
+
+}

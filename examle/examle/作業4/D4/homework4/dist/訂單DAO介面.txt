@@ -1,0 +1,142 @@
+package DAO;
+
+import Model.Porder;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+public interface PorderDAO {
+
+    public static void PorderAdd(Porder p) {
+
+        String Table = DB.getTable();
+
+        try {
+            String sql = "insert into " + Table + "(name , ruler , pen , sum , pay , date) values(? , ? , ? , ? , ? , ?)";
+            Connection conn = DB.ConnectionDB();
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setNString(1, p.getName());
+            ps.setInt(2, p.getRuler());
+            ps.setInt(3, p.getPen());
+            ps.setInt(4, p.getSum());
+            ps.setNString(5, p.getPay());
+            ps.setNString(6, p.getDate());
+            ps.executeUpdate();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(PorderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public static String PorderSearch() {
+
+        String Table = DB.getTable();
+        String msg = "";
+        try {
+            String sql = "select * from " + Table;
+            Connection conn = DB.ConnectionDB();
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+
+                msg += "ID：" + rs.getInt("id")
+                        + "    姓名：" + rs.getString("name")
+                        + "    Ruler：" + rs.getInt("ruler")
+                        + "    Pen：" + rs.getInt("pen")
+                        + "    總價：" + rs.getInt("sum")
+                        + "    付款方式：" + rs.getString("pay")
+                        + "    付款日期：" + rs.getString("date")
+                        + "\n\n";
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(PorderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return msg;
+    }
+
+    public static String PorderUpdate(int id, int Ruler, int Pen) {
+
+        String Table = DB.getTable();
+        String msg = "";
+        int Sum = (Ruler * 30 + Pen * 20);
+        try {
+            String newsql = "update " + Table + " set ruler=? , pen=? ,sum = ? where id=?";
+            String oldsql = "select * from " + Table + " where id=" + id;
+            Connection conn = DB.ConnectionDB();
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(oldsql);
+
+            if (rs.next()) {
+                if (rs.getString("pay").equals("尚未付款")) {
+                    msg += "\t\t\t\t修改成功！\n===================================修改前的訂單資料===================================\n"
+                            + "ID：" + rs.getInt("id")
+                            + "\tRuler：" + rs.getInt("ruler")
+                            + "\tPen：" + rs.getInt("pen")
+                            + "\t總價：" + rs.getInt("sum")
+                            + "\n";
+                    PreparedStatement ps = conn.prepareStatement(newsql);
+
+                    ps.setInt(1, Ruler);
+                    ps.setInt(2, Pen);
+                    ps.setInt(3, Sum);
+                    ps.setInt(4, id);
+                    ps.executeUpdate();
+
+                    rs = st.executeQuery(oldsql);
+                    if (rs.next()) {
+                        msg += "\n===================================修改後的訂單資料===================================\n"
+                                + "ID：" + rs.getInt("id")
+                                + "\tRuler：" + rs.getInt("ruler")
+                                + "\tPen：" + rs.getInt("pen")
+                                + "\t總價：" + rs.getInt("sum");
+                    }
+                } else {
+                    msg = "此訂單已付款";
+                }
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(PorderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return msg;
+    }
+
+    public static String PorderDelete(int id) {
+
+        String Table = DB.getTable();
+        String msg = null;
+
+        try {
+            String newsql = "delete from " + Table + " where id=" + id;
+            String oldsql = "select * from " + Table + " where id=" + id;
+            Connection conn = DB.ConnectionDB();
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(oldsql);
+
+            if (rs.next()) {
+                msg = "\t刪除成功！\n\n========刪除的訂單資料========"
+                        + "\nID：" + rs.getInt("id")
+                        + "\n姓名：" + rs.getString("name")
+                        + "\nRuler：" + rs.getInt("ruler")
+                        + "\nPen：" + rs.getInt("pen")
+                        + "\n總價：" + rs.getInt("sum")
+                        + "\n付款方式：" + rs.getString("pay")
+                        + "\n訂單日期：" + rs.getString("date");
+            }
+
+            PreparedStatement ps = conn.prepareStatement(newsql);
+            ps.executeUpdate();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(PorderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return msg;
+    }
+}

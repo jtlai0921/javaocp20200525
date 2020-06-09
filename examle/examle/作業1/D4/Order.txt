@@ -1,0 +1,137 @@
+import java.util.Date;
+
+public class Order {
+
+    private String name;
+    private int lcd;
+    private int ram;
+    private int mouse;
+    private Date date;
+    private boolean vip;
+    private static int sum;
+
+    public Order(String name, int lcd, int ram, int mouse, boolean vip) {
+        this.name = name;
+        this.lcd = lcd;
+        this.ram = ram;
+        this.mouse = mouse;
+        this.date = new Date();
+        this.vip = vip;
+        this.sum = this.lcd * 4999 + this.ram * 1280 + this.mouse * 680;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setLcd(int lcd) {
+        this.lcd = lcd;
+    }
+
+    public void setRam(int ram) {
+        this.ram = ram;
+    }
+
+    public void setMouse(int mouse) {
+        this.mouse = mouse;
+    }
+
+    public void setVip(boolean vip) {
+        this.vip = vip;
+    }
+
+    public void setSum(int sum) {
+        this.sum = sum;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getLcd() {
+        return lcd;
+    }
+
+    public int getRam() {
+        return ram;
+    }
+
+    public int getMouse() {
+        return mouse;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public boolean getVip() {
+        return vip;
+    }
+
+    public static int getSum() {
+        return sum;
+    }
+
+    public String show() {
+        String a = "";
+        String k = "";
+        if (sum >= 10000) {
+            k = "\n(消費滿10000享有95折優惠)";
+            sum = (int) (sum * 0.95);
+        }
+        if (vip == true) {
+            a = "您是尊貴的會員";
+            k += "\n(您是會員享有95折優惠)";
+            sum = (int) (sum * 0.95);
+        } else {
+            a = "您是一般客戶";
+        }
+        String str = "===============客戶資訊===============\n" + "名字：" + name
+                + "\n===============訂購明細==============="
+                + "\nLCD   ：" + lcd + "台 小計：" + lcd * 2499 + "元\n"
+                + "RAM   ：" + ram + "條 小計：" + ram * 1280 + "元\n"
+                + "MOUSE ：" + mouse + "個 小計：" + mouse * 680 + "元\n"
+                + "=================其他=================\n"
+                + "客戶狀態：" + a
+                + "\n訂單總價：" + sum + "元" + k
+                + "\n訂單日期：" + date;
+        return str;
+    }
+}
+
+======================================================================================================================================
+
+private void okMouseClicked(java.awt.event.MouseEvent evt) {                                
+
+        if (name.getText().equals("") || lcd.getText().equals("") || ram.getText().equals("") || mouse.getText().equals("")) {
+            ans.setText("上方欄位請勿空白！請重新填表！");
+        } else {
+            Order order = new Order(name.getText(), Integer.parseInt(lcd.getText()),
+                    Integer.parseInt(ram.getText()), Integer.parseInt(mouse.getText()), vip.isSelected());
+            ans.setText(order.show());
+
+        }
+    }                               
+
+=======================================================================================================================================
+
+private void payMouseClicked(java.awt.event.MouseEvent evt) {                                 
+
+        if (ans.getText().equals("") || ans.getText().equals("上方欄位請勿空白！請重新填表！")) {
+            view.setText("請先建立訂購清單！");
+        } else if (money.getText().equals("")) {
+            view.setText("請先輸入金額！");
+        } else {
+            int SUM = Order.getSum();
+            int PAY = Integer.parseInt(money.getText());
+            if (PAY < 0) {
+                view.setText("您輸入的金額為負值，請不要呼嚨本軟體！");
+            } else {
+                if (PAY >= SUM) {
+                    view.setText("您輸入的金額為" + PAY + "元\n您的訂單總價為" + SUM + "元\n找您" + (PAY - SUM) + "元");
+                } else {
+                    view.setText("您輸入的金額為" + PAY + "元\n您的訂單總價為" + SUM + "元\n您的金錢不足！還差" + (SUM - PAY) + "元");
+                }
+            }
+        }
+    }                                

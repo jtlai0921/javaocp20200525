@@ -1,0 +1,94 @@
+public class Home1 {
+    private String name;
+    private int lcd;
+    private int ram;
+    private int mouse;
+    private int sum;
+    private int memberDiscount;
+    private int cashDiscount;
+    
+    Home1(String name, int lcd, int ram, int mouse)
+    {
+        this.name = name;
+        this.lcd = lcd;
+        this.ram = ram;
+        this.mouse = mouse;
+        
+        this.memberDiscount = 0;
+        this.cashDiscount = 0;
+        this.sum = 0;
+    }
+    
+    public void Calculate(boolean IsMember)
+    {
+        this.sum = lcd * 4999 + ram * 1280 + mouse * 680;
+        
+        if( this.sum >= 10000 )
+        {
+            this.memberDiscount = (int)(this.sum * 0.05);
+        }
+        else
+        {
+            this.memberDiscount = 0;
+        }
+        
+        if( IsMember )
+        {
+            this.cashDiscount = (int)((this.sum - this.memberDiscount) * 0.05);
+        }
+        else
+        {
+            this.cashDiscount = 0;
+        }
+    }
+    
+    public int Total()
+    {
+        return (sum - memberDiscount - cashDiscount);
+    }
+    
+    public String Show()
+    {
+        return "Name\t\t:" + name + 
+                "\nLCD number\t\t: " + lcd + 
+                "\nRam number\t\t: " + ram +
+                "\nmouse number\t\t: " + mouse +
+                "\nTotal sum\t\t:" + sum +
+                "\n\nMember discount\t:" + memberDiscount + 
+                "\nCash discount\t\t:" + cashDiscount + 
+                "\n\nDiscount sum\t\t:" + (sum - memberDiscount - cashDiscount);
+    }
+}
+
+-----------------------------------------------------------------------------------------------
+
+    private void okMouseClicked(java.awt.event.MouseEvent evt) {                                
+        // TODO add your handling code here:
+        if( Integer.parseInt(led.getText()) < 0 || 
+                Integer.parseInt(ram.getText()) < 0 || 
+                Integer.parseInt(mouse.getText()) < 0 )
+        {
+            info.setText("Error item numbers.");
+        }
+        else
+        {
+            cal = new Home1(name.getText(), 
+                                    Integer.parseInt(led.getText()), 
+                                    Integer.parseInt(ram.getText()), 
+                                    Integer.parseInt(mouse.getText()) );
+            cal.Calculate(member.isSelected());
+            info.setText(cal.Show());
+        }
+    }                               
+
+    private void changeMouseClicked(java.awt.event.MouseEvent evt) {                                    
+        // TODO add your handling code here:
+        if( Integer.parseInt(pay.getText()) < cal.Total() )
+        {
+            payy.setText("Cash is not enough!!!");
+        }
+        else
+        {
+            payy.setText(String.valueOf(Integer.parseInt(pay.getText()) - cal.Total()));
+        }
+    }                          

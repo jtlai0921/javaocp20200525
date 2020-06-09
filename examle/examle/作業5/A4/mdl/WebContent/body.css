@@ -1,0 +1,25 @@
+@charset "BIG5";
+.header
+{
+	background-color:#FFCAAF;
+	width:640px;
+	heigh:150px;
+	margin-left:20%;
+
+}
+
+.content
+{
+	background-color:#FFE2D3;
+	width:600px;
+	margin-left:20%;
+	padding:20px;
+}
+
+.footer
+{
+	background-color:#FFCAAF;
+	width:640px;
+	heigh:50px;
+	margin-left:20%;
+}

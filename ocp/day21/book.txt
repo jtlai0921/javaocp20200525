@@ -1,0 +1,17 @@
+﻿package collectionEx;
+
+public class book<E> {
+	private String bookname;
+	private E bookprice;
+	public book(String bookname, E bookprice) {
+		super();
+		this.bookname = bookname;
+		this.bookprice = bookprice;
+	}
+	
+	void show()
+	{
+		System.out.println("name="+bookname+"\tprice:"+bookprice);
+	}
+
+}

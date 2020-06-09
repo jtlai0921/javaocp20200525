@@ -1,0 +1,31 @@
+﻿class student
+{
+	String name;
+	int chi;
+	int eng;
+	int sum;
+	double ave;
+	boolean x;
+	//int chi;
+
+	student(int chi)
+	{
+		
+		this.chi=chi;
+
+		//int chi=60;
+		//chi=60;
+		//System.out.println("新增一位學生");
+	}
+
+
+
+	void show()
+	{
+		System.out.println("名:"+name+
+			"\t國文:"+chi+
+			"\t英文"+eng+
+			"\t總分:"+sum+
+			"\t平均:"+ave);
+	}
+}

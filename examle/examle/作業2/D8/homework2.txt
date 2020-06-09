@@ -1,0 +1,115 @@
+import java.util.Date;
+import javax.swing.JTextField;
+========================================================================================================
+    private int sum;
+    private void ok1MouseClicked(java.awt.event.MouseEvent evt) {                                 
+        sum=0;
+        ans2.setText("");
+        pay.setText("0");
+        Date d = new Date();
+        int x = 3;
+        int[] s = {120,130,140};
+        int[] c = {
+            addA.isSelected()? 30:0,
+            addB.isSelected()? 40:0,
+            addC.isSelected()? 50:0,
+        };
+        String[] o1 = {
+            textA.getText()+"计秖:",
+            textB.getText()+"计秖:",
+            textC.getText()+"计秖:",
+            addA.isSelected()? add.getText()+addA.getText():"",
+            addB.isSelected()? add.getText()+addB.getText():"",
+            addC.isSelected()? add.getText()+addC.getText():"",
+        };
+        JTextField[] t = new JTextField[x];
+        t[0]=caseA;
+        t[1]=caseB;
+        t[2]=caseC;
+        String s1="";
+        String ss=textN.getText()+name.getText()+"\n";
+        for(int i = 0 ;i < x ; i++)
+        {
+            int sum2=Integer.parseInt(t[i].getText());
+            if(sum2>0) ss += o1[i]+sum2+"\n";
+            if(c[i]>0) s1 += o1[i+3]+"\n";
+            sum+=sum2*s[i]+c[i];
+        }
+        double discount = (memberA.isSelected()? 0.85:memberB.isSelected()? 0.90:memberC.isSelected()? 0.95:1.);
+        sum=(int)(sum*discount);
+        String s2 = discount==1.? "":"чΙ基";
+        ss=ss+s1+s2+"羆肂:"+sum+"じ\n"+d;
+        ans1.setText(ss);
+    }   
+========================================================================================================
+    private void ok2MouseClicked(java.awt.event.MouseEvent evt) {                                 
+        int x = Integer.parseInt(pay.getText())-sum;
+        ans2.setText(x>0? ok2.getText()+x+"じ" : x==0? "ぃノ"+ok2.getText()+"じ":"ぃì"+Math.abs(x)+"じ");
+    }                                
+========================================================================================================
+    private void caseAKeyReleased(java.awt.event.KeyEvent evt) {                                  
+        caseA.setText(checkTextAndMax(caseA.getText()));
+    }                                 
+========================================================================================================
+    private void caseAMouseClicked(java.awt.event.MouseEvent evt) {                                   
+        caseA.selectAll();
+    }                                 
+========================================================================================================
+    private void nameMouseClicked(java.awt.event.MouseEvent evt) {                                  
+        name.selectAll();
+    }                                 
+========================================================================================================
+    private void caseBMouseClicked(java.awt.event.MouseEvent evt) {                                   
+        caseB.selectAll();
+    }                                  
+========================================================================================================
+    private void caseCMouseClicked(java.awt.event.MouseEvent evt) {                                   
+        caseC.selectAll();
+    }                                  
+========================================================================================================
+    private void payMouseClicked(java.awt.event.MouseEvent evt) {                                 
+        pay.selectAll();
+    }                                
+========================================================================================================
+    private void caseBKeyReleased(java.awt.event.KeyEvent evt) {                                  
+        caseB.setText(checkTextAndMax(caseB.getText()));
+    }                                 
+========================================================================================================
+    private void caseCKeyReleased(java.awt.event.KeyEvent evt) {                                  
+        caseC.setText(checkTextAndMax(caseC.getText()));
+    }                                 
+========================================================================================================
+    private void payKeyReleased(java.awt.event.KeyEvent evt) {                                
+        pay.setText(checkText(pay.getText()));
+    }                               
+========================================================================================================
+String checkText(String sa)
+    {
+        char[] s = sa.toCharArray();
+        String b="";
+        boolean tt=false;
+        for(int i=0;i<s.length;i++)
+        {
+            if(tt==false)
+            {
+                int x = s[i];
+                if(s[i]>= 48 && s[i]<=57)
+                {
+                    b+=s[i];
+                }
+                else
+                    tt= true;
+            }
+        }
+        if(b.length()>0)
+        {
+            if(s[0]=='0') b=b.substring(1,b.length());
+        }
+        return(b.length()==0? "0":b);
+    }
+========================================================================================================
+    String checkTextAndMax(String sa)
+    {
+        int x = Integer.parseInt(checkText(sa));
+        return Integer.toString(x>100? 100:x);
+    }

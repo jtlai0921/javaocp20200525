@@ -1,0 +1,60 @@
+package homework3;
+
+import java.util.Date;
+
+/**
+ * 3C類的Class
+ */
+public class A_3C implements Order {
+
+    private int lcd;
+    private int ram;
+    private int sum;
+    private String listshow; //用於顯示過往訂單資訊
+    private Date date;
+
+    public A_3C(int lcd, int ram) {
+        this.lcd = lcd;
+        this.ram = ram;
+        sum = lcd * 4999 + ram * 1280;
+        date = new Date();
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    @Override
+    public void setListShow(String listshow) {
+        this.listshow = listshow;
+    }
+
+    @Override
+    public String getListShow() {
+        return listshow;
+    }
+
+    public int getLcd() {
+        return lcd;
+    }
+
+    public int getRam() {
+        return ram;
+    }
+
+    public void setLcd(int lcd) {
+        this.lcd = lcd;
+    }
+
+    public void setRam(int ram) {
+        this.ram = ram;
+    }
+
+    public int getSum() {
+        return sum;
+    }
+
+    public void setSum(int sum) {
+        this.sum = sum;
+    }
+}

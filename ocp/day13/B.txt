@@ -1,0 +1,19 @@
+﻿class B extends school
+{
+	private int eng;
+	B(String name , int eng)
+	{
+		super(name);
+		this.eng=eng;
+	}
+
+	void change(int eng)
+	{
+		this.eng=eng;
+	}
+
+	int getEng()
+	{
+		return eng;
+	}
+}

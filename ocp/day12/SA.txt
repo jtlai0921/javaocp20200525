@@ -1,0 +1,4 @@
+﻿class SA extends student
+{
+	private int chi;
+}

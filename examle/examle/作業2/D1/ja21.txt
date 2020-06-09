@@ -1,0 +1,39 @@
+public class ja21 extends Ja2
+{
+    private int pay;
+    private int change;
+    ja21(int ma,int mb,int mc,int sa,int sb,int sc,boolean cla,boolean clb,boolean clc,int mem,int pay)
+    {
+        
+       
+        super(ma,mb,mc,sa,sb,sc,cla,clb,clc,mem);
+        this.pay=pay;
+        this.change=change;
+        change=pay-super.getSum();
+        
+    }  
+
+    public void setChange(int change) {
+        this.change = change;
+    }
+
+    public void setPay(int pay) {
+        this.pay = pay;
+    }
+    
+    
+
+    public int getPay() {
+        return pay;
+    }
+
+    public int getChange() {
+        return change;
+    }
+      
+        
+    String show2()
+    {
+        return super.show()+"\nChange:"+getChange();
+    
+    }       

@@ -1,0 +1,38 @@
+﻿package collectionEx;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.PriorityQueue;
+import java.util.TreeSet;
+
+public class addMember {
+
+	public static void main(String[] args) {
+		/*Member[] m=new Member[3];
+		m[0]=new Member("a","uu");*/
+		
+		//ArrayList<Member> m=new ArrayList<Member>();
+		
+		//HashSet<Member> m=new HashSet<Member>();
+		//TreeSet<Member> m=new TreeSet<Member>();
+		PriorityQueue<Member> m=new PriorityQueue<Member>();
+		
+		m.add(new Member("a","uu",75,78));
+		m.add(new Member("b","uu",74,85));
+		m.add(new Member("c","uu",76,85));
+		
+		System.out.println(m);
+		
+		System.out.println("====================");
+		
+		for(Member o:m)
+		{
+			System.out.println("name="+o.getName()+
+					"\taddress:"+o.getAddress()+
+					"\tchi:"+o.getChi()+
+					"\teng:"+o.getEng());
+		}
+
+	}
+
+}

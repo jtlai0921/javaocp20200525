@@ -1,0 +1,102 @@
+
+
+import java.util.Date;
+
+public class p {
+    private int A;
+    private int B;
+    private int C;
+    private int sum;
+    private static int sum2;
+    private Date d;
+    private String member;
+    
+    p(int A,int B,int C,int afp,int bfp,int cfp,boolean one,boolean two,boolean three,int f1p,int f2p,int f3p,String member){
+        this.member=member;
+        this.A=A;
+        this.B=B;
+        this.C=C;
+        sum=A*afp+B*bfp+C*cfp;
+        if(one==true)sum=sum+f1p;
+        if(two==true)sum=sum+f2p;
+        if(three==true)sum=sum+f3p;
+        
+        switch(member){
+            case "鑽石":
+                this.member=member+"折扣15%";
+                sum=(int)(sum*0.85);
+                break;
+            case "金卡":
+                this.member=member+"折扣10%";
+                sum=(int)(sum*0.9);
+                break;                
+            case "銀卡":
+                this.member=member+"折扣5%";
+                sum=(int)(sum*0.95);
+                break;
+            case "普通":  
+                break;               
+        }
+    }
+    String date(){
+        Date d=new Date();
+        return "訂單時間:"+d;
+    }
+    String show(boolean one,boolean two,boolean three){
+        sum2=sum;
+        return "會員等級:"+member+
+                "\n訂餐明細:"+
+                "\nA餐:"+A+"份"+
+                "\nB餐:"+B+"份"+
+                "\nC餐:"+C+"份"+
+                (one==true ? "\n加購小菜1":"")+
+                (two==true ? "\n加購小菜2":"")+
+                (three==true ? "\n加購小菜3":"")+
+                "\n合計:"+sum; 
+    }
+    
+    static String pay(int p){
+        if(p>=sum2){
+            return "找零: "+(p-sum2)+"元";
+        }
+        else{
+            
+            return "金額不足";
+        }
+    }
+}
+=======================================================================================
+    private void okButtonMouseClicked(java.awt.event.MouseEvent evt) {                                      
+        int af=parseInt(afKey.getText());
+        int bf=parseInt(bfKey.getText());
+        int cf=parseInt(cfKey.getText());
+        int ap=parseInt(afm.getText());
+        int bp=parseInt(bfm.getText());
+        int cp=parseInt(cfm.getText());
+        boolean o1=box1.isSelected();
+        boolean t2=box2.isSelected();
+        boolean t3=box3.isSelected();
+        int f1pp=parseInt(f1p.getText());
+        int f2pp=parseInt(f2p.getText());
+        int f3pp=parseInt(f3p.getText());
+        boolean nor1=normal.isSelected();
+        boolean sil2=silver.isSelected();
+        boolean gol3=gold.isSelected();
+        boolean dia4=diamond.isSelected();
+        String m=nor1==true ? normal.getText():(sil2==true ? silver.getText():(gol3==true ? gold.getText():(dia4==true ? diamond.getText():"")));
+        p pui=new p(af,bf,cf,ap,bp,cp,o1,t2,t3,f1pp,f2pp,f3pp,m);
+        showtime.setText(pui.date());
+        ANS.setText(pui.show(o1,t2,t3));
+    }   
+=====================================================================================
+private void payButtonMouseClicked(java.awt.event.MouseEvent evt) {                                       
+        backmoney.setText(
+            valueOf(
+                p.pay( 
+                    parseInt( 
+                        paymoney.getText()
+                    )
+                )
+            )
+        );
+    }                         

@@ -1,0 +1,6 @@
+連線位址:
+
+jdbc:mysql://localhost:3306/gjun
+
+資料庫連線帳號:   root
+資料庫連線密碼:   00000000

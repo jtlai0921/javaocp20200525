@@ -1,0 +1,227 @@
+package HW;
+public class Order 
+{   
+    private String name;
+    static final int priceLcd=4999;
+    static final int priceRam=1280;
+    static final int priceRuler=30;
+    static final int pricePen=20;
+    Order()
+    {}
+    
+    Order(String name)
+    {
+        this.name=name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    String show()
+    {
+    return "您的名字為: "+getName();
+    }
+}
+
+===================================================================================
+package HW;
+public class Order3C extends Order 
+{
+    private int lcd;
+    private int ram;
+    private int sum;
+    
+    Order3C()
+    {}
+    
+    Order3C(String name,int lcd,int ram)
+    {
+        super(name);
+        this.lcd=lcd;
+        this.ram=ram;
+        this.sum=lcd*priceLcd+ram*priceRam;
+    }
+
+    public int getLcd() {
+        return lcd;
+    }
+
+    public void setLcd(int lcd) {
+        this.lcd = lcd;
+    }
+
+    public int getRam() {
+        return ram;
+    }
+
+    public void setRam(int ram) {
+        this.ram = ram;
+    }
+
+    public int getSum() {
+        return sum=lcd*priceLcd+ram*priceRam;
+    }
+
+    public void setSum(int sum) {
+        this.sum = sum;
+    }
+    
+    String show()
+    {
+        return "您購買的 3C產品 明細如下： "+"\n\n名字： "+getName()
+                +"\nLCD: "+getLcd()+"*"+priceLcd+"\nRAM: "+getRam()+"*"
+                +priceRam+"\n總額為： "+getSum();
+    }
+}
+===================================================================================================================
+package HW;
+public class OrderWrite extends Order 
+{
+    private int ruler;
+    private int pen;
+    private int sum;
+    OrderWrite()
+    {}
+    
+    OrderWrite(String name,int ruler,int pen)
+    {
+        super(name);
+        this.ruler=ruler;
+        this.pen=pen;
+        this.sum=ruler*priceRuler+pen*pricePen;
+    }
+
+    public int getRuler() {
+        return ruler;
+    }
+
+    public void setRuler(int ruler) {
+        this.ruler = ruler;
+    }
+
+    public int getPen() {
+        return pen;
+    }
+
+    public void setPen(int pen) {
+        this.pen = pen;
+    }
+
+    public int getSum() {
+        return sum=ruler*priceRuler+pen*pricePen;
+    }
+
+    public void setSum(int sum) {
+        this.sum = sum;
+    }
+    
+    String show()
+    {
+        return "您購買的 文具用品 明細如下： "+"\n\n名字： "+getName()
+                +"\n直尺: "+getRuler()+"*"+priceRuler+"\n原子筆: "+getPen()+"*"
+                +pricePen+"\n總額為： "+getSum();
+    }
+   
+}
+===================================================================================================================
+package HW;
+import java.util.Date;
+
+
+
+ Order o=new Order();
+    Order3C o3c=new Order3C();
+    OrderWrite ow=new OrderWrite();
+    void detail3C()
+    {
+        o3c.setName(name.getText());
+        o3c.setLcd((int)lcd.getValue());
+        o3c.setRam((int)ram.getValue());
+        result.setText(o3c.show()+"\n\n確認無誤後，請選擇付款方式後送出訂單");
+        
+    }
+    void detailW()
+    {
+        ow.setName(name.getText());
+        ow.setRuler((int)ruler.getValue());
+        ow.setPen((int)pen.getValue());
+        result.setText(ow.show()+"\n\n確認無誤後，請選擇付款方式後送出訂單");
+        
+    }
+    String payment()
+    {
+        if(visa.isSelected())
+        {
+            return "VISA";
+        }
+        else if(atm.isSelected()) 
+        {
+            return "轉帳交易";
+        }
+        else 
+        {
+            return "貨到付款";
+            
+    }
+    }
+    
+    private void lcdStateChanged(javax.swing.event.ChangeEvent evt) {                                 
+        if(rb3C.isSelected())
+            detail3C();
+    }                                
+
+    private void ramStateChanged(javax.swing.event.ChangeEvent evt) {                                 
+        if(rb3C.isSelected())
+            detail3C();
+    }                                
+
+    private void rulerStateChanged(javax.swing.event.ChangeEvent evt) {                                   
+        if(rbWrite.isSelected())
+            detailW();
+    }                                  
+
+    private void penStateChanged(javax.swing.event.ChangeEvent evt) {                                 
+       if(rbWrite.isSelected())
+           detailW();
+        
+    }                                
+
+    private void rb3CActionPerformed(java.awt.event.ActionEvent evt) {                                     
+        detail3C();
+    }                                    
+
+    private void rbWriteActionPerformed(java.awt.event.ActionEvent evt) {                                        
+        detailW();
+    }                                       
+
+    private void okMouseClicked(java.awt.event.MouseEvent evt) {                                
+        if(!name.getText().equals("") && (atm.isSelected() ||cod.isSelected() ||visa.isSelected()) )
+        {
+            if(rb3C.isSelected())
+            {
+                result.setText(o3c.show()+"\n\n付款方式： "+payment()+"\n"+new Date());
+            }
+            else if(rbWrite.isSelected())
+            {
+                result.setText(ow.show()+"\n\n付款方式： "+payment()+"\n"+new Date());
+            }
+            else
+            {
+               result.setText("請確認訂單內容是否填寫確實"); 
+            }
+                    
+        }
+         else
+        {
+            result.setText("請確認訂單內容是否填寫確實");
+        }
+    }                               
+
+    private void nameKeyTyped(java.awt.event.KeyEvent evt) {                              
+        o.setName(name.getText());
+       result.setText(o.show());
+    }

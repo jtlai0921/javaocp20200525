@@ -1,0 +1,5 @@
+﻿interface book3
+{
+	void abc();
+	void show();
+}

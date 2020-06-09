@@ -1,0 +1,27 @@
+@charset "BIG5";
+.header
+{
+	background-color:#E6AF2E;
+	width:770px;
+	height:150px;
+	margin-left:5%;
+	padding:15px;
+}
+
+.content
+{
+	background-color:#E0E2DB;
+	width:780px;
+	height:600px;
+	margin-left:5%;
+	padding-left:20px;
+	padding-top:5px;
+}
+
+.footer
+{
+	background-color:#E6AF2E;
+	width:800px;
+	height:50px;
+	margin-left:5%;
+}

@@ -1,0 +1,18 @@
+﻿class add2
+{
+	public static void main(String[] args) {
+		
+		new school2().new A2().show();
+		new school2().new A2().new A2_2().show();
+		school2.A2.A2_2 s=new school2().new A2().new A2_2();
+		s.show2();
+		//school2$A2 s=new school2().new A2();
+		/*school2.A2 s=new school2().new A2();
+		s.show();
+		s.show2();*/
+		/*school2 s=new school2();
+		s.show();
+
+		new school2().show();*/
+	}
+}

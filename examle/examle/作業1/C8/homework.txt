@@ -1,0 +1,226 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf200
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset136 PingFangTC-Regular;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \
+import java.util.Date;\
+\
+/*\
+ * To change this license header, choose License Headers in Project Properties.\
+ * To change this template file, choose Tools | Templates\
+ * and open the template in the editor.\
+ */\
+\
+/**\
+ *\
+ * @author chiuying-hui\
+ */\
+public class Order \{\
+    \
+    private String name;\
+    private int lcd;\
+    private int ram;\
+    private int mouse;\
+    private Date date;\
+    private int sum;\
+    private String msg="";\
+    private String msg1="";\
+    private boolean member;\
+    private int pay;\
+    \
+    Order(String name,int lcd, int ram,int mouse,boolean member)\
+    \{\
+        if(lcd>=0&&ram>=0&&mouse>=0)\
+        \{\
+            this.name=name;\
+            this.lcd=lcd;\
+            this.ram=ram;\
+            this.mouse=mouse;\
+            this.date=new Date();\
+            this.member=member;\
+        sum=lcd*4999+ram*1280+mouse*680;   \
+        \}\
+           \
+    \}\
+    \
+    Order(String name,int lcd, int ram,int mouse,boolean member,int pay)\
+    \{\
+       if(lcd>=0&&ram>=0&&mouse>=0)\
+       \{ \
+        this.name=name;\
+        this.lcd=lcd;\
+        this.ram=ram;\
+        this.mouse=mouse;\
+        this.date=new Date();\
+        this.member=member;\
+        sum=lcd*4999+ram*1280+mouse*680;  \
+        this.pay=pay;\
+       \}\
+    \}\
+\
+    public void setName(String name) \{\
+        this.name = name;\
+    \}\
+\
+    public void setLcd(int lcd) \{\
+        this.lcd = lcd;\
+    \}\
+\
+    public void setRam(int ram) \{\
+        this.ram = ram;\
+    \}\
+\
+    public void setMouse(int mouse) \{\
+        this.mouse = mouse;\
+    \}\
+\
+    public void setMember(boolean member) \{\
+        this.member = member;\
+    \}\
+    \
+\
+    public String getName() \{\
+        return name;\
+    \}\
+\
+    public int getLcd() \{\
+        return lcd;\
+    \}\
+\
+    public int getRam() \{\
+        return ram;\
+    \}\
+\
+    public int getMouse() \{\
+        return mouse;\
+    \}\
+\
+    public Date getDate() \{\
+        return date;\
+    \}\
+\
+    public int getSum() \{\
+        sum=lcd*4999+ram*1280+mouse*680; \
+        if(sum>=10000)\
+        \{\
+            msg=("\\n
+\f1 \'a4\'70\'ad\'70
+\f0 :"+sum+"\\n
+\f1 \'ba\'a1\'a4\'40\'b8\'55\'a5\'b4
+\f0 95
+\f1 \'a7\'e9
+\f0 ");\
+            sum=(int)(sum*0.95);\
+            if(member==true)\
+            \{\
+                msg1=("\\n
+\f1 \'b7\'7c\'ad\'fb\'a6\'41\'a8\'c9
+\f0 95
+\f1 \'a7\'e9\'c0\'75\'b4\'66
+\f0 ");\
+                sum=(int)(sum*0.95);\
+            \}\
+         \
+        \}\
+        else\
+        \{\
+            msg=("\\n
+\f1 \'a4\'70\'ad\'70
+\f0 :"+sum+"\\n<
+\f1 \'c1\'d9\'ae\'74
+\f0 "+(10000-sum)+"
+\f1 \'a4\'b8\'a7\'59\'a8\'c9\'a6\'b3
+\f0 95
+\f1 \'a7\'e9\'a6\'a9\'ac\'a1\'b0\'ca\'b3\'e1\'a1\'49
+\f0 >");\
+            if(member==true)\
+            \{\
+                msg1=("\\n
+\f1 \'b7\'7c\'ad\'fb\'a8\'c9
+\f0 95
+\f1 \'a7\'e9\'c0\'75\'b4\'66
+\f0 ");\
+                sum=(int)(sum*0.95);\
+            \}\
+         \
+        \}\
+        return sum;\
+    \}\
+\
+    public boolean isMember() \{\
+        return member;\
+    \}\
+    \
+    \
+    String show()\
+    \{\
+        getSum();\
+        return"
+\f1 \'a6\'57\'a6\'72
+\f0 :"+getName()+\
+                "\\nlcd:"+(getLcd()*4999)+"
+\f1 \'a4\'b8
+\f0 "+\
+                "\\nram:"+(getRam()*1280)+"
+\f1 \'a4\'b8
+\f0 "+\
+                "\\nmouse:"+(getMouse()*680)+"
+\f1 \'a4\'b8
+\f0 "+\
+                msg+msg1+\
+                "\\n
+\f1 \'ad\'71\'b3\'e6\'c1\'60\'aa\'f7\'c3\'42
+\f0 :"+getSum()+\
+                "\\n\\n
+\f1 \'ad\'71\'b3\'e6\'ae\'c9\'b6\'a1
+\f0 :"+getDate();     \
+    \}\
+    \
+    String show2()\
+    \{\
+        getSum();\
+        if(pay>getSum())\
+        \{\
+            return"
+\f1 \'a7\'e4\'b1\'7a
+\f0 "+(pay-getSum())+"
+\f1 \'a4\'b8
+\f0 ";      \
+        \}\
+        else if(pay<getSum())\
+        \{\
+            return"
+\f1 \'bd\'d0\'a6\'41\'b8\'c9\'a4\'57
+\f0 "+(getSum()-pay)+"
+\f1 \'a4\'b8
+\f0 "; \
+        \}\
+        return "
+\f1 \'aa\'f7\'c3\'42\'a5\'bf\'bd\'54\'a1\'41\'c1\'c2\'c1\'c2\'b4\'66\'c5\'55
+\f0 ";\
+    \}\
+\}\
+==================================================================\
+ private void okMouseClicked(java.awt.event.MouseEvent evt) \{                                \
+        String NAME=Name.getText();\
+        int LCD=Integer.parseInt(Lcd.getText());\
+        int RAM=Integer.parseInt(Ram.getText());\
+        int MOUSE=Integer.parseInt(Mouse.getText());\
+        boolean MEMBER=member.isSelected();\
+        Order o1=new Order(NAME,LCD,RAM,MOUSE,MEMBER);\
+        Ans.setText(o1.show());\
+    \}                               \
+======================================================================\
+ private void okMouseClicked(java.awt.event.MouseEvent evt) \{                                \
+        String NAME=Name.getText();\
+        int LCD=Integer.parseInt(Lcd.getText());\
+        int RAM=Integer.parseInt(Ram.getText());\
+        int MOUSE=Integer.parseInt(Mouse.getText());\
+        boolean MEMBER=member.isSelected();\
+        Order o1=new Order(NAME,LCD,RAM,MOUSE,MEMBER);\
+        Ans.setText(o1.show());\
+             \
+    \}                               }

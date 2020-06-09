@@ -1,0 +1,29 @@
+@charset "UTF-8";
+
+.header
+{
+	background-color: #FFCCCC;
+    width: 100%;
+    border: 25px #FF8888;
+    height: 150px;
+    padding-top: 75px;
+    text-align: center;
+}
+
+.content
+{	
+	background-color: #AAFFEE;
+    width: 100%;
+    border: 25px #FF8888;
+    height: 500px;
+    padding: 25px;
+}
+
+.footer
+{	
+	background-color: #FFDDAA;
+    width: 100%;
+    border: 25px #FF8888;
+    height: 150px;
+    padding: 25px;
+}

@@ -1,0 +1,126 @@
+int 總和 = 0;
+    private void 訂單確認MouseClicked(java.awt.event.MouseEvent evt) {                                  
+       String 新姓名=姓名.getText();
+       int 新螢幕=0;
+       int 新記憶體=0;
+       int 新尺=0;
+       int 新筆=0;
+       String 貴賓="";
+       String 付款="";
+       if(螢幕.isSelected()==true)
+       {
+           新螢幕=Integer.parseInt(螢幕數量.getText());
+       }
+       if(記憶體.isSelected()==true)
+       {
+           新記憶體=Integer.parseInt(記憶體數量.getText());
+       }
+       if(尺.isSelected()==true)
+       {
+           新尺=Integer.parseInt(尺數量.getText());
+       }
+       if(筆.isSelected()==true)
+       {
+           新筆=Integer.parseInt(筆數量.getText());
+       }
+       if(一般.isSelected() == true){
+           貴賓 = "一般會員";
+       }else if(銀卡.isSelected() == true){
+           貴賓 = "銀卡";
+       }else if(金卡.isSelected() == true){
+           貴賓 = "金卡";
+       }else if(VIP.isSelected() == true){
+           貴賓 = "vip";
+       }
+       
+       if(visa.isSelected() == true){
+           付款 = "visa";
+       }else if(atm.isSelected() == true){
+           付款 = "atm";
+       }else if(貨到付款.isSelected() == true){
+           付款 = "貨到付款";
+       }
+       會員 新會員 = new 會員(貴賓 , 新姓名 , 新螢幕 , 新記憶體 , 新尺 , 新筆);
+       總和 = 新會員.get總和();
+       
+       訂單內容.setText("姓名："+新姓名+"\n螢幕："+新螢幕+"\t記憶體："+新記憶體+"\n尺："+新尺+"\t筆："+新筆+"\n總共："+新會員.get總和()+"元"+"\n會員："+貴賓+"\n付款方式："+付款);
+       
+    }                                 
+------------------------------------------------------------------------------------------
+    private void 付款MouseClicked(java.awt.event.MouseEvent evt) {                                
+        int 新錢=0;
+        新錢 = Integer.parseInt(錢.getText());
+       找零.setText("找零："+(新錢-總和));
+    }                      
+------------------------------------------------------------------------------------------
+public class 會員 {
+    private String 貴賓;
+    private String 姓名;
+    private int 螢幕;
+    private int 記憶體;
+    private int 尺;
+    private int 筆;
+    private int 總和;
+    public 會員(String 貴賓,String 姓名,int 螢幕,int 記憶體,int 尺,int 筆){
+        this.貴賓=貴賓;
+        this.姓名=姓名;
+        this.螢幕=螢幕;
+        this.記憶體=記憶體;
+        this.尺=尺;
+        this.筆=筆;
+        this.總和=螢幕*4999+記憶體*1280+尺*30+筆*20;
+    }
+    public String get貴賓() {
+        return 貴賓;
+    }
+    public String get姓名() {
+        return 姓名;
+    }
+    public int get螢幕() {
+        return 螢幕;
+    }
+    public int get記憶體() {
+        return 記憶體;
+    }
+    public int get尺() {
+        return 尺;
+    }
+    public int get筆() {
+        return 筆;
+    }
+    public int get總和() {
+        this.總和=螢幕*4999+記憶體*1280+尺*30+筆*20;
+        if(貴賓.equals("銀卡"))
+        {
+            總和=(int)(總和*0.95);
+        }else if(貴賓.equals("金卡"))
+        {
+            總和=(int)(總和*0.9);
+        }else if(貴賓.equals("vip"))
+        {
+            總和=(int)(總和*0.85);
+        }
+        return 總和;
+    }
+    public void set貴賓(String 貴賓) {
+        this.貴賓 = 貴賓;
+    }
+    public void set姓名(String 姓名) {
+        this.姓名 = 姓名;
+    }
+    public void set螢幕(int 螢幕) {
+        this.螢幕 = 螢幕;
+    }
+    public void set記憶體(int 記憶體) {
+        this.記憶體 = 記憶體;
+    }
+    public void set尺(int 尺) {
+        this.尺 = 尺;
+    }
+    public void set筆(int 筆) {
+        this.筆 = 筆;
+    }
+    public void set總和(int 總和) {
+        this.總和 = 總和;
+    }    
+}

@@ -1,0 +1,322 @@
+package homework3;
+
+import java.awt.Toolkit;
+
+/**
+ * 訂單系統JFrame
+ */
+public class OrderSystem extends javax.swing.JFrame {
+
+    /*創造屬性方便存取登入畫面傳過來的資訊*/
+    private String userName;
+    private User[] u;
+    private int index;
+
+    /*存取登入畫面傳進來的帳號，並在使用者清單中搜尋該帳號，找到該使用者的資訊*/
+    public void setUserName(String userName) {
+        this.userName = userName;
+        u = UserArray.getArray();
+        index = UserArray.getIndex(this.userName);
+        memberview.setText(u[index].getName());
+    }
+
+    /*修改會員資料按鈕*/
+    private void setMouseClicked(java.awt.event.MouseEvent evt) {                                 
+        Medify m = new Medify();
+
+        /*為了讓跳出的畫面能置中於螢幕上 */
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        int x = (int) (toolkit.getScreenSize().getWidth() - m.getWidth()) / 2;
+        int y = (int) (toolkit.getScreenSize().getHeight() - m.getHeight()) / 2;
+        m.setLocation(x, y);
+
+        /*顯示修改會員的畫面，關閉訂單系統畫面，把帳號資訊傳給修改會員的class*/
+        m.setVisible(true);
+        setVisible(false);
+        m.setUserName(userName);
+    }                                
+
+    /*登出按鈕*/
+    private void logoutMouseClicked(java.awt.event.MouseEvent evt) {                                    
+        Login login = new Login();
+
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        int x = (int) (toolkit.getScreenSize().getWidth() - login.getWidth()) / 2;
+        int y = (int) (toolkit.getScreenSize().getHeight() - login.getHeight()) / 2;
+        login.setLocation(x, y);
+
+        login.setVisible(true);
+        setVisible(false);
+    }                                   
+
+    /*查詢訂單紀錄按鈕*/
+    private void oldOrderMouseClicked(java.awt.event.MouseEvent evt) {                                      
+
+        String str = " ";
+        Order[] orderArray = u[index].getOrder();
+        int orderCount = u[index].getCount();
+
+        if (orderCount == 0) {
+            ans2.setText("無訂單資料！");
+        } else {
+            for (int i = 0; i < orderCount; i++) {
+                str += "第 " + (i + 1) + " 筆訂單資料：\n" + orderArray[i].getListShow() + "\n\n\n\n";
+            }
+            ans2.setText(str);
+        }
+    }                                     
+
+    int sum;
+    boolean show = false;
+    int LCD;
+    int RAM;
+    int RULER;
+    int PEN;
+    /* 建立訂單按鈕 */
+    private void ok1MouseClicked(java.awt.event.MouseEvent evt) {                                 
+
+        show = true;
+        String n = "";
+        String x = "";
+        String y = "";
+        sum = 0;
+        String VIPshow = "";
+        String VIP = u[index].getVip();
+        String error = "";
+        LCD = 0;
+        RAM = 0;
+        RULER = 0;
+        PEN = 0;
+
+        if (A.isSelected() == true || B.isSelected() == true) {
+            if (A.isSelected() == true) {
+                if (lcd.isSelected() == true) {
+                    if (lcd_num.getText().equals("")) {
+                        ans1.setText(error + "請輸入LCD的數量！\n");
+                        error = ans1.getText();
+                        show = false;
+                    } else {
+                        LCD = Integer.parseInt(lcd_num.getText());
+                    }
+                }
+                if (ram.isSelected() == true) {
+                    if (ram_num.getText().equals("")) {
+                        ans1.setText(error + "請輸入RAM的數量！\n");
+                        error = ans1.getText();
+                        show = false;
+                    } else {
+                        RAM = Integer.parseInt(ram_num.getText());
+                    }
+                }
+                if (lcd.isSelected() == false && ram.isSelected() == false) {
+                    ans1.setText("請選擇LCD或RAM商品！");
+                    show = false;
+                }
+
+            }
+            if (B.isSelected() == true) {
+                if (ruler.isSelected() == true) {
+                    if (ruler_num.getText().equals("")) {
+                        ans1.setText(error + "請輸入Ruler的數量！\n");
+                        error = ans1.getText();
+                        show = false;
+                    } else {
+                        RULER = Integer.parseInt(ruler_num.getText());
+                    }
+                }
+                if (pen.isSelected() == true) {
+                    if (pen_num.getText().equals("")) {
+                        ans1.setText(error + "請輸入Pen的數量！\n");
+                        show = false;
+                    } else {
+                        PEN = Integer.parseInt(pen_num.getText());
+                    }
+                }
+                if (ruler.isSelected() == false && pen.isSelected() == false) {
+                    ans1.setText("請選擇Ruler或Pen商品！");
+                    show = false;
+                }
+            }
+
+            if (show == true) {
+                if (A.isSelected() == true) {
+                    n = "3C類";
+                } else if (B.isSelected() == true) {
+                    n = "文具類";
+                }
+                if (n.equals("3C類")) {
+                    x = "LCD：" + LCD;
+                    y = "RAM：" + RAM;
+                } else if (n.equals("文具類")) {
+                    x = "Ruler：" + RULER;
+                    y = "Pen：" + PEN;
+                }
+                if (n.equals("3C類")) {
+                    sum = (LCD * 4999) + (RAM * 1280);
+                } else if (n.equals("文具類")) {
+                    sum = (RULER * 30) + (PEN * 20);
+                }
+                if (VIP.equals("白金會員")) {
+                    sum = (int) (sum * 0.85);
+                    VIPshow = "\n(白金會員打85折)";
+                } else if (VIP.equals("黃金會員")) {
+                    sum = (int) (sum * 0.9);
+                    VIPshow = "\n(黃金會員打9折)";
+                } else {
+                    VIPshow = "\n(一般會員不打折)";
+                }
+                ans1.setText("==================客戶資料=================="
+                        + "\n姓名：" + u[index].getName() + "\t電話：" + u[index].getPhone()
+                        + "\n地址：" + u[index].getAddress() + "\t會員等級：" + u[index].getVip()
+                        + "\n\n==================訂單資料=================="
+                        + "\n購買物品類別：" + n
+                        + "\n" + x + "\t" + y
+                        + "\n總價：" + sum + VIPshow
+                );
+            }
+        } else {
+            ans1.setText("請先選擇一個商品分類！");
+            show = false;
+        }
+    }                                
+
+    /*3C類確認紐*/
+    private void AMouseClicked(java.awt.event.MouseEvent evt) {                               
+
+        lcd.setEnabled(true);
+        ram.setEnabled(true);
+        ruler.setEnabled(false);
+        ruler.setSelected(false);
+        ruler_num.setEnabled(false);
+        ruler_num.setText("");
+        pen.setEnabled(false);
+        pen.setSelected(false);
+        pen_num.setEnabled(false);
+        pen_num.setText("");
+
+    }                              
+
+    /* LCD確認紐 */
+    private void lcdMouseClicked(java.awt.event.MouseEvent evt) {                                 
+        if (lcd.isSelected() == true) {
+            lcd_num.setEnabled(true);
+        } else {
+            lcd_num.setEnabled(false);
+        }
+    }                                
+
+    /* RAM確認紐 */
+    private void ramMouseClicked(java.awt.event.MouseEvent evt) {                                 
+        if (ram.isSelected() == true) {
+            ram_num.setEnabled(true);
+        } else {
+            ram_num.setEnabled(false);
+        }
+    }                                
+
+    /*文具類確認紐*/
+    private void BMouseClicked(java.awt.event.MouseEvent evt) {                               
+
+        ruler.setEnabled(true);
+        pen.setEnabled(true);
+        lcd.setEnabled(false);
+        lcd.setSelected(false);
+        lcd_num.setEnabled(false);
+        lcd_num.setText("");
+        ram.setEnabled(false);
+        ram.setSelected(false);
+        ram_num.setEnabled(false);
+        ram_num.setText("");
+
+    }                              
+
+    /* Ruler確認紐*/
+    private void rulerMouseClicked(java.awt.event.MouseEvent evt) {                                   
+        if (ruler.isSelected() == true) {
+            ruler_num.setEnabled(true);
+        } else {
+            ruler_num.setEnabled(false);
+        }
+    }                                  
+
+    /*Pen確認紐*/
+    private void penMouseClicked(java.awt.event.MouseEvent evt) {                                 
+        if (pen.isSelected() == true) {
+            pen_num.setEnabled(true);
+        } else {
+            pen_num.setEnabled(false);
+        }
+    }                                
+
+    /*付款確認紐*/
+    private void ok2MouseClicked(java.awt.event.MouseEvent evt) {                                 
+        if (show == true) {
+            if (pay1.isSelected() == true || pay2.isSelected() == true || pay3.isSelected() == true) {
+                String PAY = "";
+                if (pay1.isSelected() == true) {
+                    PAY = "ATM轉帳";
+                }
+                if (pay2.isSelected() == true) {
+                    PAY = "信用卡付款";
+                }
+                if (pay3.isSelected() == true) {
+                    PAY = "貨到付款";
+                }
+
+                if (A.isSelected() == true) {
+                    A_3C a3c = new A_3C(LCD, RAM);
+                    a3c.setSum(sum);
+
+                  /*當付款完畢，把3C類訂單資訊全部存放於Order的訂單資料中
+                 再把該Order存放於使用者的Order訂購清單裡*/
+                    a3c.setListShow(ans1.getText() + "\n付款方式：" + PAY + "\n付款完成時間：" + a3c.getDate());
+                    u[index].addA_3C(a3c);
+                } else if (B.isSelected() == true) {
+                    B_Write bw = new B_Write(RULER, PEN);
+                    bw.setSum(sum);
+
+                  /*當付款完畢，把文具類訂單資訊全部存放於Order的訂單資料中
+                 再把該Order存放於使用者的Order訂購清單裡*/
+                    bw.setListShow(ans1.getText() + "\n付款方式：" + PAY + "\n付款完成時間：" + bw.getDate());
+                    u[index].addB_Write(bw);
+                }
+                if (pay1.isSelected() == true) {
+                    success s = new success();
+                    s.setpayShow("ATM轉帳成功");
+                    s.setVisible(true);
+                    Toolkit toolkit = Toolkit.getDefaultToolkit();
+                    int x = (int) (toolkit.getScreenSize().getWidth() - s.getWidth()) / 2;
+                    int y = (int) (toolkit.getScreenSize().getHeight() - s.getHeight()) / 2;
+                    s.setLocation(x, y);
+                    setVisible(false);
+                }
+
+                if (pay2.isSelected() == true) {
+                    success s = new success();
+                    s.setpayShow("信用卡付款成功");
+                    s.setVisible(true);
+                    Toolkit toolkit = Toolkit.getDefaultToolkit();
+                    int x = (int) (toolkit.getScreenSize().getWidth() - s.getWidth()) / 2;
+                    int y = (int) (toolkit.getScreenSize().getHeight() - s.getHeight()) / 2;
+                    s.setLocation(x, y);
+                    setVisible(false);
+                }
+
+                if (pay3.isSelected() == true) {
+                    success s = new success();
+                    s.setpayShow("貨到付款完成交易");
+                    s.setVisible(true);
+                    Toolkit toolkit = Toolkit.getDefaultToolkit();
+                    int x = (int) (toolkit.getScreenSize().getWidth() - s.getWidth()) / 2;
+                    int y = (int) (toolkit.getScreenSize().getHeight() - s.getHeight()) / 2;
+                    s.setLocation(x, y);
+                    setVisible(false);
+                }
+            } else {
+                payerror.setText("請選擇付款方式！");
+            }
+        } else {
+            ans1.setText("請先建立訂單！");
+        }
+    }
+}

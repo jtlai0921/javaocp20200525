@@ -1,0 +1,16 @@
+﻿class add
+{
+	public static void main(String[] args) {
+		//book b=new book();
+
+		//bookStore b1=new bookStore();
+		
+		book b1=new bookStore();
+		b1.bookName("java");
+
+		System.out.println(book.CompanyName());//static--->介面直接呼叫
+		System.out.println(b1.Title("java8"));//default-->繼承的物件呼叫
+		System.out.println(b1.bookPrice(1000));
+		System.out.println(book.pi);
+	}
+}

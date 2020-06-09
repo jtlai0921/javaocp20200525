@@ -1,0 +1,66 @@
+﻿class add2
+{
+	public static void main(String[] args) {
+		member[][][] m=new member[2][][];
+		m[0]=new member[2][];
+		m[0][0]=new member[2];
+		m[0][1]=new member[3];
+
+		m[1]=new member[3][2];
+		/*m[0][0][0]=new member("abc","tai"); 
+		System.out.println(m);
+		System.out.println(m[0]);
+		System.out.println(m[0][0]);
+		System.out.println(m[0][0][0]);
+		m[0][0][0].show();*/
+
+		m[0][0][0]=new member("abc1","tai"); 
+		m[0][0][1]=new member("abc1","tai"); 
+
+		m[0][1][0]=new member("abc2","tai"); 
+		m[0][1][1]=new member("abc2","tai"); 
+		m[0][1][2]=new member("abc2","tai"); 
+
+
+		m[1][0][0]=new member("abc3","tai"); 
+		m[1][0][1]=new member("abc3","tai"); 
+
+		m[1][1][0]=new member("abc4","tai"); 
+		m[1][1][1]=new member("abc4","tai"); 
+
+		m[1][2][0]=new member("abc5","tai"); 
+		m[1][2][1]=new member("abc5","tai"); 
+
+
+
+		for(int i=0;i<m.length;i++)
+		{
+			for(int j=0;j<m[i].length;j++)
+			{
+				for(int k=0;k<m[i][j].length;k++)
+				{
+					m[i][j][k].show();
+				}
+			}
+		}
+
+
+		System.out.println("=======================");
+
+		for(member[][] o:m)
+		{
+			for(member[] u:o)
+			{
+				for(member v:u)
+				{
+					v.show();
+
+				}
+
+			}
+				
+		}
+
+
+	}
+}

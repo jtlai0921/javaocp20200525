@@ -1,0 +1,96 @@
+package Controller;
+
+import DAO.PorderDAO;
+import Model.Porder;
+import java.awt.Toolkit;
+
+public class OderSystem extends javax.swing.JFrame {
+
+    private String Name = null;
+    private int Ruler = 0;
+    private int Pen = 0;
+    private String msg = "";
+
+    /*建立訂單*/
+    private void okMouseClicked(java.awt.event.MouseEvent evt) {                                
+       
+        Name = name.getText();
+        if (ruler.isSelected() == true && !ruler_num.getText().equals("")) {
+            Ruler = Integer.parseInt(ruler_num.getText());
+        }
+        if (pen.isSelected() == true && !pen_num.getText().equals("")) {
+            Pen = Integer.parseInt(pen_num.getText());
+        }
+        
+        Porder p = new Porder(Name , Ruler , Pen);
+        
+            PorderDAO.PorderAdd(p);
+
+        msg = "==========訂單資訊=========="
+                + "\n姓名：" + Name
+                + "\nRuler：" + Ruler
+                + "\nPen：" + Pen
+                + "\n";
+
+        ans1.setText(msg);
+    }                               
+
+    /*查詢未付款訂單*/
+    private void porderSearchMouseClicked(java.awt.event.MouseEvent evt) {                                          
+        PorderSearch pos = new PorderSearch();
+        Toolkit k = Toolkit.getDefaultToolkit();
+        int x = (int) ((k.getScreenSize().getWidth() - pos.getWidth()) / 2);
+        int y = (int) ((k.getScreenSize().getHeight() - pos.getHeight()) / 2);
+        pos.setLocation(x, y);
+        pos.setVisible(true);
+    }                                         
+    /*修改未付款訂單*/
+    private void porderUpdateMouseClicked(java.awt.event.MouseEvent evt) {                                          
+        PorderUpdate pu = new PorderUpdate();
+        Toolkit k = Toolkit.getDefaultToolkit();
+        int x = (int) ((k.getScreenSize().getWidth() - pu.getWidth()) / 2);
+        int y = (int) ((k.getScreenSize().getHeight() - pu.getHeight()) / 2);
+        pu.setLocation(x, y);
+        pu.setID();
+        pu.setVisible(true);
+    }                                         
+    /*刪除未付款訂單*/
+    private void porderDeleteMouseClicked(java.awt.event.MouseEvent evt) {                                          
+        PorderDelete pd = new PorderDelete();
+        Toolkit k = Toolkit.getDefaultToolkit();
+        int x = (int) ((k.getScreenSize().getWidth() - pd.getWidth()) / 2);
+        int y = (int) ((k.getScreenSize().getHeight() - pd.getHeight()) / 2);
+        pd.setLocation(x, y);
+        pd.setID();
+        pd.setVisible(true);
+    }                                         
+
+    /*購物車按鈕*/
+    private void porderCarMouseClicked(java.awt.event.MouseEvent evt) {                                       
+        PorderCar pc = new PorderCar();
+        Toolkit k = Toolkit.getDefaultToolkit();
+        int x = (int) ((k.getScreenSize().getWidth() - pc.getWidth()) / 2);
+        int y = (int) ((k.getScreenSize().getHeight() - pc.getHeight()) / 2);
+        pc.setLocation(x, y);
+        pc.setList();
+        pc.setVisible(true);
+    }                                      
+
+    /*登出按鈕*/
+    private void logoutMouseClicked(java.awt.event.MouseEvent evt) {                                    
+        Login lg = new Login();
+        Toolkit k = Toolkit.getDefaultToolkit();
+        int x = (int) ((k.getScreenSize().getWidth() - lg.getWidth()) / 2);
+        int y = (int) ((k.getScreenSize().getHeight() - lg.getHeight()) / 2);
+        lg.setLocation(x, y);
+        lg.setVisible(true);
+        setVisible(false);
+    }                                   
+    /*建立訂單完成資訊*/
+    public void setShow(String UserName , String Url , String Port , String Schemas , String Table){
+        userName.setText("帳號："+UserName);
+        url.setText("URL："+Url);
+        port.setText("埠號："+Port);
+        schemas.setText("SCHEMAS："+Schemas);
+        table.setText("TABLE："+Table);
+    }

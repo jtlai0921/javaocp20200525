@@ -1,0 +1,13 @@
+package homework3;
+
+/**
+ * Order介面 用來當多型的宣告陣列用
+ */
+interface Order {
+
+    /*存入訂單資料*/
+    public void setListShow(String listshow);
+
+    /*拿出訂單資料*/
+    public String getListShow();
+}

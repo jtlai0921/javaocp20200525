@@ -1,0 +1,74 @@
+@charset "BIG5";
+
+.header {
+	height: 4em;
+	background-image: linear-gradient(to right, #E3EBEB, #A7B4B5);
+	width: 95%;
+	border: 5px solid #ECF1F2;
+	padding: 25px;
+	overflow: hidden;
+}
+
+.content {
+	height: 20em;
+	background-image: linear-gradient(to right, #ACD9DB, #7FACAE);
+	width: 95%;
+	border: 5px solid #DAEEEF;
+	padding: 25px;
+	overflow-y: auto;
+}
+
+.footer {
+	height: 4em;
+	background-image: linear-gradient(to right, #97D6DE, #69A9B0);
+	width: 95%;
+	border: 5px solid #D0EDF0;
+	padding: 25px;
+	overflow-y: auto;
+}
+
+.content2 {
+	height: 3em;
+	background-image: linear-gradient(to right, #ACD9DB, #7FACAE);
+	width: 95%;
+
+	border-top: 0px;
+	border-right: 5px solid #DAEEEF;
+	border-bottom: 0px;
+	border-left: 5px solid #DAEEEF;
+	padding-top: 0px;
+	padding-right: 25px;
+	padding-bottom: 0px;
+	padding-left: 25px;
+	overflow: hidden;
+}
+
+.content3 {
+	height: 20em;
+	background-image: linear-gradient(to right, #ACD9DB, #7FACAE);
+	width: 95%;
+	border-top: 0px;
+	border-right: 5px solid #DAEEEF;
+	border-bottom: 0px;
+	border-left: 5px solid #DAEEEF;
+	padding-top: 0px;
+	padding-right: 25px;
+	padding-bottom: 0px;
+	padding-left: 25px;
+	overflow-y: scroll;
+}
+
+.content4 {
+	height: 6.5em;
+	background-image: linear-gradient(to right, #ACD9DB, #7FACAE);
+	width: 95%;
+	border-top: 0px;
+	border-right: 5px solid #DAEEEF;
+	border-bottom: 0px;
+	border-left: 5px solid #DAEEEF;
+	padding-top: 0px;
+	padding-right: 25px;
+	padding-bottom: 0px;
+	padding-left: 25px;
+	overflow-y: hidden;
+}

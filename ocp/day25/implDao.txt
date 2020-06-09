@@ -1,0 +1,27 @@
+﻿
+package Dao;
+
+import Model.student;
+
+public interface implDao {
+    //新增學生資料
+    void add(student s);
+    
+    
+    
+    //讀取全部學生
+    
+    String readAll();
+    
+    
+    
+    //修改學生
+    void update(int id,String name);
+    
+    
+    
+    //刪除資料
+    
+    void delete(int id);
+    
+}

@@ -1,0 +1,47 @@
+﻿class money
+{
+	private int fv;
+	private double r;
+	private int n;
+	private static int pv;
+
+
+	money(double r,int n)
+	{
+		
+		this.r=r;
+		this.n=n;
+
+		fv=(int)(pv*(1+r*n));
+	}
+
+
+
+	/*static*/ void setR(double r)
+	{
+		this.r=r;
+	}
+	
+	static void setPv(int pv)
+	{
+		money.pv=pv;
+	}
+
+	static void companyName()
+	{
+		System.out.println("巨匠電腦");
+	}
+
+
+
+	static void title()
+	{
+		System.out.println("本金\t利率\t期數\t本利和");
+	}
+	void show()
+	{
+		
+		fv=(int)(pv*(1+r*n));
+		System.out.println(pv+"\t"+r+"\t"+n+"\t"+fv);
+	}
+}

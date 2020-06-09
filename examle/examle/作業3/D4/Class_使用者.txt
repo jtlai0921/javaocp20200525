@@ -1,0 +1,103 @@
+package homework3;
+
+/**
+ * 使用者的Class
+ */
+public class User {
+
+    private final String userName;
+    private String passWord;
+    private String name;
+    private String phone;
+    private String address;
+    private String vip;
+    private Order[] order = new Order[1]; //存放訂單資料的陣列
+    private int count = 0; //訂單資料陣列的存放數量
+
+    public User(String userName, String passWord, String name, String phone, String address, String vip) {
+        this.userName = userName;
+        this.passWord = passWord;
+        this.name = name;
+        this.phone = phone;
+        this.address = address;
+        this.vip = vip;
+    }
+
+    public void addA_3C(A_3C x) {
+        if (count == order.length) {
+            doubleArray();
+        }
+        order[count] = x;
+        count++;
+    }
+
+    public void addB_Write(B_Write x) {
+        if (count == order.length) {
+            doubleArray();
+        }
+        order[count] = x;
+        count++;
+    }
+
+    /*當陣列裡的資料存滿時，創造新陣列為當前陣列的兩倍長度，
+    複製當前陣列資料去新陣列，並把當前陣列指向新陣列的記憶體位置*/
+    private void doubleArray() {
+        Order newArray[] = new Order[order.length * 2];
+        for (int i = 0; i < order.length; i++) {
+            newArray[i] = order[i];
+        }
+        order = newArray;
+    }
+
+    public void setPassWord(String passWord) {
+        this.passWord = passWord;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getVip() {
+        return vip;
+    }
+    
+    public void setVip(String vip){
+        this.vip = vip;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getPassWord() {
+        return passWord;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public Order[] getOrder() {
+        return order;
+    }
+
+    public int getCount() {
+        return count;
+    }
+}

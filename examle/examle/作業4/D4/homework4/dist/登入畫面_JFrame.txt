@@ -1,0 +1,86 @@
+package Controller;
+
+import DAO.DB;
+import java.awt.Toolkit;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+public class Login extends javax.swing.JFrame {
+
+    private void okMouseClicked(java.awt.event.MouseEvent evt) {                                
+
+        String URL ;
+        String UserName ;
+        String PassWord ;
+        String Port ;
+        String Schemas ;
+        String Table ;
+        url_error.setText(" ");
+        userName_error.setText(" ");
+        passWord_error.setText(" ");
+        schemas_error.setText(" ");
+        table_error.setText(" ");
+
+        if (url.getText().equals("")) {
+            url_error.setText("請輸入URL位置！");
+        } else {
+            URL = url.getText();
+            if (userName.getText().equals("")) {
+                userName_error.setText("請輸入帳號！");
+            } else {
+                UserName = userName.getText();
+                if (passWord.getText().equals("")) {
+                    passWord_error.setText("請輸入密碼！");
+                } else {
+                    PassWord = passWord.getText();
+                    if (port.getText().equals("")) {
+                        port_error.setText("請輸入埠號！");
+                    } else {
+                        Port = port.getText();
+                        if (schemas.getText().equals("")) {
+                            schemas_error.setText("請輸入SCHEMAS！");
+                        } else {
+                            Schemas = schemas.getText();
+                            if (table.getText().equals("")) {
+                                table_error.setText("請輸入Table！");
+                            } else {
+                                Table = table.getText();
+                                boolean msg = DB.ConnectionDB(URL, Port, UserName, PassWord);
+                                LoginShow lgs = new LoginShow();
+                                Toolkit k = Toolkit.getDefaultToolkit();
+                                int x = (int) ((k.getScreenSize().getWidth() - lgs.getWidth()) / 2);
+                                int y = (int) ((k.getScreenSize().getHeight() - lgs.getHeight()) / 2);
+                                lgs.setLocation(x, y);
+                                lgs.setVisible(true);
+                                lgs.setShow(msg, URL, UserName, Port , Schemas , Table);
+
+                                if (msg == true) {
+                                    try {
+                                        Connection conn = DB.ConnectionDB();
+                                        
+		     /*當資料庫沒此Schemas時，創造一個*/
+                                        String SQL = "create database if not exists " + Schemas + " default charset utf8 collate utf8_unicode_ci";
+                                        Statement st = conn.createStatement();
+                                        st.executeUpdate(SQL);
+                                        
+		     /*當上列Schemas沒此Table時，創造一個*/
+                                        String SQL2 = " create table if not exists " + Table + "(id int Not Null Auto_Increment, name varchar(255) , ruler int , pen int , sum int , pay varchar(255) , date varchar(255) , Primary Key(id))";
+                                        Connection conn2 = DB.ConnectionDB(Schemas , Table);
+                                        Statement st2 = conn2.createStatement();
+                                        st2.executeUpdate(SQL2);
+                                        
+                                        setVisible(false);
+                                    } catch (SQLException ex) {
+                                        Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }

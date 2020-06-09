@@ -1,0 +1,46 @@
+﻿package collectionEx;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.PriorityQueue;
+import java.util.TreeSet;
+
+public class add2 {
+
+	public static void main(String[] args) {
+		//int[] x=new int[10];
+		//x[10]=100;
+		
+		ArrayList<Integer> x=new ArrayList<Integer>();
+		//HashSet<Integer> x=new HashSet<Integer>();
+		//TreeSet<Integer> x=new TreeSet<Integer>();
+		//PriorityQueue<Integer> x=new PriorityQueue<Integer>();
+		
+		x.add(65);
+		x.add(45);
+		x.add(56);
+		x.add(55);
+		x.add(55);
+		
+		
+		//System.out.println(x);
+		System.out.println("=================");
+		
+		for(Integer o:x)
+		{
+			System.out.print(o+" ");
+		}
+		System.out.println("\n=================");
+		
+		Collections.sort(x);
+		for(Integer o:x)
+		{
+			System.out.print(o+" ");
+		}
+		
+		System.out.println("\n"+Collections.binarySearch(x, 57));
+		
+	}
+
+}

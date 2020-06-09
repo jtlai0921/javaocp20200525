@@ -1,0 +1,19 @@
+package Controller;
+
+import DAO.PorderDAO;
+
+
+public class PorderSearch extends javax.swing.JFrame {
+
+    private void searchMouseClicked(java.awt.event.MouseEvent evt) {                                    
+        String msg = PorderDAO.PorderSearch();
+        if(!msg.equals("")){
+            show.setText(msg);
+        }else{
+            show.setText("無訂單資料！");
+        }
+    }                                   
+
+    private void okMouseClicked(java.awt.event.MouseEvent evt) {                                
+        setVisible(false);
+    }

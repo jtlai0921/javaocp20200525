@@ -1,0 +1,17 @@
+﻿class school
+{
+	String name;
+	int chi;
+
+	school(String name)
+	{
+		this.name=name;
+		System.out.println("new school 新增一位學生 name="+name);
+	}
+	school(String name,int chi)
+	{
+		this.name=name;
+		this.chi=chi;
+		System.out.println("new school 新增一位學生 name="+name+"\t國文:"+chi);
+	}
+}

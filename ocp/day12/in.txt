@@ -1,0 +1,11 @@
+﻿給定下面程式碼，哪些選項的描述是對的?(選擇3個)
+	01. class Animal{}
+	02. class Dog extends Animal{Tail tail;}
+	03. class Beagle extends Dog{public void jumper(){}}
+	04. class Cat extends Animal{public void jumper(){}}
+
+	A. Cat is-a Animal
+	B. Cat is-a jumper
+	C. Dog is-a Animal
+	D. Dog is-a jumper
+	E. Beagle has-a Tail

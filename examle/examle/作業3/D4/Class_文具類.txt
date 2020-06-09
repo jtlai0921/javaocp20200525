@@ -1,0 +1,60 @@
+package homework3;
+
+import java.util.Date;
+
+/**
+ * 文具類的Class
+ */
+public class B_Write implements Order {
+
+    private int ruler;
+    private int pen;
+    private int sum;
+    private String listshow; //用於顯示過往訂單資訊
+    private Date date;
+
+    public B_Write(int ruler, int pen) {
+        this.ruler = ruler;
+        this.pen = pen;
+        sum = ruler * 30 + pen * 20;
+        date = new Date();
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    @Override
+    public void setListShow(String listshow) {
+        this.listshow = listshow;
+    }
+
+    @Override
+    public String getListShow() {
+        return listshow;
+    }
+
+    public int getRuler() {
+        return ruler;
+    }
+
+    public int getPen() {
+        return pen;
+    }
+
+    public int getSum() {
+        return sum;
+    }
+
+    public void setRuler(int ruler) {
+        this.ruler = ruler;
+    }
+
+    public void setPen(int pen) {
+        this.pen = pen;
+    }
+
+    public void setSum(int sum) {
+        this.sum = sum;
+    }
+}

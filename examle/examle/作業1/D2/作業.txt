@@ -1,0 +1,128 @@
+import java.util.Date;
+
+public class order3c{
+    private String name;
+    private int lcd;
+    private int ram;
+    private int mouse;
+    private boolean member;
+    private Date date=new Date();
+    private int sum;
+    private int memDis,sumDis,pay,change;
+    private static int totalSum;
+    
+    order3c(String name,int lcd,int ram,int mouse, boolean member)
+    {
+       if(lcd>=0 && ram>=0 && mouse>=0)
+       {
+        this.name=name;
+        this.lcd=lcd;
+        this.ram=ram;
+        this.mouse=mouse;
+        this.member=member;
+        this.date=new Date();
+        this.sum=sum;
+    
+
+	sum=lcd*4999+ram*1280+mouse*680;
+
+		if(sum>=10000) 
+                {
+                    sum=(int)(sum*0.95);
+                        
+                }
+		if(member==true) 
+                {
+                    sum=(int)(sum*0.95);
+                }
+                
+        
+       }
+    }
+    order3c(int pay)
+    {
+        this.pay=pay;
+    }
+    
+    public int getLcd() {
+        return lcd;
+    }
+
+    public int getRam() {
+        return ram;
+    }
+
+    public int getMouse() {
+        return mouse;
+    }
+
+    public String getName() {
+        return name;
+    }
+    
+
+    public Date getDate() {
+        return date;
+    }
+
+    public int getSum() {
+        return sum;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setLcd(int lcd) {
+        this.lcd = lcd;
+    }
+
+    public void setRam(int ram) {
+        this.ram = ram;
+    }
+
+    public void setMouse(int mouse) {
+        this.mouse = mouse;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void setSum(int sum) {
+        this.sum = sum;
+    }
+    
+    String show()
+       
+	{	
+
+	return "姓名:"+name+"\nLCD:"+lcd+"\nRAM:"+ram+"\nMOUSE:"+mouse+"\n總共:"+sum;
+
+	}
+}
+
+=================================================================================================
+
+order3c o1=null;
+    private void okMouseClicked(java.awt.event.MouseEvent evt) {                                
+      String NAME=name.getText();
+      int LCD=Integer.parseInt(lcd.getText());
+      int RAM=Integer.parseInt(ram.getText());
+      int MOUSE=Integer.parseInt(mouse.getText());
+      boolean MEMBER=check.isSelected();
+      
+      o1=new order3c(NAME,LCD,RAM,MOUSE,MEMBER);
+      
+      ans.setText(o1.show()+"\n"+MEMBER);
+}
+
+==================================================================================================
+
+private void ok2MouseClicked(java.awt.event.MouseEvent evt) {                                 
+        
+       int paymoney=Integer.parseInt(sum.getText())-o1.getSum();
+       ans2.setText("找您:"+paymoney);
+       
+     
+    }                                

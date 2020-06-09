@@ -1,0 +1,103 @@
+<%@page language="java" 
+contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"
+import="model.Porder"
+import="DAO.PorderDAO"
+
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="cssEX/cssEX.css">
+<meta charset="UTF-8">
+<title>線上購物網站</title>
+</head>
+
+<body>
+<% 
+
+String Name = request.getParameter("name");
+String PC = request.getParameter("pc");
+String windows = request.getParameter("windows");
+String LCD = request.getParameter("lcd");
+String RAM = request.getParameter("ram");
+String MOUSE = request.getParameter("mouse");
+String KEYBOARD = request.getParameter("keyboard");
+String iosphone = request.getParameter("ios");
+String androidphone = request.getParameter("android");
+String success="";
+
+if(Name != null){
+	Porder p = new Porder();
+	Name = new String(request.getParameter("name").getBytes("iso-8859-1"), "utf-8");
+	p.setName(Name);
+	p.setPc(PC);
+	p.setLcd(LCD);
+	p.setRam(RAM);
+	p.setMouse(MOUSE);
+	p.setKeyboard(KEYBOARD);
+	p.setIosphone(iosphone);
+	p.setAndroidphone(androidphone);
+	p.setWindows(windows);
+	PorderDAO.PorderAdd(p);
+	success = "新增訂單成功";
+}
+%>
+
+<div class="header">
+<table border="0" align="left" width="100%" >
+	<tr>
+		<td width="400"><a href=""><img src="photo/logo.jpg"></a>
+		<td width="130"><h3>搜尋商品：</h3>
+		<td width ="400">
+			<form action="" >
+				</font><input type="search" name="productsearch" value="暫時沒功能" style="width:400px ; height:40px ; font-size:20px">
+		<td width="150">
+				<button type="button" value="搜尋" Style="background-color:#fff2f2">
+					<img src="photo/search.png" >
+				</button>
+			</form>
+		<td width="200" align="left"><a href="index.jsp"style="text-decoration:none"><h3>登出</h3></a>
+		<td width="200" align="left"><a href="ordercar.jsp"style="text-decoration:none"><h3>購物車</h3></a>
+		<td width="200" align="left"><a href="about.jsp"style="text-decoration:none"><h3>關於本賣場</h3></a>
+	</tr>
+</table>
+</div>
+
+<div class="content">
+<form  action="buy.jsp" method="post" target="_self">
+<table border="0" align="center" width="70%" style="background-color : #9FCDD9">
+	<tr>
+		<td align="right"><h3>顧客姓名：</h3>
+		<td align="right" width="200">
+			<input type="text" name="name" style="width:200px ; height:30px">
+		<td ><h5><font color="blue"><%=success %></font></h5>
+		<td width="200">
+	<tr>
+		<td><h3>電腦PC <br>( 自創品牌：Super快PC )$40000</h3>
+		<td width="200">數量：<input type="text" name="pc" style="width:100px ; height:30px">
+		<td><h3>Windows作業系統<br>( 自創品牌：Super新Windows) - $5000</h3>
+		<td width="200">數量：<input type="text" name="windows" style="width:100px ; height:30px">
+	<tr>
+		<td><h3>液晶顯示器LCD<br>( 自創品牌：Super亮LCD) - $5000</h3>
+		<td width="200">數量：<input type="text" name="lcd" style="width:100px ; height:30px">
+		<td><h3>記憶體Ram<br>( 自創品牌：Super大Ram ) - $2000</h3>
+		<td width="200">數量：<input type="text" name="ram" style="width:100px ; height:30px">
+	<tr>
+		<td><h3> 滑鼠Mouse<br>( 自創品牌：Super穩Mouse) - $500</h3>
+		<td width="200">數量：<input type="text" name="mouse" style="width:100px ; height:30px">
+		<td><h3>鍵盤Keyboard<br>( 自創品牌：Super炫Keyboard ) - $30000</h3>
+		<td width="200">數量：<input type="text" name="keyboard" style="width:100px ; height:30px">
+	<tr>
+		<td><h3> ios手機<br>( 自創品牌：Super貴ios) - $500</h3>
+		<td width="200">數量：<input type="text" name="ios" style="width:100px ; height:30px">
+		<td><h3>Android手機<br>( 自創品牌：Super潮Android ) - $25000</h3>
+		<td width="200">數量：<input type="text" name="android" style="width:100px ; height:30px">
+	<tr>
+		<td colspan="4" align="center"><input type="submit" value="建立訂單" name="ok2"style="width:100px ; height:50px">
+</table>
+</form>
+</div>
+
+</body>
+</html>

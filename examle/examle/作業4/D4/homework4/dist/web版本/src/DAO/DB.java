@@ -1,0 +1,70 @@
+package DAO;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+public class DB {
+
+	private static String URL;
+	private static String UserName;
+	private static String PassWord;
+	private static String Table;
+
+	public static boolean ConnectionDB(String url, String port, String userName, String passWord) {
+
+		URL = "jdbc:mysql://" + url + ":" + port;
+		UserName = userName;
+		PassWord = passWord;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			DriverManager.getConnection(URL, UserName, PassWord);
+		} catch (ClassNotFoundException ex) {
+			System.out.println("no Driver");
+			Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (SQLException ex) {
+			System.out.println("no Connection");
+			Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
+			return false;
+		}
+		System.out.println("連線成功");
+		return true;
+	}
+
+	public static Connection ConnectionDB(String Schemas, String Table) {
+		Connection conn = null;
+		DB.Table = Table;
+		URL = URL + "/" + Schemas;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection(URL, UserName, PassWord);
+		} catch (ClassNotFoundException ex) {
+			System.out.println("no Driver");
+			Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (SQLException ex) {
+			System.out.println("no Connection");
+			Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		return conn;
+	}
+
+	public static Connection ConnectionDB() {
+		Connection conn = null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection(URL, UserName, PassWord);
+		} catch (ClassNotFoundException ex) {
+			Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (SQLException ex) {
+			Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		return conn;
+	}
+
+	public static String getTable() {
+
+		return DB.Table;
+	}
+}

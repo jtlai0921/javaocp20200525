@@ -1,0 +1,19 @@
+﻿class student
+{
+	public static void main(String[] args) {
+		
+		/*String name1="aa";
+		double chi1=54;
+		int eng1=65;
+
+		String name2="bb";
+		double chi2=54;
+		int eng2=65;
+
+
+		System.out.println("名:"+name1+"\t國文:"+chi1+"\t英文:"+eng1);
+		System.out.println("名:"+name2+"\t國文:"+chi2+"\t英文:"+eng2);*/
+
+
+	}
+}

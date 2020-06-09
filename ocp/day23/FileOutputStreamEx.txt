@@ -1,0 +1,30 @@
+﻿package ioEX;
+
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+
+public class FileOutputStreamEx {
+
+	public static void main(String[] args) throws IOException {
+		/*FileOutputStream fos=new FileOutputStream("c:/ABC/b.txt");
+		OutputStreamWriter osw=new OutputStreamWriter(fos);
+		BufferedWriter bw=new BufferedWriter(osw);*/
+		
+		
+		BufferedWriter bw=
+				new BufferedWriter(
+						new OutputStreamWriter(
+								new FileOutputStream("c:/ABC/b.txt")));
+		
+		bw.write("bbbbbb巨匠");
+		bw.close();
+		//osw.write("abccc巨匠");
+		//osw.close();
+		//fos.write(65);
+
+	}
+
+}

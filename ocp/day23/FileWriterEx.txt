@@ -1,0 +1,17 @@
+﻿package ioEX;
+
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class FileWriterEx {
+
+	public static void main(String[] args) throws IOException {
+		FileWriter fw=new FileWriter("c:/ABC/a.txt");
+		
+		fw.write("abcdefgth巨匠電腦");
+		
+		fw.close();
+
+	}
+
+}

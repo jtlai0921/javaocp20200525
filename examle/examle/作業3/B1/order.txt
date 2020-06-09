@@ -1,0 +1,226 @@
+public class order {
+    private String name;
+    boolean atm;
+    boolean creditcard;
+    boolean cash;
+    
+    public order(String name,boolean atm,boolean creditcard,boolean cash)
+    {
+        this.name=name;
+        this.atm=atm;
+        this.creditcard=creditcard;
+        this.cash=cash;
+        
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+    String show()
+    {
+        return "名字:"+name;
+    }
+}
+==================================================================
+import java.util.Date;
+
+public class ThreeC extends order  {
+    private int lcd;
+    private int ram;
+    private int sum;
+    private int pay;
+    private Date date;
+    private String msg="";
+
+    public ThreeC(String name, boolean atm, boolean creditcard, boolean cash,int lcd,int ram) {
+        super(name, atm, creditcard, cash);
+        this.lcd=lcd;
+        this.ram=ram;
+        this.date=new Date();
+    }
+    public ThreeC(String name, boolean atm, boolean creditcard, boolean cash,int lcd,int ram,int sum) {
+        super(name, atm, creditcard, cash);
+        this.lcd=lcd;
+        this.ram=ram;
+        this.date=new Date();
+        sum=lcd*4999+ram*1280;
+    }
+
+    public void setLcd(int lcd) {
+        this.lcd = lcd;
+    }
+
+    public void setRam(int ram) {
+        this.ram = ram;
+    }
+
+    public int getLcd() {
+        return lcd;
+    }
+
+    public int getRam() {
+        return ram;
+    }
+
+    public int getSum() {
+        if (atm==true)
+            {
+                msg=("atm付款");
+            }
+        else if (creditcard==true)
+            {
+                msg=("信用卡付款");
+            }
+        else if(cash==true)
+        {
+            msg="現金付款";
+        }
+        sum=lcd*4999+ram*1280;
+        return sum;
+    }
+
+    public int getPay() {
+        return pay;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+    public String show()
+    {
+        return "名字:"+super.getName()+
+                "\nlcd:"+getLcd()+
+                "\nram:"+getRam()+
+                "\n總價:"+getSum()+
+                "\n付款方式:"+msg;
+        
+    }
+    
+    
+    
+    
+    
+            
+    
+}==========================================================
+import java.util.Date;
+
+public class write extends order{
+    private int ruler;
+    private int pen;
+    private int sum;
+    private int pay;
+    private Date date;
+    private String msg="";
+
+    public write(String name, boolean atm, boolean creditcard, boolean cash,int pen,int ruler) {
+        super(name, atm, creditcard, cash);
+        this.pen=pen;
+        this.ruler=ruler;
+        this.date=new Date();      
+         }
+    public write(String name, boolean atm, boolean creditcard, boolean cash,int pen,int ruler,int sum,int pay) {
+        super(name, atm, creditcard, cash);
+        this.pen=pen;
+        this.ruler=ruler;
+        sum=pen*20+ruler*30;  
+         }
+
+    public void setRuler(int ruler) {
+        this.ruler = ruler;
+    }
+
+    public void setPen(int pen) {
+        this.pen = pen;
+    }
+
+    public int getRuler() {
+        return ruler;
+    }
+
+    public int getPen() {
+        return pen;
+    }
+
+    public int getSum() {
+        if (atm==true)
+            {
+                msg=("atm付款");
+            }
+        else if (creditcard==true)
+            {
+                msg=("信用卡付款");
+            }
+        else if(cash==true)
+        {
+            msg="現金付款";
+        }
+       sum=pen*20+ruler*30;
+        return sum;
+    }
+
+    public int getPay() {
+        return pay;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+    
+     String show()
+    {
+        return   "名字:"+super.getName()+
+                "\nruler:"+getRuler()+
+                "\npen:"+getPen()+
+                "\n總價:"+getSum()+
+                "\n付款方式:"+msg;
+    }
+     
+   
+    
+    
+    
+}
+======================================================
+private void okMouseClicked(java.awt.event.MouseEvent evt) {                                
+                 String Name=name.getText();
+                 int Lcd;
+                 int Ram;
+                 int Ruler;
+                 int Pen;
+                 boolean Atm=atm.isSelected();
+                 boolean Creditcard=creditcard.isSelected();
+                 boolean Cash=cash.isSelected();
+                 
+                 if(cc.isSelected())
+                 {
+                     Lcd=Integer.parseInt(lcd.getText());
+                     Ram=Integer.parseInt(ram.getText());
+                     ThreeC c=new ThreeC(Name,Atm,Cash,Creditcard,Lcd,Ram);
+                     ans.setText(c.show());}
+                 
+                 else if(ww.isSelected())
+                 {
+                     Ruler=Integer.parseInt(ruler.getText());
+                     Pen=Integer.parseInt(pen.getText());
+                     write w=new write(Name,Atm,Cash,Creditcard,Ruler,Pen);
+                     ans.setText(w.show());}
+    }             
+
+private void ccMouseClicked(java.awt.event.MouseEvent evt) {                                
+        lcd.setEnabled(true);
+        ram.setEnabled(true);
+    }                               
+
+    private void wwMouseClicked(java.awt.event.MouseEvent evt) {                                
+        ruler.setEnabled(true);
+        pen.setEnabled(true);
+    }                                    

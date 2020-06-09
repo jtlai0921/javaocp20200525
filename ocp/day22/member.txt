@@ -1,0 +1,52 @@
+﻿package collectionEx;
+
+public class Member implements  Comparable<Member>{
+	private String name;
+	private String address;
+	private int chi;
+	private int eng;
+	
+	
+	
+	public Member(String name, String address, int chi, int eng) {
+		super();
+		this.name = name;
+		this.address = address;
+		this.chi = chi;
+		this.eng = eng;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public int getChi() {
+		return chi;
+	}
+	public void setChi(int chi) {
+		this.chi = chi;
+	}
+	public int getEng() {
+		return eng;
+	}
+	public void setEng(int eng) {
+		this.eng = eng;
+	}
+	@Override
+	public int compareTo(Member m) {
+		// TODO Auto-generated method stub
+		return m.eng-this.eng;
+	}
+	
+	
+	
+	
+
+}

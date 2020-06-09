@@ -1,0 +1,72 @@
+package homework3;
+
+/**
+ * 使用者陣列的Class
+ */
+public class UserArray {
+
+    /*所有使用者資料都存放於同的使用者清單，故用static宣告此為唯一值
+    才不會導致每次都創造新的使用者陣列*/
+    private static User array[] = new User[1];
+    private static int count = 0;
+
+    private UserArray(){}
+
+    public static void addUser(User user) {
+        if (count == array.length) {
+            doubleArray();
+        }
+        array[count] = user;
+        count++;
+    }
+
+    public static User[] getArray() {
+        return array;
+    }
+
+    /*假如存入使用者的數量等於陣列長度，就創造新的陣列
+    長度為原陣列2倍，把原資料複製過去，並把原陣列指向新陣列*/
+    private static void doubleArray() {
+        User newArray[] = new User[array.length * 2];
+        for (int i = 0; i < array.length; i++) {
+            newArray[i] = array[i];
+        }
+        array = newArray;
+    }
+
+    public static int getIndex(String userName) {
+
+        for (int i = 0; i < count; i++) {
+            if (array[i].getUserName().equals(userName)) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    /*傳入帳號，並搜尋使用者陣列中是否有符合的資料
+    ，用來判斷帳號是否註冊過*/
+    public static boolean searchUserName(String userName) {
+        for (int i = 0; i < count; i++) {
+            if (userName.equals(array[i].getUserName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /*傳入帳號密碼，先搜尋帳號是否有在使用者資料當中，如沒有，回傳0(無此帳號)
+    如搜尋到該帳號，判斷該帳號密碼是否正確，正確回傳1(資料正確)，否則回傳-1(密碼錯誤)*/
+    public static int search(String userName, String passWord) {
+        for (int i = 0; i < count; i++) {
+            if (userName.equals(array[i].getUserName())) {
+                if (array[i].getPassWord().equals(passWord)) {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            }
+        }
+        return 0;
+    }
+}

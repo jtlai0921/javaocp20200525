@@ -1,0 +1,19 @@
+@charset "utf-8";
+
+.header {
+	background-color: #4392F1;
+	width: 100%;
+	height: 100%;
+}
+
+.content {
+	background-color: #E3EBFF;
+	width: 100%;
+	height: 100%;
+}
+
+.footer {
+	background-color: #DC493A;
+	width: 100%;
+	height: 100%;
+}

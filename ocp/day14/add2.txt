@@ -1,0 +1,70 @@
+﻿class add2
+{
+	public static void main(String[] args) {
+		school[][] s=new school[3][];
+		s[0]=new school[3];//new SA[3];
+		s[1]=new school[2];//new SB[2];
+		s[2]=new school[4];//new SC[4];
+
+		s[0][0]=new SA("a1",60);
+		s[0][1]=new SA("a2",60);
+		s[0][2]=new SA("a3",60);
+
+		s[1][0]=new SB("b1",60);
+		s[1][1]=new SB("b2",60);
+
+
+		s[2][0]=new SC("c1",60);
+		s[2][1]=new SC("c2",60);
+		s[2][2]=new SC("c3",60);
+		s[2][3]=new SC("c4",60);
+
+		for(int i=0;i<s.length;i++)
+		{
+			for(int j=0;j<s[i].length;j++)
+			{
+				System.out.println("s["+i+"]["+j+"]="+s[i][j].show());
+			}
+		}
+
+		((SA)s[0][0]).skill1();
+
+		s[0][2].setChi(78);
+		System.out.println("==============================");
+
+
+		for(school[] o:s)
+		{
+			for(school u:o)
+			{
+				System.out.println(u.show());
+			}
+		}
+		System.out.println("==============================");
+
+
+		System.out.println(s[0][0]);
+		System.out.println(s[2][0]);
+
+
+		s[2][0]=s[0][0];
+
+		s[2][0].setChi(100);
+
+
+		System.out.println(s[0][0]);
+		System.out.println(s[2][0]);
+		System.out.println(s[0][0].equals(s[2][0]));
+
+		System.out.println(s[1][1].getClass());
+
+		System.out.println("==============================");
+
+
+		System.out.println(s[0][2] instanceof SA);
+		System.out.println(s[0][2] instanceof SB);
+		System.out.println(s[0][2] instanceof SC);
+		System.out.println(s[0][2] instanceof school);
+
+	}
+}

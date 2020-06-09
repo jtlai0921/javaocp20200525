@@ -1,0 +1,196 @@
+<super class>
+
+import java.util.Date;
+
+
+
+public class order {
+    private String name;
+    private Date date;
+    private String pay;
+    
+    
+    order(String name,String pay)
+    {
+        this.name=name;
+        this.pay=pay;
+        this.date=new Date();       
+    }
+    
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    public Date getDate() {
+        return date;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+   
+    
+    String show()
+    {
+        switch(pay)
+            {
+                case "atm":
+                  pay="atm。請查收銀行帳戶,並請在一周內進行匯款";
+                  break;
+                case "visa":
+                   pay="visa。請輸入信用卡號";
+                   break;
+                case"cash":
+                    pay="cash。請選擇希望收件的便利商店店號及店名";
+                    break;
+                default:
+                    pay="請選擇付款方式";
+                    break;
+            }                
+        return "日期："+getDate()+
+            "\n姓名："+getName()+
+            "\n付款方式："+pay;
+                
+       
+                
+    }
+
+    
+    
+}
+===============================================================================================================================================
+<sub class>
+
+public class o3C extends order{
+    private static boolean type3C;
+    private int lcd,ram1;
+    private int sum1;
+
+    public o3C(String name,String pay,boolean atm, boolean visa, boolean cash,boolean type3C,int lcd,int ram1) {
+        super(name,pay);
+        this.lcd=lcd;
+        this.ram1=ram1;
+        sum1=lcd*4999+ram1*1280;
+     
+    }
+
+    public void setLcd(int lcd) {
+        this.lcd = lcd;
+    }
+
+    public void setRam1(int ram1) {
+        this.ram1 = ram1;
+    }
+
+    public boolean isType3C() {
+        return type3C;
+    }
+
+    public int getLcd() {
+        return lcd;
+    }
+
+    public int getRam1() {
+        return ram1;
+    }
+
+    public int getSum1() {
+        return sum1;
+    }
+    
+    String show()
+    {
+        return  "\nLCD:"+getLcd()+"PCS，共"+getLcd()*4999+"元"+
+            "\nRAM:"+getRam1()+"PCS，共"+getRam1()*1280+"元";
+    
+    }
+    
+    
+}
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+public class oWrite extends order{
+    private boolean typeWrite;
+    private int ruler,pen;
+    private int sum2;
+
+    public oWrite(String name,String pay, boolean atm, boolean visa, boolean cash,boolean typeWrite,int ruler,int pen) {
+        super(name,pay);
+        this.ruler=ruler;
+        this.pen=pen;
+        sum2=ruler*30+pen*20;
+     
+    }
+
+    public void setRuler(int ruler) {
+        this.ruler = ruler;
+    }
+
+    public void setPen(int pen) {
+        this.pen = pen;
+    }
+
+    public boolean isTypeWrite() {
+        return typeWrite;
+    }
+
+    public int getRuler() {
+        return ruler;
+    }
+
+    public int getPen() {
+        return pen;
+    }
+
+    public int getSum2() {
+        return sum2;
+    }
+    
+     String show()
+    {
+        return "\nRULER:"+getRuler()+"PCS，共"+getRuler()*30+"元"+
+            "\nPEN:"+getPen()+"PCS，共"+getPen()*20+"元"+
+            "\n";
+    }
+}
+==================================================================================================================================================
+<UI>
+    order o1=null;
+    o3C o2=null;
+    oWrite o3=null;
+    
+    
+    private void okMouseClicked(java.awt.event.MouseEvent evt) {                                
+        String NAME=name.getText();
+        int LCD=Integer.parseInt(lcd.getText());
+        int RAM=Integer.parseInt(ram1.getText());
+        int RULER=Integer.parseInt(ruler.getText());
+        int PEN=Integer.parseInt(pen.getText());
+        boolean ATM=atm.isSelected();
+        boolean VISA=visa.isSelected();
+        boolean CASH=cash.isSelected();   
+        boolean TYPE3C=type3C.isSelected();
+        boolean TYPEW=typeWrite.isSelected();
+        
+        String PAY=ATM?"atm":VISA?"visa":CASH?"cash":"";
+        o1=new order(NAME, PAY);
+        o2= new o3C( NAME, PAY, ATM,  VISA,  CASH, TYPE3C, LCD, RAM);
+        o3= new oWrite( NAME, PAY, ATM,  VISA,  CASH, TYPEW, RULER, PEN);
+        int SUM=o2.getSum1()+o3.getSum2();
+        all.setText(o1.show()+o2.show()+o3.show()+"總價:"+SUM);
+        
+    }                               
+
+    private void type3CMouseClicked(java.awt.event.MouseEvent evt) {                                    
+         lcd.setEnabled(true); 
+         ram1.setEnabled(true);
+        
+        
+    }                                   
+
+    private void typeWriteMouseClicked(java.awt.event.MouseEvent evt) {                                       
+         ruler.setEnabled(true); 
+         pen.setEnabled(true);
+    }                                      

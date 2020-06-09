@@ -1,0 +1,72 @@
+﻿package innerEX;
+interface book2
+{
+	void bookName(String name);
+	
+}
+
+interface book3
+{
+	void book(String name,int price);
+}
+
+class Price
+{
+	static void B1(String n,int p)
+	{
+		if(p>=0)
+		{
+			System.out.println("name"+n+"\tprice="+p);
+		}
+		else
+		{
+			System.out.println("需>=0");
+		}
+	}
+	static void B2(String n,int p)
+	{
+		if(p>=100)
+		{
+			System.out.println("name"+n+"\tprice="+p);
+		}
+		else
+		{
+			System.out.println("需>=0");
+		}
+	}
+	static void B3(String n,int p)
+	{
+		
+	}
+}
+
+public class test3 {
+
+	public static void main(String[] args) {
+		book3 b=Price::B2;
+		
+		b.book("java", 50);
+		
+		/*book2 b=new book2() 
+		{
+
+			@Override
+			public void bookName(String name) {
+				System.out.println("name="+name);
+				
+			}
+			
+		};*/
+		
+		//book2 b=(String name)->System.out.println("name="+name);
+		//book2 b=( name)->System.out.println("name="+name);
+		//book2 b= name->System.out.println("name="+name);
+		//book3 b2=(String name,int price)->System.out.println("name"+name+"\tprice="+price);
+		//book3 b2=(name,price)->System.out.println("name"+name+"\tprice="+price);
+		
+		//b.bookName("java");
+		//b2.book("java", -1000);
+		
+	}
+
+}

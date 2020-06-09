@@ -1,0 +1,312 @@
+package ja2;
+import java.util.Date;
+
+public class Ja2 
+{
+     
+        private int ma;
+        private int mb;
+        private int mc;
+	private Date date;
+	private int sum;
+        private int total;
+        //private int ssum;
+        //private int msum;
+        private int sa;
+        private boolean cla;
+        private boolean clb;
+        private boolean clc;
+        private int sb;
+        private int sc;
+       private int sia;
+        private int sib;
+        private int sic;
+        private int mem;
+        private String member;
+        private int change;
+       // private boolean mem1;
+       // private boolean mem2;
+       // private boolean mem3;
+      //  private boolean mem4;
+
+}
+
+ public void setMa(int ma) {
+        this.ma = ma;
+    }
+
+    public void setMb(int mb) {
+        this.mb = mb;
+    }
+
+    public void setMc(int mc) {
+        this.mc = mc;
+    }
+
+   
+
+   
+
+    public void setTotal(int total) {
+        this.total = total;
+    }
+
+    public void setSa(int sa) {
+        this.sa = sa;
+    }
+     public void setSb(int sb) {
+        this.sb = sb;
+    }
+
+    public void setSc(int sc) {
+        this.sc = sc;
+    }
+
+    public void setCla(boolean cla) {
+        this.cla = cla;
+    }
+
+    public void setClb(boolean clb) {
+        this.clb = clb;
+    }
+
+    public void setClc(boolean clc) {
+        this.clc = clc;
+    }
+
+   
+
+    public void setSia(int sia) {
+        this.sia = sia;
+    }
+
+    public void setSib(int sib) {
+        this.sib = sib;
+    }
+
+    public void setSic(int sic) {
+        this.sic = sic;
+    }
+
+    public void setMem(int mem) {
+        this.mem = mem;
+    }
+
+    public void setMember(String member) {
+        this.member = member;
+    }
+/*
+    public void setMem1(boolean mem1) {
+        this.mem1 = mem1;
+    }
+
+    public void setMem2(boolean mem2) {
+        this.mem2 = mem2;
+    }
+
+    public void setMem3(boolean mem3) {
+        this.mem3 = mem3;
+    }
+
+    public void setMem4(boolean mem4) {
+        this.mem4 = mem4;
+    }*/
+    
+
+    public int getMa() {
+        return ma;
+    }
+
+    public int getMb() {
+        return mb;
+    }
+
+    public int getMc() {
+        return mc;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public int getSum() {
+        
+       
+        
+        
+        return sum;
+    }
+
+    public int getTotal() {
+        return total;
+    }
+
+  
+
+    public boolean isCla() {
+        return cla;
+    }
+
+    public boolean isClb() {
+        return clb;
+    }
+
+    public boolean isClc() {
+        return clc;
+    }
+      public int getSa() {
+        return sa;
+    }
+
+    public int getSb() {
+        return sb;
+    }
+
+    public int getSc() {
+        return sc;
+    }
+
+    public int getSia() {
+        return sia;
+    }
+
+    public int getSib() {
+        return sib;
+    }
+
+    public int getSic() {
+        return sic;
+    }
+
+    public int getMem() {
+        return mem;
+    }
+
+    public String getMember() {
+        return member;
+    }
+   
+    Ja2(int ma,int mb,int mc,int sa,int sb,int sc,boolean cla,boolean clb,boolean clc,int mem)
+    {
+        this.mc=mc;
+        this.mb=mb;
+        this.ma=ma;
+        this.sa=sa;
+        this.sb=sb;
+        this.sc=sc;
+        int msum=0;
+        int ssum=0;
+        this.cla=cla;
+       this.clb=clb;
+       this.clc=clc;
+        this.date=new Date();
+        int ssuma=0;
+        int ssumb=0;
+        int ssumc=0;
+        
+        if(ma>=0||mb>=0||mc>=0)
+        {
+        msum=ma*120+mb*130+mc*140;
+        
+        if(cla==true || clb==true || clc==true)
+        {
+             
+                
+            if(cla==true) 
+             {
+                 sia=30;
+                 ssuma=(int)(sa*sia);
+             }else {ssuma=0;}
+            
+            if(clb==true) 
+            {
+                sib=40;
+                ssumb=(int)(sb*sib);
+             }else {ssumb=0;}
+        
+             if(clc==true) 
+                 
+             {
+              sic=50;
+              ssumc=(int)(sc*sic);
+              }else {ssumc=0;}
+             
+         ssum=ssuma+ssumb+ssumc;
+         
+         }
+        
+        }sum=msum+ssum;
+           
+        
+        switch(mem)
+        {
+            case 1:
+                sum=(int)(sum*0.85);
+                member="VIP";
+                break;   
+            case 2:
+                 sum=(int)(sum*0.9);
+                member="Golden";
+                 break;   
+            case 3:
+                 sum=(int)(sum*0.95);
+                member="Silver";
+                 break;   
+            case 4:
+                 sum=(int)(sum*1);
+                member="Original";
+                 break;                 
+           
+        }
+        
+        
+                     
+    }
+
+String show()
+      {
+          
+      
+      
+      return  "\nMealA:"+getMa()+
+              "\nMealB:"+getMb()+
+              "\nMealC:"+getMc()+
+              "\nSideA:"+getSa()+
+              "\nSideB:"+getSb()+
+              "\nSideC:"+getSc()+
+            
+              "\nSum："+getSum()+
+              "\n"+member+
+              "\n訂單日期："+getDate();
+      
+  
+         
+      
+      }
+    
+
+  
+String show2()
+      {
+          
+      
+      
+        return  "\nMealA:"+getMa()+
+              "\nMealB:"+getMb()+
+              "\nMealC:"+getMc()+
+              "\nSideA:"+getSa()+
+              "\nSideB:"+getSb()+
+              "\nSideC:"+getSc()+
+                
+              "\nSum："+getSum()+
+              "\n"+member+
+              
+              "\n訂單日期："+getDate();
+      
+  
+         
+      
+      }
+
+}
+

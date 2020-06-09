@@ -1,0 +1,92 @@
+package homework3;
+
+import java.awt.Toolkit;
+
+/**
+ * 註冊會員JFrame
+ */
+public class Member extends javax.swing.JFrame {
+
+    private boolean show; //用來判斷註冊資料格式是否填寫正確
+
+    /*註冊完成按鈕*/
+    private void memberokMouseClicked(java.awt.event.MouseEvent evt) {                                      
+
+        show = true;
+        if (userName.getText().equals("")) {
+            userNameError.setText("請輸入帳號");
+            show = false;
+        } else {
+            userNameError.setText(" ");
+            if (passWord.getText().equals("")) {
+                passWordError.setText("請輸入密碼");
+                show = false;
+            } else {
+                passWordError.setText(" ");
+                if (name.getText().equals("")) {
+                    nameError.setText("請輸入姓名");
+                    show = false;
+                } else {
+                    nameError.setText(" ");
+                    if (phone.getText().equals("")) {
+                        phoneError.setText("請輸入電話");
+                        show = false;
+                    } else {
+                        phoneError.setText(" ");
+                        if (address.getText().equals("")) {
+                            addressError.setText("請輸入地址");
+                            show = false;
+                        } else {
+                            addressError.setText(" ");
+                            if (vip2.isSelected() == false && vip1.isSelected() == false && vip0.isSelected() == false) {
+                                vipError.setText("會員等級必填");
+                                show = false;
+                            } else {
+                                vipError.setText(" ");
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if (show == true) {
+
+            boolean b = UserArray.searchUserName(userName.getText());
+            String VIP = "";
+
+            if (vip0.isSelected() == true) {
+                VIP = "一般會員";
+            } else if (vip1.isSelected() == true) {
+                VIP = "黃金會員";
+            } else if (vip2.isSelected() == true) {
+                VIP = "白金會員";
+            }
+
+            if (b == true) {
+                userNameError.setText("此帳號已被使用註冊");
+            } else {
+                User user = new User(userName.getText(), passWord.getText(), name.getText(), phone.getTex(), address.getText(), VIP);
+                UserArray.addUser(user);
+                Login login = new Login();
+                login.setVisible(true);
+                /*為了讓跳出的畫面能置中於螢幕上 */
+                Toolkit toolkit = Toolkit.getDefaultToolkit();
+                int x = (int) (toolkit.getScreenSize().getWidth() - login.getWidth()) / 2;
+                int y = (int) (toolkit.getScreenSize().getHeight() - login.getHeight()) / 2;
+                login.setLocation(x, y);
+                setVisible(false);
+            }
+        }
+    }                                     
+
+    /*取消按鈕*/
+    private void exitMouseClicked(java.awt.event.MouseEvent evt) {                                  
+        Login login = new Login();
+        login.setVisible(true);
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        int x = (int) (toolkit.getScreenSize().getWidth() - login.getWidth()) / 2;
+        int y = (int) (toolkit.getScreenSize().getHeight() - login.getHeight()) / 2;
+        login.setLocation(x, y);
+        setVisible(false);
+    }
+}

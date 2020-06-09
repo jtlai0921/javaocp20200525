@@ -1,0 +1,10 @@
+﻿class book2<E,T>
+{
+	E bookprice1;
+	T bookprice2;
+
+	book2(E bookprice1,T bookprice2) 
+	{
+	
+	}
+}

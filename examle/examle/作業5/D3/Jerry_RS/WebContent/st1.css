@@ -1,0 +1,35 @@
+@charset "UTF-8";
+.header
+{
+	background-color:#5D6A5D;
+	padding: 10px;
+    text-align: centet;
+}
+.topnav{
+	overflow: hidden;
+	background-color: #95A995;
+}
+.topnav a{
+	float: left;
+  	display: block;
+  	color: #2C240F;
+  	text-align: center;
+  	padding: 16px 18px;
+  	text-decoration: none;
+}
+.topnav a:hover {
+  background-color: #8ead91;
+  color: white;
+}
+.content
+{
+	background-color:#CCE8CC;
+	width: 100%;
+	  
+}
+.footer
+{
+	background-color: #5D6A5D;
+  	padding: 10px;
+  	text-align: center;
+}

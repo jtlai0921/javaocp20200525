@@ -1,0 +1,39 @@
+﻿package com.sc;
+import com.sa.student;
+import com.sa.student2;
+import com.sb.A;
+import com.sb.B;
+class add
+{
+	public static void main(String[] args) {
+		
+		student2[] s=
+		{
+			new A("a",78),
+			new B("b",77),
+		};
+		System.out.println(s[0].show());
+		System.out.println(s[1].show());
+		System.out.println("==========================");
+		s[0].set(100);
+		s[1].set(90);
+		//s[0].t1=5;
+		System.out.println(s[0].show());
+		System.out.println(s[1].show());
+
+
+		System.out.println("==========================");
+		A a2=new A("a",78);
+		a2.t1=5;
+		a2.t2=2;
+		a2.set(100);
+		System.out.println(a2.show());
+		/*student s=new student("ss");
+		A a=new A("a",78);
+		B b=new B("b",77);
+		System.out.println(s.show());
+		System.out.println(a.show());
+		System.out.println(b.show());*/
+
+	}
+}

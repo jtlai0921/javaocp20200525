@@ -1,0 +1,21 @@
+﻿/*final*/ class school 
+{
+	private String name;
+
+	final double pi=3.14;
+
+	school(String name)
+	{
+		this.name=name;
+	}
+
+	/*final*/ String show()
+	{
+		return "名:"+name;
+	}
+
+	void setChi(int chi)
+	{
+		//pi=36.5;
+	}
+}

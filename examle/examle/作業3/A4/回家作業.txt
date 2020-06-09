@@ -1,0 +1,237 @@
+=========父類別==================================
+public class Customer {
+    private String name;
+    
+    Customer(String name)
+    {
+        this.name=name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+    
+    String show()
+    {
+        return "輸入錯誤，請重新下訂單";
+    }
+    
+}
+=========子類別=================================
+import java.util.Date;
+
+public class ThreeC extends Customer{
+    private int led;
+    private int ram;
+    private int sum;
+    private String pay;
+    private Date date=new Date();
+    
+    ThreeC(String name, int led, int ram,int p)
+    {
+        super(name);
+        this.led=led;
+        this.ram=ram;
+        this.date=date;
+        switch(p)
+        {
+            case 1:
+                pay="ATM";
+                break;
+            case 2:
+                pay="VISA";
+                break;
+            case 3:
+                pay="貨到付款";
+                break;
+             default:
+                pay="需輸入付款方式！";
+                break;
+        }
+    }
+
+    public void setLed(int led) {
+        this.led = led;
+    }
+
+    public void setRam(int ram) {
+        this.ram = ram;
+    }
+
+    public void setPay(String pay) {
+        this.pay = pay;
+    }
+
+    public int getLed() {
+        return led;
+    }
+
+    public int getRam() {
+        return ram;
+    }
+
+    public int getSum() {
+        return sum;
+    }
+
+    public String getPay() {
+        return pay;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    String show()
+    {
+        if(led>=0 && ram>=0)
+        {
+            sum=led*4999+ram*1280;
+            return "============== 訂 單 明 細 =============="+
+                  "\n姓名："+super.getName()+
+                  "\nLed："+getLed()+" * 4999元 = "+getLed()*4999+
+                  "元\nRam："+getRam()+" * 1280元 = "+getRam()*1280+
+                  "元\n總金額："+sum+
+                  "元\n付款方式："+getPay()+
+                  "\n下單時間："+getDate();
+        }
+        else
+        {
+            return "數量需大於0！";
+        }
+                
+    }
+    
+}
+===========子類別================================
+import java.util.Date;
+
+public class Write extends Customer{
+    private int ruler;
+    private int pen;
+    private int sum;
+    private String pay;
+    private Date date=new Date();
+    
+    Write(String name, int ruler, int pen, int p)
+    {
+        super(name);
+        this.ruler=ruler;
+        this.pen=pen;
+        this.date=date;
+        switch(p)
+        {
+            case 1:
+                pay="ATM";
+                break;
+            case 2:
+                pay="VISA";
+                break;
+            case 3:
+                pay="貨到付款";
+                break;
+            default:
+                pay="需輸入付款方式！";
+                break;
+        }
+    }
+
+    public void setRuler(int ruler) {
+        this.ruler = ruler;
+    }
+
+    public void setPen(int pen) {
+        this.pen = pen;
+    }
+
+    public void setPay(String pay) {
+        this.pay = pay;
+    }
+
+    public int getRuler() {
+        return ruler;
+    }
+
+    public int getPen() {
+        return pen;
+    }
+
+    public int getSum() {
+        return sum;
+    }
+
+    public String getPay() {
+        return pay;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+    
+    String show()
+    {
+        if(ruler>=0 && pen>=0)
+        {
+            sum=ruler*30+pen*20;
+            return "============== 訂 單 明 細 =============="+
+                   "\n姓名："+super.getName()+
+                   "\nRuler："+getRuler()+" * 30元 = "+getRuler()*30+
+                   "元\nPen："+getPen()+" * 20元 = "+getPen()*20+
+                   "元\n總金額："+sum+
+                   "元\n付款方式："+getPay()+
+                   "\n下單時間："+getDate();
+        }
+        else
+        {
+            return "數量需大於0！";
+        }
+                
+    }
+}
+=========按鈕==================================
+ThreeC t1=null;
+Write w1=null;
+private int t_sum;
+    private void okMouseClicked(java.awt.event.MouseEvent evt) {                                
+        String Name=name.getText();
+        boolean S1=s1.isSelected();
+        boolean S2=s2.isSelected();
+        int Led=Integer.parseInt(led.getText());
+        int Ram=Integer.parseInt(ram.getText());
+        int Pay=Integer.parseInt(pay.getText());
+        int Ruler=Integer.parseInt(ruler.getText());
+        int Pen=Integer.parseInt(pen.getText());
+        if(S1==true && S2==false)
+        {
+             t1=new ThreeC(Name,Led,Ram,Pay);
+             ans.setText(t1.show());
+             this.t_sum=t1.getSum();
+        }
+        else if(S2==true && S1==false)
+        {
+             w1=new Write(Name,Ruler,Pen,Pay);
+             ans.setText(w1.show());
+             this.t_sum=w1.getSum();
+        }
+        else
+        {
+            Customer c1=new Customer(Name);
+            ans.setText(c1.show());
+        }
+    }                               
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {                                      
+        if(Integer.parseInt(give.getText())>t_sum)
+        {
+            int change=Integer.parseInt(give.getText())-t_sum;
+            ans2.setText("找您 "+change);
+        }
+        else
+        {
+            ans2.setText("付款金額不足！");
+        }
+    }

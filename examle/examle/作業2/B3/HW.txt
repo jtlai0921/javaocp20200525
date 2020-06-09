@@ -1,0 +1,304 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package HW;
+
+/**
+ *
+ * @author nicole
+ */
+public class menu {
+    protected static final int aPrice = 120;
+    protected static final int bPrice = 130;
+    protected static final int cPrice = 140;
+    protected static final int add1Price = 30;
+    protected static final int add2Price = 40;
+    protected static final int add3Price = 50;
+    protected static final double memLvl1 = 0.85;
+    protected static final double memLvl2 = 0.9;
+    protected static final double memLvl3 = 0.95;
+}
+
+========================================================================
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package HW;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+
+/**
+ *
+ * @author nicole
+ */
+public class order extends menu {
+
+    private int a;
+    private int b;
+    private int c;
+    private boolean add1;
+    private boolean add2;
+    private boolean add3;
+    private int memLvl;
+    private String memLvlStr;
+    private int money;
+
+    private ArrayList calTotal() {
+        ArrayList list = new ArrayList();
+
+        double total = a * aPrice + b * bPrice + c * cPrice;
+        total += add1 ? add1Price : 0;
+        total += add2 ? add2Price : 0;
+        total += add3 ? add3Price : 0;
+
+        switch (memLvl) {
+            case 0:
+                list.add(0, memLvl1); //會員等級
+                list.add(1, (int) (total * (1 - memLvl1))); //折扣金
+                list.add(2, (int) (total * memLvl1)); //折扣後金額
+                break;
+            case 1:
+                list.add(0, memLvl2);
+                list.add(1, (int) (total * (1 - memLvl2)));
+                list.add(2, (int) (total * memLvl2));
+                break;
+            case 2:
+                list.add(0, memLvl3);
+                list.add(1, (int) (total * (1 - memLvl3)));
+                list.add(2, (int) (total * memLvl3));
+                break;
+            default:
+                list.add(0, "骨");
+                list.add(1, 0);
+                list.add(2, (int) total);
+                break;
+        }
+
+        return list;
+    }
+
+    public String show() {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        ArrayList list = calTotal();
+        int result = money - (int) list.get(2);
+        
+        return "\n您的訂單明細如下:"
+                + (a > 0 ? "\nA餐: " + a + "個 x " + aPrice + "元 小計 " + a * aPrice + " 元" : "")
+                + (b > 0 ? "\nB餐: " + b + "個 x " + bPrice + "元 小計 " + b * bPrice + " 元" : "")
+                + (c > 0 ? "\nC餐: " + c + "個 x " + cPrice + "元 小計 " + c * cPrice + " 元" : "")
+                + (add1 || add2 || add3 ? "\n\n加價購如下:" : "")
+                + (add1 ? "\n小菜1: " + add1Price + " 元" : "")
+                + (add2 ? "\n小菜2: " + add2Price + " 元" : "")
+                + (add3 ? "\n小菜3: " + add3Price + " 元" : "")
+                + "\n\n會員等級為: " + memLvlStr
+                + "\n折扣為: " + list.get(0) + " 折"
+                + "\n折價: " + list.get(1) + " 元"
+                + "\n\n總價: " + list.get(2) + " 元"
+                + "\n\n" + (result > 0 ? "找您 " + result : "尚差 " + Math.abs(result)) + " 元"
+                + "\n\n訂單日期: " + sdf.format(new Date());
+    }
+
+    /**
+     * @return the a
+     */
+    public int getA() {
+        return a;
+    }
+
+    /**
+     * @param a the a to set
+     */
+    public void setA(int a) {
+        this.a = a;
+    }
+
+    /**
+     * @return the b
+     */
+    public int getB() {
+        return b;
+    }
+
+    /**
+     * @param b the b to set
+     */
+    public void setB(int b) {
+        this.b = b;
+    }
+
+    /**
+     * @return the c
+     */
+    public int getC() {
+        return c;
+    }
+
+    /**
+     * @param c the c to set
+     */
+    public void setC(int c) {
+        this.c = c;
+    }
+
+    /**
+     * @return the memLvl
+     */
+    public int getMemLvl() {
+        return memLvl;
+    }
+
+    /**
+     * @param memLvl the memLvl to set
+     */
+    public void setMemLvl(int memLvl) {
+        this.memLvl = memLvl;
+    }
+
+    /**
+     * @return the money
+     */
+    public int getMoney() {
+        return money;
+    }
+
+    /**
+     * @param money the money to set
+     */
+    public void setMoney(int money) {
+        this.money = money;
+    }
+
+    /**
+     * @return the add1
+     */
+    public boolean isAdd1() {
+        return add1;
+    }
+
+    /**
+     * @param add1 the add1 to set
+     */
+    public void setAdd1(boolean add1) {
+        this.add1 = add1;
+    }
+
+    /**
+     * @return the add2
+     */
+    public boolean isAdd2() {
+        return add2;
+    }
+
+    /**
+     * @param add2 the add2 to set
+     */
+    public void setAdd2(boolean add2) {
+        this.add2 = add2;
+    }
+
+    /**
+     * @return the add3
+     */
+    public boolean isAdd3() {
+        return add3;
+    }
+
+    /**
+     * @param add3 the add3 to set
+     */
+    public void setAdd3(boolean add3) {
+        this.add3 = add3;
+    }
+
+    /**
+     * @return the memLvlStr
+     */
+    public String getMemLvlStr() {
+        return memLvlStr;
+    }
+
+    /**
+     * @param memLvlStr the memLvlStr to set
+     */
+    public void setMemLvlStr(String memLvlStr) {
+        this.memLvlStr = memLvlStr;
+    }
+
+}
+
+======================================================================
+
+private boolean noValue(javax.swing.JSpinner val) {
+        return (int) val.getValue() == 0;
+    }
+
+    private void orderDetail() {
+
+        order or = new order();
+        or.setA((int) a.getValue());
+        or.setB((int) b.getValue());
+        or.setC((int) c.getValue());
+        or.setAdd1(add1.isSelected());
+        or.setAdd2(add2.isSelected());
+        or.setAdd3(add3.isSelected());
+        or.setMemLvl(memLvl.getSelectedIndex());
+        or.setMemLvlStr(memLvl.getSelectedItem().toString());
+        or.setMoney((int) money.getValue());
+        
+        buyDetail.setText((add1.isSelected() || add2.isSelected() || add3.isSelected())
+                && noValue(a) && noValue(b) && noValue(c) ? "\n請先選擇主餐再選小菜，謝謝。" : or.show());
+    }
+    private void buyMouseClicked(java.awt.event.MouseEvent evt) {                                 
+        // TODO add your handling code here:
+        orderDetail();
+    }                                
+
+    private void aStateChanged(javax.swing.event.ChangeEvent evt) {                               
+        // TODO add your handling code here:
+        orderDetail();
+    }                              
+
+    private void bStateChanged(javax.swing.event.ChangeEvent evt) {                               
+        // TODO add your handling code here:
+        orderDetail();
+    }                              
+
+    private void cStateChanged(javax.swing.event.ChangeEvent evt) {                               
+        // TODO add your handling code here:
+        orderDetail();
+    }                              
+
+    private void add2ActionPerformed(java.awt.event.ActionEvent evt) {                                     
+        // TODO add your handling code here:
+        orderDetail();
+    }                                    
+
+    private void add1ActionPerformed(java.awt.event.ActionEvent evt) {                                     
+        // TODO add your handling code here:
+        orderDetail();
+    }                                    
+
+    private void add3ActionPerformed(java.awt.event.ActionEvent evt) {                                     
+        // TODO add your handling code here:
+        orderDetail();
+    }                                    
+
+    private void memLvlActionPerformed(java.awt.event.ActionEvent evt) {                                       
+        // TODO add your handling code here:
+        orderDetail();
+    }                                      
+
+    private void moneyStateChanged(javax.swing.event.ChangeEvent evt) {                                   
+        // TODO add your handling code here:
+        orderDetail();
+    }          
+
+    

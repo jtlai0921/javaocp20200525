@@ -1,0 +1,81 @@
+@charset "BIG5";
+.header
+
+{
+
+	
+
+	margin:0px auto;
+
+	align:center;
+
+	background-image: url(pic/t1.png);
+
+	background-size: 1000px 500px;
+
+	width:900px;
+
+	height:400px;
+
+	
+
+	padding-left:20px;
+
+	padding-top:5px;
+
+	
+
+}
+
+
+
+.content
+
+{
+
+ color:white;
+
+ font-size:20px;
+
+ 
+
+background-image: url(pic/t2.png);
+
+	background-size: 1000px 500px;
+
+	width:900px;
+
+	height:400px;
+
+	margin:0px auto;
+
+	padding-left:20px;
+
+	padding-top:5px;
+
+	
+
+}
+
+
+
+.footer
+
+{
+
+	background-image: url(pic/t3.png);
+
+	background-size: 1000px 500px;
+
+	width:900px;
+
+	height:400px;
+
+    margin:0px auto;
+
+	padding-left:20px;
+
+	padding-top:5px;
+
+}
+

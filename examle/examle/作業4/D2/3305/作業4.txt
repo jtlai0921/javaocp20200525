@@ -1,0 +1,100 @@
+    private void OKMouseClicked(java.awt.event.MouseEvent evt) {                                
+        String NAME=name.getText();
+ int RULER=Integer.parseInt(ruler.getText());
+ int PEN=Integer.parseInt(pen.getText());
+ new porderDao().add(NAME, RULER, PEN);
+ ans1.setText("訂單建立完成");
+    }                               
+
+    private void ok2MouseClicked(java.awt.event.MouseEvent evt) {                                 
+      ResultSet rs=new porderDao().query();
+        String show="";
+            try {
+                while(rs.next())
+                {
+            show=show+
+                 "id:"+rs.getInt("id")+
+                 "\t 名:"+rs.getString("name")+
+                 "\t 尺:"+rs.getInt("ruler")+
+                 "\t 筆:"+rs.getInt("pen")+
+                 "\t 成交金額:"+rs.getInt("sum")+"\n";
+                }
+                }catch (SQLException ex) {ex.printStackTrace();}
+            ans2.setText(show);
+    }                                
+
+    private void ok3MouseClicked(java.awt.event.MouseEvent evt) {                                 
+        int Ruler = Integer.parseInt(ruler1.getText());
+       int Pen = Integer.parseInt(pen1.getText());
+       int Id = Integer.parseInt(id1.getText());
+       new porderDao().update(Id,Ruler,Pen);
+       ResultSet rs = new porderDao().query();      
+       String msg = ""; 
+            try{
+                while(rs.next()){  
+                    msg = msg + "\nid : "+rs.getInt("id")+  
+                            "\t姓名 : "+rs.getString("name")+
+                            "\t尺 : "+rs.getInt("ruler")+
+                            "\t筆 : "+rs.getInt("pen")+
+                            "\t成交金額 : "+rs.getInt("sum");} 
+            }catch(Exception e){e.printStackTrace();}
+            ans3.setText(msg); 
+    }                                
+
+    private void ok4MouseClicked(java.awt.event.MouseEvent evt) {                                 
+                int Id = Integer.parseInt(id2.getText());
+                new porderDao().delete(Id);  
+                    ResultSet rs = new porderDao().query();      
+                    String msg = ""; 
+            try {
+                while(rs.next()){ 
+                    msg = msg + "\nid : "+rs.getInt("id")+  
+                           "\t姓名 : "+rs.getString("name")+
+                           "\t尺 : "+rs.getInt("ruler")+
+                          "\t筆 : "+rs.getInt("pen")+
+                          "\t成交金額 : "+rs.getInt("sum");}  
+            }catch(Exception e){e.printStackTrace();}
+                       ans4.setText(msg);  
+    }                                
+-------------------------------------------------------------------------------------
+public class porderDao implements implDao {
+    public void add(String name, int ruler, int pen)  {
+    Porder p=new Porder(name,ruler,pen);
+    Connection conn=implDao.getConn();
+     String sql="insert into porder(name,ruler,pen,sum) values(?,?,?,?)";
+     try{
+         PreparedStatement ps=conn.prepareStatement(sql);
+         ps.setNString(1, p.getName());
+            ps.setInt(2,p.getRuler());
+            ps.setInt(3,p.getPen());
+            ps.setInt(4,p.getSum());
+            
+            ps.executeUpdate();
+     }catch(SQLException ex){
+         System.out.println("no connection");
+         ex.printStackTrace();}}
+    public ResultSet query() {
+        Connection conn=implDao.getConn();
+        ResultSet rs=null;
+        String sql="select * from porder";
+        try {
+            Statement st=conn.createStatement();
+            rs=st.executeQuery(sql);      
+        } catch (SQLException ex) {
+            ex.getStackTrace();}return rs;}
+   public void update(int id, int ruler, int pen) {
+        Connection conn = implDao.getConn();
+        int sum = pen*30 + ruler*20;
+        String sql = "UPDATE porder set ruler = " + ruler + ",  pen = " + pen + ",  sum = " + sum + " where Id =" + id;
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            ex.getStackTrace();}}
+    public void delete(int id) {
+        Connection conn = implDao.getConn();
+        String sql = "DELETE FROM porder WHERE id = " + id;
+        try {Statement st = conn.createStatement();
+            st.executeUpdate(sql);
+        } catch (SQLException ex) {ex.getStackTrace();}} 
+}

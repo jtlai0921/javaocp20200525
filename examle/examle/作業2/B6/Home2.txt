@@ -1,0 +1,189 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package home2;
+
+/**
+ *
+ * @author B6
+ */
+public class Home2 {
+
+    private int A;
+    private int B;
+    private int C;
+   
+    private boolean p1;
+    private boolean p2;
+    private boolean p3;
+    private String member;
+    private int sum;
+    
+    
+    Home2(int A, int B, int C, 
+            boolean p1, boolean p2, boolean p3, int m, String member)
+    {
+        this.A = A;
+        this.B = B;
+        this.C = C;
+        
+        this.p1 = p1;
+        this.p2 = p2;
+        this.p3 = p3;
+        
+        sum = A * 120 + B * 130 + C * 140;
+        
+        if(this.p1 == true) sum = sum + 30;
+        if(this.p2 == true) sum = sum + 40;
+        if(this.p2 == true) sum = sum + 50;
+        
+        switch(m)
+        {
+            case 1:
+                sum = (int)(sum * 0.85);
+                break;
+                
+            case 2:
+                sum = (int)(sum * 0.9);
+                break;
+                
+            case 3:
+                sum = (int)(sum * 0.95);
+                break;
+                
+            default:
+                break;
+        }
+        
+        this.member = member;
+    }
+
+    public void setA(int A) {
+        this.A = A;
+    }
+
+    public void setB(int B) {
+        this.B = B;
+    }
+
+    public void setC(int C) {
+        this.C = C;
+    }
+
+    public void setP1(boolean p1) {
+        this.p1 = p1;
+    }
+
+    public void setP2(boolean p2) {
+        this.p2 = p2;
+    }
+
+    public void setP3(boolean p3) {
+        this.p3 = p3;
+    }
+
+    public void setMember(String member) {
+        this.member = member;
+    }
+
+    public int getA() {
+        return A;
+    }
+
+    public int getB() {
+        return B;
+    }
+
+    public int getC() {
+        return C;
+    }
+
+    public boolean isP1() {
+        return p1;
+    }
+
+    public boolean isP2() {
+        return p2;
+    }
+
+    public boolean isP3() {
+        return p3;
+    }
+
+    public String getMember() {
+        return member;
+    }
+
+    public int getSum() {
+        return sum;
+    }
+    
+    public String show()
+    {
+        return "A餐:" + (A * 120) +
+                "\nB餐:" + (B * 130) +
+                "\nC餐:" + (C * 140 ) +
+                "\n小菜1:" + (p1 ? "30" : "0") +
+                "\n小菜2:" + (p2 ? "40" : "0") +
+                "\n小菜3:" + (p3 ? "50" : "0") +
+                "\n會員等級：" + member +
+                "\n共:" + sum + "元";
+    }
+    
+}
+
+===========================================================
+ private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {                                      
+        // TODO add your handling code here:
+        int m;
+        String member;
+        
+        if( card1.isSelected() )
+        {
+            m = 4;
+            member = card1.getText();
+        }
+        else if( card2.isSelected() )
+        {
+            m = 3;
+            member = card2.getText();
+        }
+        else if( card3.isSelected() )
+        {
+            m = 2;
+            member = card3.getText();
+        }
+        else
+        {
+            m = 1;
+            member = card4.getText();
+        }
+        
+        home2 = new Home2(Integer.parseInt(jTextField1.getText()),
+                          Integer.parseInt(jTextField2.getText()),
+                          Integer.parseInt(jTextField3.getText()),
+                          jCheckBox1.isSelected(),
+                          jCheckBox2.isSelected(),
+                          jCheckBox3.isSelected(),
+                          m,
+                          member
+        );
+        
+        jTextArea1.setText(home2.show());
+    }  
+
+==============================================================
+
+
+
+private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {                                      
+        // TODO add your handling code here:
+        int change;
+        
+        change = Integer.parseInt(jTextField4.getText()) - home2.getSum();
+        jTextArea1.setText(jTextArea1.getText() + "\n找零:" + change);
+    }                
+
+

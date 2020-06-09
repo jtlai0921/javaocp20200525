@@ -1,0 +1,57 @@
+﻿class ex1
+{
+	public static void main(String[] args) {
+		
+		
+
+		 String str="";
+	     z:
+	     for(int x=0;x<8;x++){
+	         
+	         for(int y=0;y<2;y++){
+	             if(x==1) break;
+	             if(x==2) break ;
+	             str=str+x+y;
+	          }
+	      }
+	      System.out.println(str);
+
+
+		/* int x=0;
+	 int y=0;
+	 do{
+	 y++;
+	 ++x;
+
+	 System.out.println(x+","+y);
+	 }while(x<5);
+	 System.out.println(x+","+y);
+	*/
+
+			/*int x=2;
+	 	  	int y=1;
+	        if((x==1)&&(y == 2))
+	        {
+	        	System.out.print("x=1,");
+	            System.out.print("y=2, ");
+	        }
+	            
+	        if((x+y)==3)
+	           System.out.print("x+y=3");
+	     
+	*/
+
+		/*int x=1 , y=1;
+      boolean b=!(x>y)^!(x<y);
+       System.out.println(b);
+	*/
+
+
+		/*  int x=1, y=1;
+      //boolean b=++x>++y;//x=x+1;y=y+1;x>y;
+		  boolean b=++x>y++;//x=x+1;x>y;y=y+1;
+       System.out.println(b);
+       System.out.println(x);
+       System.out.println(y);*/
+	}
+}

@@ -1,0 +1,154 @@
+import java.util.Date;
+
+
+public class order {
+    private String name;
+    private int a , b , c;
+    private boolean dish1 , dish2 , dish3;
+    private int d1,d2,d3;
+    private String member;
+    private Date date;
+    private int sum;
+    private boolean vip , gold,silver , ordinary;
+    
+    
+public order(String name,int a,int b,int c,boolean dish1 ,boolean dish2 ,boolean dish3,boolean vip ,boolean gold,boolean silver ,boolean ordinary)
+    {
+        this.name=name;
+        this.a=a;
+        this.b=b;
+        this.c=c;
+        this.date=new Date();
+        if(dish1==true)  {d1=30;} else {d1=0;};
+        if(dish2==true)  {d2=40;} else {d2=0;};
+        if(dish3==true) {d3=50;} else {d3=0;};
+        sum=a*120+b*130+c*140+d1+d2+d3;
+        if(vip==true)  {member="VIP，打85折";sum=(int)(sum*0.85);} 
+        else if(gold==true)  {member="金卡，打9折";sum=(int)(sum*0.9);}
+        else if(silver==true)  {member="銀卡，打95折";sum=(int)(sum*0.95);}
+        else {member="普通會員";sum=sum*1;}
+    }
+    
+    
+   
+      
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setA(int a) {
+        this.a = a;
+    }
+
+    public void setB(int b) {
+        this.b = b;
+    }
+
+    public void setC(int c) {
+        this.c = c;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getA() {
+       
+        
+        return a;
+    }
+
+    public int getB() {
+      
+        return b;
+    }
+
+    public int getC() {
+      
+        return c;
+    }
+
+    public boolean getDish1() {
+      
+        return dish1;
+    }
+    
+
+    public boolean getDish2() {
+     
+        return dish2;
+    }
+    
+    
+
+    public boolean getDish3() {
+     
+        return dish3;
+    }
+
+    public String getMember() {
+                       
+        return member;
+    }
+
+    public void setMember(String member) {
+        this.member = member;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public int getSum() {
+                                   
+        return sum;
+    }
+    
+    String show()
+    { return "日期："+getDate()+
+            "\n姓名："+getName()+
+            "\nA套餐:"+getA()+"份，共"+getA()*120+"元"+
+            "\nB套餐:"+getB()+"份，共"+getB()*130+"元"+
+            "\nC套餐:"+getC()+"份，共"+getC()*140+"元"+
+           "\n會員等級："+member+
+            "\n小菜1:"+dish1+
+             "\n小菜2:"+dish2+
+             "\n小菜3:"+dish3+
+            "\n總價："+getSum();
+    }
+  
+}
+
+========================================================================================
+	order o1=null;
+    private void okMouseClicked(java.awt.event.MouseEvent evt) {                                
+        String NAME=name.getText();
+        int A=Integer.parseInt(a.getText());
+        int B=Integer.parseInt(b.getText());
+        int C=Integer.parseInt(c.getText());
+        boolean D1=dish1.isSelected();
+        boolean D2=dish2.isSelected();
+        boolean D3=dish3.isSelected();   
+        boolean VIP=vip.isSelected();
+        boolean GOLD=gold.isSelected();
+        boolean SILVER=silver.isSelected();
+        boolean ORDINARY=ordinary.isSelected();
+        
+        
+        
+        
+        
+        o1 = new order(NAME,A,B,C,D1,D2,D3,VIP,GOLD,SILVER,ORDINARY);
+        
+      
+        
+        
+       sum.setText(o1.show());
+	}
+-------------------------------------------------------------------------------------------
+ private void chargeMouseClicked(java.awt.event.MouseEvent evt) {                                    
+        int PAY=Integer.parseInt(pay.getText())-o1.getSum();
+        back.setText(PAY+"元");
+        
+    }                  

@@ -1,0 +1,45 @@
+﻿class add
+{
+	public static void main(String[] args) {
+		
+		/*member[] m=new member[3];//m[0], m[1] , m[2]-->產生名字
+		m[0]=new member("abc","tai");
+		m[1]=new member("def","tai");
+		m[2]=new member("fff","tai");
+		*/
+
+		member[] m=
+		{
+			new member("abc","tai"),
+			new member("def","tai"),
+			new member("fff","tai"),
+		};
+
+
+		for(int i=0;i<m.length;i++)
+		{
+			m[i].show();
+		}
+		
+		System.out.println("============================");
+
+
+		for(member o:m)
+		{
+			o.show();
+		}
+
+		/*System.out.println(m);
+		System.out.println(m[0]);
+		System.out.println(m[0].getName());*/
+		/*member m1=new member("abc","tai");
+		member m2=new member("def","tai");
+		member m3=new member("fff","tai");
+
+
+
+		m1.show();
+		m2.show();
+		m3.show();*/
+	}
+}

@@ -1,0 +1,9 @@
+﻿package com.sa;
+
+public interface student2
+{
+	String show();
+	//修改分數
+	void set(int o);
+
+}

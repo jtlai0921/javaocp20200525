@@ -1,0 +1,42 @@
+package Controller;
+
+import java.awt.Color;
+import java.awt.Toolkit;
+
+public class LoginShow extends javax.swing.JFrame {
+
+    private boolean show = true;
+    private OderSystem os;
+
+    private void okMouseClicked(java.awt.event.MouseEvent evt) {                                
+        if (show == false) {
+            setVisible(false);
+        } else {
+            os.setVisible(true);
+            setVisible(false);
+        }
+    }                               
+
+    public void setShow(boolean show , String url , String userName , String port , String Schemas , String Table) {
+        this.show = show;
+
+        if (this.show == true) {
+            show1.setText("登    入    成    功");
+            show2.setText("歡    迎    光    臨");
+            show1.setForeground(new Color(0, 153, 204));
+            show2.setForeground(new Color(0, 153, 204));
+            ok.setForeground(new Color(0, 153, 204));
+            os = new OderSystem();
+            Toolkit k = Toolkit.getDefaultToolkit();
+            int x = (int) ((k.getScreenSize().getWidth() - os.getWidth()) / 2);
+            int y = (int) ((k.getScreenSize().getHeight() - os.getHeight()) / 2);
+            os.setLocation(x, y);
+            os.setShow(userName, url , port , Schemas , Table);
+        } else {
+            show1.setText("登    入    失    敗");
+            show2.setText("重    新    輸    入");
+            show1.setForeground(java.awt.Color.red);
+            show2.setForeground(java.awt.Color.red);
+            ok.setForeground(java.awt.Color.red);
+        }
+    }

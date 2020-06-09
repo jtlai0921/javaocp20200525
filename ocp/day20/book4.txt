@@ -1,0 +1,55 @@
+﻿package innerEX;
+class book4
+{
+	public static final String bookName1="java8";
+	public static final String bookName2="javaweb";
+	public static final String bookName3="javaEE";
+}
+enum book4_2
+{
+	java8,javaweb,javaEE
+}
+
+enum book4_3
+{
+	java8(650),java7(700),javaWeb(600);
+	
+	private int x;
+	private book4_3(int x)
+	{
+		this.x=x;
+	}
+	public int getX() {
+		return x;
+	}
+	public void setX(int x) {
+		this.x = x;
+	}
+	
+	
+}
+/*
+ * book4_2[]  ?={"java8","javaweb","javaEE"};
+ * 
+ * 
+ */
+
+
+public class test4 {
+
+	public static void main(String[] args) {
+		
+		book4_3[] b=book4_3.values();
+		
+		System.out.println(b[0]);
+		System.out.println(b[0].getX());
+		
+		//System.out.println(book4.bookName1);
+		//System.out.println(book4_2.java8);
+		//book4_2[] b=book4_2.values();
+		
+		//System.out.println(b[1]);
+
+	}
+
+}

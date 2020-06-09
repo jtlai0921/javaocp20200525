@@ -1,0 +1,192 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+import java.util.Date;
+
+/**
+ *
+ * @author chung
+ */
+public class order 
+{
+    private String name;
+    private int lcd;
+    private int ram;
+    private int mouse;
+    private Date date;
+    private int sum;
+    private boolean member;
+    
+    
+    private String dfc;//滿額優惠
+   private int change;
+    private int pay;//付錢
+
+    private int getsum;
+      
+    
+    
+        order(String name,int lcd,int ram,int mouse,int pay,boolean member)
+        {
+            if ( lcd >= 0 &&   ram >=0 &&  mouse>=0)
+            {
+            this.pay=pay;
+            this.name=name;
+            this.lcd=lcd;
+            this.ram=ram;
+            this.date=new Date() ;
+            this.mouse=mouse;
+            this.member=member;
+            sum= lcd*4999+ram*1280+mouse*680;
+                if (member==true){
+                    getsum=(int) (sum*0.95);
+                    if(sum>=10000){
+                        getsum=(int) (getsum*0.95);
+                        
+                        }
+                    }
+                    
+                
+                else
+                {
+                    if (sum>=10000)
+                    {
+                        getsum=(int)(sum*0.95);
+                    }
+                    else
+                        getsum=sum;
+                }  
+            }
+           change=pay-getsum;
+     
+                
+        }
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setLcd(int lcd) {
+        this.lcd = lcd;
+    }
+
+    public void setRam(int ram) {
+        this.ram = ram;
+    }
+
+    public void setMouse(int mouse) {
+        this.mouse = mouse;
+    }
+
+    public void setMember(boolean member) {
+        this.member = member;
+      
+    }
+
+    public void setPay(int pay) {
+        this.pay = pay;
+         
+    }
+
+        
+    public String getName() {
+        return name;
+    }
+
+    public int getLcd() {
+        return lcd;
+    }
+
+    public int getRam() {
+        return ram;
+    }
+
+    public int getMouse() {
+        return mouse;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public int getSum() {
+        return sum;
+    }
+
+    public boolean isMember() {
+        return member;
+    }
+
+
+
+    public String getDfc() {
+        return dfc;
+    }
+
+ 
+
+    public int getChange() {
+        return change;
+    }
+
+    public int getPay() {
+     
+        return pay;
+    }
+    
+    
+
+    public int getGetsum() {
+        return getsum;
+    }
+
+        
+    String show1(){
+       
+        String mb=String.valueOf(member==true? "會員" :"非會員") ;
+        
+        String.valueOf(dfc=sum>=10000? "滿額優惠" :"");
+        String msg=("訂單資訊\n訂購人"+name+"\n"+mb+"\n訂購商品種類:\nLCD:"+lcd+"\nRAM:"
+            +ram+"\nMOUSE:"+mouse+"\n總金額:"+sum+"\t"+dfc+"\n應付金額"+getsum);
+       
+        return msg;
+        
+}     
+    String show(){
+        
+       
+        String msg2=String.valueOf(change>=0 ? "找"+change+"元"  :"不足額") ;
+        return msg2;
+    }
+}
+
+
+
+
+
+=====================================
+ private void changeMouseClicked(java.awt.event.MouseEvent evt) {                                    
+   String NAME=name.getText();
+    int LCD=Integer.parseInt(lcd.getText());
+    int RAM=Integer.parseInt(ram.getText());
+    int MOUSE=Integer.parseInt(mouse.getText());
+    boolean MEMBER= member.isSelected();
+    int PAY=Integer.parseInt(pay.getText());;
+        order o2=new order( NAME , LCD, RAM, MOUSE, PAY, MEMBER);
+        ans2.setText(o2.show());     // TODO add your handling code here:
+    }                                   
+
+    private void okMouseClicked(java.awt.event.MouseEvent evt) {                                
+    String NAME=name.getText();
+    int LCD=Integer.parseInt(lcd.getText());
+    int RAM=Integer.parseInt(ram.getText());
+    int MOUSE=Integer.parseInt(mouse.getText());
+    boolean MEMBER= member.isSelected();
+    int PAY = 0;
+        order o1=new order( NAME , LCD, RAM, MOUSE, PAY, MEMBER);
+       ans.setText(o1.show1());
+                // TODO add your handling code here:
+    }                               

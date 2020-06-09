@@ -1,0 +1,17 @@
+﻿abstract class Company
+{
+	private String name;
+
+	Company(String  name)
+	{
+		this.name=name;
+	}
+
+	String show()
+	{
+		return "名:"+name;
+	}
+
+	abstract void setLcd(int lcd);
+	
+}

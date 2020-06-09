@@ -1,0 +1,299 @@
+
+import java.util.Date;
+
+public class PigOrder {
+    private int meal1, meal2, meal3;
+    private int dish1, dish2, dish3;
+    private boolean meal1_ok, meal2_ok, meal3_ok;
+    private boolean dish1_ok, dish2_ok, dish3_ok;
+    private boolean member1, member2, member3, member4;
+    private static int sum,memDis;
+    private int pay, change;
+    private Date date=new Date();
+    
+    PigOrder(int meal1,int meal2,int meal3,int dish1,int dish2,int dish3,
+            boolean meal1_ok,boolean meal2_ok,boolean meal3_ok,
+            boolean dish1_ok,boolean dish2_ok,boolean dish3_ok,
+            boolean member1,boolean member2,boolean member3,boolean member4)
+    {
+        if(meal1_ok==true && meal1>=0)
+        {
+            this.meal1=meal1;
+        }
+        if(meal2_ok==true && meal2>=0)
+        {
+            this.meal2=meal2;
+        }
+        if(meal3_ok==true && meal3>=0)
+        {
+            this.meal3=meal3;
+        }
+        if(dish1_ok==true && dish1>=0)
+        {
+            this.dish1=dish1;
+        }
+        if(dish2_ok==true && dish2>=0)
+        {
+            this.dish2=dish2;
+        }
+        if(dish3_ok==true && dish3>=0)
+        {
+            this.dish3=dish3;
+        }
+        this.member1=member1;
+        this.member2=member2;
+        this.member3=member3;
+        this.member4=member4;
+        this.date=new Date();
+    }
+    
+    PigOrder(int pay)
+    {
+        this.pay=pay;
+    }
+
+    public void setMeal1(int meal1) {
+        this.meal1 = meal1;
+    }
+
+    public void setMeal2(int meal2) {
+        this.meal2 = meal2;
+    }
+
+    public void setMeal3(int meal3) {
+        this.meal3 = meal3;
+    }
+
+    public void setDish1(int dish1) {
+        this.dish1 = dish1;
+    }
+
+    public void setDish2(int dish2) {
+        this.dish2 = dish2;
+    }
+
+    public void setDish3(int dish3) {
+        this.dish3 = dish3;
+    }
+
+    public void setMeal1_ok(boolean meal1_ok) {
+            this.meal1_ok = meal1_ok;      
+    }
+
+    public void setMeal2_ok(boolean meal2_ok) {
+        this.meal2_ok = meal2_ok;
+    }
+
+    public void setMeal3_ok(boolean meal3_ok) {
+        this.meal3_ok = meal3_ok;
+    }
+
+    public void setDish1_ok(boolean dish1_ok) {
+        this.dish1_ok = dish1_ok;
+    }
+
+    public void setDish2_ok(boolean dish2_ok) {
+        this.dish2_ok = dish2_ok;
+    }
+
+    public void setDish3_ok(boolean dish3_ok) {
+        this.dish3_ok = dish3_ok;
+    }
+
+    public void setMember1(boolean member1) {
+        this.member1 = member1;
+    }
+
+    public void setMember2(boolean member2) {
+        this.member2 = member2;
+    }
+
+    public void setMember3(boolean member3) {
+        this.member3 = member3;
+    }
+
+    public void setMember4(boolean member4) {
+        this.member4 = member4;
+    }
+
+    public void setSum(int sum) {
+        this.sum = sum;
+    }
+
+    public void setMemDis(int memDis) {
+        this.memDis = memDis;
+    }
+
+    public void setChange(int change) {
+        this.change = change;
+    }
+
+    public void setPay(int pay) {
+        this.pay = pay;
+    }
+
+    public int getMeal1() {
+        return meal1;
+    }
+
+    public int getMeal2() {
+        return meal2;
+    }
+
+    public int getMeal3() {
+        return meal3;
+    }
+
+    public int getDish1() {
+        return dish1;
+    }
+
+    public int getDish2() {
+        return dish2;
+    }
+
+    public int getDish3() {
+        return dish3;
+    }
+
+    public boolean isMeal1_ok() {
+        return meal1_ok;
+    }
+
+    public boolean isMeal2_ok() {
+        return meal2_ok;
+    }
+
+    public boolean isMeal3_ok() {
+        return meal3_ok;
+    }
+
+    public boolean isDish1_ok() {
+        return dish1_ok;
+    }
+
+    public boolean isDish2_ok() {
+        return dish2_ok;
+    }
+
+    public boolean isDish3_ok() {
+        return dish3_ok;
+    }
+
+    public boolean isMember1() {
+        return member1;
+    }
+
+    public boolean isMember2() {
+        return member2;
+    }
+
+    public boolean isMember3() {
+        return member3;
+    }
+
+    public boolean isMember4() {
+        return member4;
+    }
+
+    public int getSum() {
+        return sum;
+    }
+
+    public int getPay() {
+        return pay;
+    }
+
+    public int getChange() {
+        return change;
+    }
+
+    public int getMemDis() {
+        return memDis;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+    
+    String show()
+    {   
+        String s1="";
+        this.sum=meal1*120+meal2*130+meal3*140+dish1*30+dish2*40+dish3*50;
+        if (member1==true)
+        {
+            this.memDis=(int)(Math.round(this.sum*0.15));
+        }
+        if (member2==true)
+        {
+            this.memDis=(int)(Math.round(this.sum*0.1));
+        }
+        if (member3==true)
+        {
+            this.memDis=(int)(Math.round(this.sum*0.05));
+        }
+        if (member4==true)
+        {
+            this.memDis=(int)(Math.round(this.sum*0));
+        }
+        return "訂單日期："+getDate()+
+                "\nＡ餐："+getMeal1()+"*120元="+getMeal1()*120+
+                "元\nＢ餐："+getMeal2()+"*130元="+getMeal2()*130+
+                "元\nＣ餐："+getMeal3()+"*140元="+getMeal3()*140+
+                "元\n小菜1："+getDish1()+"*30元="+getDish1()*30+
+                "元\n小菜2："+getDish2()+"*40元="+getDish2()*40+
+                "元\n小菜3："+getDish3()+"*50元="+getDish3()*50+
+                "元\n合計："+this.sum+
+                "元\n\n會員(折扣)："+getMemDis()+
+                "元\n總合計："+(this.sum-this.memDis)+"元";
+    }
+    
+    String showChange()
+    {
+        String err = "";
+        if(this.pay>(this.sum-this.memDis))
+        {
+            change=this.pay-(getSum()-getMemDis());
+            return Integer.toString(change);
+        }
+        else
+        {
+            err = "輸入金額不足";
+        }
+        return err;
+    }
+}
+
+=============================================================
+
+    private void okMouseClicked(java.awt.event.MouseEvent evt) {                                
+        int Meal1=Integer.parseInt(meal1.getText());
+        int Meal2=Integer.parseInt(meal2.getText());
+        int Meal3=Integer.parseInt(meal3.getText());
+        int Dish1=Integer.parseInt(dish1.getText());
+        int Dish2=Integer.parseInt(dish2.getText());
+        int Dish3=Integer.parseInt(dish3.getText());
+        boolean Meal1_ok=meal1_ok.isSelected();
+        boolean Meal2_ok=meal2_ok.isSelected();
+        boolean Meal3_ok=meal3_ok.isSelected();
+        boolean Dish1_ok=dish1_ok.isSelected();
+        boolean Dish2_ok=dish2_ok.isSelected();
+        boolean Dish3_ok=dish3_ok.isSelected();
+        boolean Member1=member1.isSelected();
+        boolean Member2=member2.isSelected();
+        boolean Member3=member3.isSelected();
+        boolean Member4=member4.isSelected();
+        
+        PigOrder p1=new PigOrder(Meal1,Meal2,Meal3,Dish1,Dish2,Dish3,
+                Meal1_ok,Meal2_ok,Meal3_ok,Dish1_ok,Dish2_ok,Dish3_ok,
+                Member1,Member2,Member3,Member4);
+        output.setText(p1.show());
+    }                               
+
+
+
+    private void ok2MouseClicked(java.awt.event.MouseEvent evt) {                                 
+        int Pay=Integer.parseInt(pay.getText());
+        PigOrder p1=new PigOrder(Pay);
+        change.setText(p1.showChange());
+    }

@@ -1,0 +1,167 @@
+
+public class add {
+
+        String name;
+        int ameal;
+        int bmeal;
+        int cmeal;
+        boolean add1;
+        boolean add2;
+        boolean add3;
+        String member;
+        int sum;
+        int m;
+        int pay;
+        add(String name,int ameal,int bmeal,int cmeal,boolean add1,boolean add2,boolean add3,int m)
+        {
+            this.name=name;
+            this.ameal=ameal;
+            this.bmeal=bmeal;
+            this.cmeal=cmeal;
+            this.add1=add1;
+            this.add2=add2;
+            this.add3=add3;
+            this.member=member;
+            
+        sum=ameal*120+bmeal*130+cmeal*140;
+        if(this.add1==true)  sum+=30;
+        if(this.add2==true) sum+=40;
+        if(this.add3==true) sum+=50;
+            
+        switch(m)
+        {
+            case  1:
+                sum=(int)(sum*0.85);
+                member="VIP";
+                  break;   
+            case 2:
+                 sum=(int)(sum*0.9);
+                member="金卡";
+                  break;   
+            case 3:
+                 sum=(int)(sum*0.95);
+                member="銀卡";
+                  break;   
+            case 4:
+                 sum=(int)(sum*1);
+                member="普通會員";
+                  break;   
+        }
+        }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAmeal() {
+        return ameal;
+    }
+
+    public int getBmeal() {
+        return bmeal;
+    }
+
+    public int getCmeal() {
+        return cmeal;
+    }
+
+    public boolean isAdd1() {
+        return add1;
+    }
+
+    public boolean isAdd2() {
+        return add2;
+    }
+
+    public boolean isAdd3() {
+        return add3;
+    }
+
+    public String getMember() {
+        return member;
+    }
+
+    public int getSum() {
+        return sum;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAmeal(int ameal) {
+        this.ameal = ameal;
+    }
+
+    public void setBmeal(int bmeal) {
+        this.bmeal = bmeal;
+    }
+
+    public int getM() {
+        return m;
+    }
+
+    public void setM(int m) {
+        this.m = m;
+    }
+
+    public void setCmeal(int cmeal) {
+        this.cmeal = cmeal;
+    }
+
+    public void setAdd1(boolean add1) {
+        this.add1 = add1;
+    }
+
+    public void setAdd2(boolean add2) {
+        this.add2 = add2;
+    }
+
+    public void setAdd3(boolean add3) {
+        this.add3 = add3;
+    }
+
+    public void setMember(String member) {
+        this.member = member;
+    }
+        
+        String show()
+        {
+                    return "A餐:"+ameal+"份"+
+                "\nB餐:"+bmeal+"份"+
+                "\nC餐:"+cmeal+"份"+
+                "\n小菜1:"+add1+
+                 "\n小菜2:"+add2+
+                 "\n小菜3:"+add3+
+                "\n會員等級："+member+
+                "\n共:"+getSum()+"元";
+        }
+    
+        /*String show2()
+        {
+            return "找您:"+
+        }*/
+    
+}
+==========================================================================================
+   private int m;
+    add a1=null;
+    private int pay;
+    private void ok1MouseClicked(java.awt.event.MouseEvent evt) {                                 
+        String Name=name.getText();
+       /* int Ameal=ameal.getValue();
+        int Bmeal=bmeal.getValue();
+        int Cmeal=cmeal.getValue();*/
+        boolean Add1 = add1.isSelected();
+        boolean Add2 = add2.isSelected();
+        boolean Add3 = add3.isSelected();
+             
+        if(A.isSelected()) m=1;
+        if(B.isSelected()) m=2;
+        if(C.isSelected()) m=3;
+        if(D.isSelected()) m=4;
+        
+        add a1=new add(Name,((Integer)(Ameal.getValue())),((Integer)(Bmeal.getValue())),((Integer)(Cmeal.getValue())),Add1,Add2,Add3,m);
+        pay=a1.getSum();
+        ans.setText(a1.show());
+    }                  

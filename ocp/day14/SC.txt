@@ -1,0 +1,21 @@
+﻿class SC extends school
+{
+	private int math;
+
+	SC(String name,int math)
+	{
+		super(name);
+		this.math=math;
+	}
+
+
+	void setMath(int math)
+	{
+		this.math=math;
+	}
+
+	String show()
+	{
+		return super.show()+"\t數學:"+math;
+	}
+}

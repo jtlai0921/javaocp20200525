@@ -1,0 +1,56 @@
+Ja2 it2=null;
+    private void okMouseClicked(java.awt.event.MouseEvent evt) {                                
+        // TODO add your handling code here:
+        
+        int ima=Integer.parseInt(tma.getText()); 
+        int imb=Integer.parseInt(tmb.getText());
+        int imc=Integer.parseInt(tmc.getText());
+        int isa=Integer.parseInt(tsa.getText()); 
+        int isb=Integer.parseInt(tsb.getText());
+        int isc=Integer.parseInt(tsc.getText());
+        
+       
+        boolean icsa= csa.isSelected();
+        boolean icsb= csb.isSelected();
+        boolean icsc= csc.isSelected();
+        boolean imem1= tmem1.isSelected();
+        boolean imem2= tmem2.isSelected();
+        boolean imem3= tmem3.isSelected();
+        boolean imem4= tmem4.isSelected();
+        int im=0;
+        if(tmem1.isSelected()) im=1;
+        if(tmem2.isSelected()) im=2;
+        if(tmem3.isSelected()) im=3;
+        if(tmem4.isSelected()) im=4;
+        
+        
+        Ja2 it2=new Ja2(ima,imb,imc,isa,isb,isc,icsa,icsb,icsc,im);
+        list.setText(it2.show());
+        
+    }      
+
+private void ok2MouseClicked(java.awt.event.MouseEvent evt) {                                 
+        // TODO add your handling code here:
+        int ipay=Integer.parseInt(tpay.getText());
+        int ima=Integer.parseInt(tma.getText()); 
+        int imb=Integer.parseInt(tmb.getText());
+        int imc=Integer.parseInt(tmc.getText());
+        int isa=Integer.parseInt(tsa.getText()); 
+        int isb=Integer.parseInt(tsb.getText());
+        int isc=Integer.parseInt(tsc.getText());
+        
+       
+        boolean icsa= csa.isSelected();
+        boolean icsb= csb.isSelected();
+        boolean icsc= csc.isSelected();
+        int im=0;
+        if(tmem1.isSelected()) im=1;
+        if(tmem2.isSelected()) im=2;
+        if(tmem3.isSelected()) im=3;
+        if(tmem4.isSelected()) im=4;
+        
+        ja21 it21=new ja21(ima,imb,imc,isa,isb,isc,icsa,icsb,icsc,im,ipay);
+        
+        list2.setText(it21.show2());
+    }                                
+                         
